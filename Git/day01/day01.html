@@ -1,0 +1,594 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Target 能够知道如何在现有目录中初始化Git仓库 (git init) 能够知道如何检查文件的状态 (git status) 能够知道如何把文件加入暂存区 (git add) 能够说出提交更新的命令  (git commit -m) 能够知道如何向暂存区中一次性添加多个文件 (git add .)  💡🚀🤟👉👇☀️🍉🍍🍇🍓🥕🍭🎖️🎁☘️🍀💯🔆❗🔥🚩 1.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Git 第一天">
+<meta property="og:url" content="http://example.com/Git/day01/day01.html">
+<meta property="og:site_name" content="每日笔记">
+<meta property="og:description" content="Target 能够知道如何在现有目录中初始化Git仓库 (git init) 能够知道如何检查文件的状态 (git status) 能够知道如何把文件加入暂存区 (git add) 能够说出提交更新的命令  (git commit -m) 能够知道如何向暂存区中一次性添加多个文件 (git add .)  💡🚀🤟👉👇☀️🍉🍍🍇🍓🥕🍭🎖️🎁☘️🍀💯🔆❗🔥🚩 1.">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/imgs/image-20220819175849630.png">
+<meta property="og:image" content="http://example.com/imgs/image-20220819182429315.png">
+<meta property="og:image" content="http://example.com/imgs/image-20220819184531007.png">
+<meta property="og:image" content="http://example.com/imgs/image-20220819185257057.png">
+<meta property="og:image" content="http://example.com/imgs/image-20220819184722323.png">
+<meta property="og:image" content="http://example.com/imgs/image-20220819185408532.png">
+<meta property="og:image" content="http://example.com/imgs/image-20220819184750752.png">
+<meta property="og:image" content="http://example.com/imgs/image-20220819185446803.png">
+<meta property="og:image" content="http://example.com/imgs/image-20220819183556847.png">
+<meta property="og:image" content="http://example.com/imgs/image-20220819183704388.png">
+<meta property="og:image" content="http://example.com/imgs/image-20220819190357538.png">
+<meta property="og:image" content="http://example.com/imgs/image-20220819190624333.png">
+<meta property="og:image" content="http://example.com/imgs/image-20220819190959677.png">
+<meta property="og:image" content="http://example.com/imgs/image-20220819191543734.png">
+<meta property="og:image" content="http://example.com/imgs/image-20220819193502923.png">
+<meta property="og:image" content="http://example.com/imgs/image-20220819193534071.png">
+<meta property="og:image" content="http://example.com/imgs/image-20220819200454448.png">
+<meta property="og:image" content="http://example.com/imgs/image-20220819195446756.png">
+<meta property="og:image" content="http://example.com/imgs/image-20220819200635988.png">
+<meta property="og:image" content="http://example.com/imgs/image-20220819200808457.png">
+<meta property="og:image" content="http://example.com/imgs/image-20220819200107697.png">
+<meta property="og:image" content="http://example.com/imgs/image-20220819202828314.png">
+<meta property="og:image" content="http://example.com/imgs/image-20220819203036481.png">
+<meta property="og:image" content="http://example.com/imgs/image-20220819204618718.png">
+<meta property="og:image" content="http://example.com/imgs/image-20220819210318274.png">
+<meta property="og:image" content="http://example.com/imgs/image-20220819202324100.png">
+<meta property="og:image" content="http://example.com/imgs/image-20220819212041215.png">
+<meta property="og:image" content="http://example.com/imgs/image-20220819211732097.png">
+<meta property="og:image" content="http://example.com/imgs/image-20220819212323001.png">
+<meta property="og:image" content="http://example.com/imgs/image-20220824014922460.png">
+<meta property="og:image" content="http://example.com/imgs/image-20220819212925919.png">
+<meta property="og:image" content="http://example.com/imgs/image-20220819224431442.png">
+<meta property="og:image" content="http://example.com/imgs/image-20220819214756905.png">
+<meta property="og:image" content="http://example.com/imgs/image-20220819215343933.png">
+<meta property="og:image" content="http://example.com/imgs/image-20220819224723361.png">
+<meta property="og:image" content="http://example.com/imgs/image-20220819231117445.png">
+<meta property="og:image" content="http://example.com/imgs/image-20220819220157643.png">
+<meta property="og:image" content="http://example.com/imgs/image-20220820000516557.png">
+<meta property="og:image" content="http://example.com/imgs/image-20220819225608494.png">
+<meta property="og:image" content="http://example.com/imgs/image-20220820002011012.png">
+<meta property="og:image" content="http://example.com/imgs/image-20220819231337803.png">
+<meta property="og:image" content="http://example.com/imgs/image-20220820002525887.png">
+<meta property="og:image" content="http://example.com/imgs/image-20220820002559849.png">
+<meta property="og:image" content="http://example.com/imgs/image-20220819231622983.png">
+<meta property="og:image" content="http://example.com/imgs/image-20220819231725786.png">
+<meta property="og:image" content="http://example.com/imgs/image-20220819232211503.png">
+<meta property="og:image" content="http://example.com/imgs/image-20220819232619093.png">
+<meta property="article:published_time" content="2022-09-16T06:05:52.851Z">
+<meta property="article:modified_time" content="2022-09-16T06:05:52.851Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/imgs/image-20220819175849630.png">
+  
+  
+  
+  <title>Git 第一天 - 每日笔记</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 60vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Git 第一天"></span>
+          
+        </div>
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      <div class="container nopadding-x-md">
+        <div id="board"
+          >
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
+
+<article class="page-content">
+  <h2 id="Target"><a href="#Target" class="headerlink" title="Target"></a>Target</h2><ol>
+<li>能够知道如何在现有目录中初始化Git仓库 (git init)</li>
+<li>能够知道如何检查文件的状态 (git status)</li>
+<li>能够知道如何把文件加入暂存区 (git add)</li>
+<li>能够说出提交更新的命令  (git commit -m)</li>
+<li>能够知道如何向暂存区中一次性添加多个文件 (git add .)</li>
+</ol>
+<p>💡🚀🤟👉👇☀️🍉🍍🍇🍓🥕🍭🎖️🎁☘️🍀💯🔆❗🔥🚩</p>
+<h2 id="1-基本概念"><a href="#1-基本概念" class="headerlink" title="1. 基本概念"></a>1. 基本概念</h2><h3 id="1-版本控制系统"><a href="#1-版本控制系统" class="headerlink" title="1. 版本控制系统"></a>1. 版本控制系统</h3><p><img src="/imgs/image-20220819175849630.png" srcset="/img/loading.gif" lazyload alt="image-20220819175849630"></p>
+<p>分布式相比于集中式的最大区别在于开发者可以提交到本地，每个开发者通过克隆（git clone），在本地机器上拷贝一个完整的Git仓库。</p>
+<p><img src="/imgs/image-20220819182429315.png" srcset="/img/loading.gif" lazyload alt="image-20220819182429315"></p>
+<h3 id="2-版本管理的演变"><a href="#2-版本管理的演变" class="headerlink" title="2. 版本管理的演变"></a>2. 版本管理的演变</h3><blockquote>
+<p>VCS   版本控制系统（version control system)</p>
+</blockquote>
+<h4 id="2-1-没有VCS"><a href="#2-1-没有VCS" class="headerlink" title="2.1 没有VCS"></a>2.1 没有VCS</h4><p><img src="/imgs/image-20220819184531007.png" srcset="/img/loading.gif" lazyload alt="image-20220819184531007"></p>
+<h4 id="2-2-本地VCS"><a href="#2-2-本地VCS" class="headerlink" title="2.2 本地VCS"></a>2.2 本地VCS</h4><p><img src="/imgs/image-20220819185257057.png" srcset="/img/loading.gif" lazyload alt="image-20220819185257057"></p>
+<h4 id="2-3-集中式VCS"><a href="#2-3-集中式VCS" class="headerlink" title="2.3 集中式VCS"></a>2.3 集中式VCS</h4><p><img src="/imgs/image-20220819184722323.png" srcset="/img/loading.gif" lazyload alt="image-20220819184722323"></p>
+<p><img src="/imgs/image-20220819185408532.png" srcset="/img/loading.gif" lazyload alt="image-20220819185408532"></p>
+<p>先说集中式版本控制系统，版本库是集中存放在中央服务器的，而干活的时候，用的都是自己的电脑，所以要先从中央服务器取得最新的版本，然后开始干活，干完活了，再把自己的活推送给中央服务器。中央服务器就好比是一个图书馆，你要改一本书，必须先从图书馆借出来，然后回到家自己改，改完了，再放回图书馆。</p>
+<h4 id="2-4-分布式VCS"><a href="#2-4-分布式VCS" class="headerlink" title="2.4 分布式VCS"></a>2.4 分布式VCS</h4><p><img src="/imgs/image-20220819184750752.png" srcset="/img/loading.gif" lazyload alt="image-20220819184750752"></p>
+<p><img src="/imgs/image-20220819185446803.png" srcset="/img/loading.gif" lazyload alt="image-20220819185446803"></p>
+<p>和集中式版本控制系统相比，分布式版本控制系统的安全性要高很多，因为每个人电脑里都有完整的版本库，某一个人的电脑坏掉了不要紧，随便从其他人那里复制一个就可以了。而集中式版本控制系统的中央服务器要是出了问题，所有人都没法干活了。</p>
+<h3 id="3-版本控制系统的好处"><a href="#3-版本控制系统的好处" class="headerlink" title="3. 版本控制系统的好处"></a>3. 版本控制系统的好处</h3><p><img src="/imgs/image-20220819183556847.png" srcset="/img/loading.gif" lazyload alt="image-20220819183556847"></p>
+<p><img src="/imgs/image-20220819183704388.png" srcset="/img/loading.gif" lazyload alt="image-20220819183704388"></p>
+<h2 id="2-Git"><a href="#2-Git" class="headerlink" title="2. Git"></a>2. Git</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.liaoxuefeng.com/wiki/896043488029600/896202815778784">https://www.liaoxuefeng.com/wiki/896043488029600/896202815778784</a></p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-title class_">Linus</span>花了两周时间自己用C写了一个分布式版本控制系统，这就是<span class="hljs-title class_">Git</span>！一个月之内，<span class="hljs-title class_">Linux</span>系统的源码已经由<span class="hljs-title class_">Git</span>管理了！牛是怎么定义的呢？大家可以体会一下。<br><br><span class="hljs-title class_">Git</span>迅速成为最流行的分布式版本控制系统，尤其是<span class="hljs-number">2008</span>年，<span class="hljs-title class_">GitHub</span>网站上线了，它为开源项目免费提供<span class="hljs-title class_">Git</span>存储，无数开源项目开始迁移至<span class="hljs-title class_">GitHub</span>.<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-1-什么是Git"><a href="#2-1-什么是Git" class="headerlink" title="2.1 什么是Git?"></a>2.1 什么是Git?</h3><blockquote>
+<p>作用： 代码存档备份。 支持多人协作开发</p>
+</blockquote>
+<p>Git 是一个开源的分布式版本控制系统,  是目前世界上<span style="color:red">最先进, 最流行</span>的版本控制系统. 可以快速高效的处理从很小到非常大的项目版本管理</p>
+<p><img src="/imgs/image-20220819190357538.png" srcset="/img/loading.gif" lazyload alt="image-20220819190357538"></p>
+<p><strong>特点:</strong> 项目越大越复杂, 协同开发者越多, 越能体现出Git的 <span style="color:red">高性能 和 高可用性</span></p>
+<p>Git 之所以快速和高效, 主要依赖于它的如下两个特性: </p>
+<ul>
+<li>直接记录快照, 而非差异比较</li>
+<li>几乎所有操作都是本地执行.</li>
+</ul>
+<h5 id="2-1-1-SVN记录差异"><a href="#2-1-1-SVN记录差异" class="headerlink" title="2.1.1 SVN记录差异"></a>2.1.1 SVN记录差异</h5><p><img src="/imgs/image-20220819190624333.png" srcset="/img/loading.gif" lazyload alt="image-20220819190624333"></p>
+<ul>
+<li>文件ABC是一个基本文件.  Version 2 记录了 文件A修改的差异, 每次切换版本, 需要从基文件 应用差异, 得到修改后的版本.</li>
+</ul>
+<h5 id="2-1-2-Git记录快照"><a href="#2-1-2-Git记录快照" class="headerlink" title="2.1.2 Git记录快照"></a>2.1.2 Git记录快照</h5><p><img src="/imgs/image-20220819190959677.png" srcset="/img/loading.gif" lazyload alt="image-20220819190959677"></p>
+<ul>
+<li>该项目有五个版本.   </li>
+<li>version2中  A1 是文件File A 修改后的一份新快照  B文件未修改, 只保留了一个链接指向旧文件.</li>
+<li>如果要从V1切换版本V5, 直接将V5的快照进行恢复就行, 不用从V1一次一次对比差异得到.</li>
+</ul>
+<blockquote>
+<p><strong>Git每次commit提交会保存项目快照，难道是将所有的文件重新复制一份吗？</strong></p>
+</blockquote>
+<p>当然不可能，在git的文件系统中，是存在共用文件的。</p>
+<p>比如有三次commit提交，产生了三个tree树，它们在向下引用的时候，如果两个commit中的整个文件夹或者某个文件没有改变，这两个commit的tree会指向同一个对象。对于两次提交修改了的文件，则会创建一个该文件的一个新的版本的文件，上一次提交指向旧的文件，修改文件的提交指向新版本的文件。</p>
+<h5 id="2-1-3-本地执行"><a href="#2-1-3-本地执行" class="headerlink" title="2.1.3 本地执行"></a>2.1.3 本地执行</h5><p><img src="/imgs/image-20220819191543734.png" srcset="/img/loading.gif" lazyload alt="image-20220819191543734"></p>
+<ul>
+<li>如果本地修改了文件, 提交了一个新版本. 那么本地版本号比服务器上的高一个版本, 联网后, 可以直接将修改的记录同步到服务器.</li>
+</ul>
+<h3 id="2-2-安装Git"><a href="#2-2-安装Git" class="headerlink" title="2.2 安装Git"></a>2.2 安装Git</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E5%AE%89%E8%A3%85-Git">Git官网-安装</a></li>
+</ul>
+<p><img src="/imgs/image-20220819193502923.png" srcset="/img/loading.gif" lazyload alt="image-20220819193502923"></p>
+<p><img src="/imgs/image-20220819193534071.png" srcset="/img/loading.gif" lazyload alt="image-20220819193534071"></p>
+<ul>
+<li>或者windows下  <code>win + R</code> 输入 <code>cmd</code> 打开终端</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 查看 git 版本</span><br>git --version  <br><span class="hljs-comment"># 如果有显示版本号, 说明安装成功了.</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="2-3-先配置user信息"><a href="#2-3-先配置user信息" class="headerlink" title="2.3 先配置user信息"></a>2.3 先配置user信息</h3><p><img src="/imgs/image-20220819200454448.png" srcset="/img/loading.gif" lazyload alt="image-20220819200454448"></p>
+<h4 id="1-user-name-和-user-email"><a href="#1-user-name-和-user-email" class="headerlink" title="1 user.name 和 user.email"></a>1 <strong>user.name 和 user.email</strong></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">git config --global user.name <span class="hljs-string">&quot;your name&quot;</span>   <span class="hljs-comment"># user.name后面是空格!</span><br>git config --global user.email <span class="hljs-string">&quot;your email&quot;</span><br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>global表示什么意思</p>
+</blockquote>
+<p><img src="/imgs/image-20220819195446756.png" srcset="/img/loading.gif" lazyload alt="image-20220819195446756"></p>
+<h4 id="2-检测配置信息"><a href="#2-检测配置信息" class="headerlink" title="2 检测配置信息"></a>2 检测配置信息</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js">git config --list  <span class="hljs-comment">// 列出所有配置 </span><br>git config --list --local   <span class="hljs-comment">// 具体的项目中有配置才生效</span><br>git config --list --<span class="hljs-variable language_">global</span>  <span class="hljs-comment">//  --global --list 可以交换位置.</span><br>git config --list --system<br><br><span class="hljs-comment">// 查看所有的配置和它们所在的文件</span><br>git config --list --show-origin<br></code></pre></td></tr></table></figure>
+
+<h4 id="3-清除-–unset"><a href="#3-清除-–unset" class="headerlink" title="3 清除, –unset"></a>3 清除, –unset</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js">git config --unset --local user.<span class="hljs-property">name</span><br>git config --unset --<span class="hljs-variable language_">global</span> user.<span class="hljs-property">name</span>  <span class="hljs-comment">// 一般用的是global</span><br>git config --unset --system user.<span class="hljs-property">name</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="4-优先级"><a href="#4-优先级" class="headerlink" title="4 优先级"></a>4 优先级</h4><blockquote>
+<p>local &gt; global &gt; system</p>
+</blockquote>
+<h4 id="5-全局配置文件"><a href="#5-全局配置文件" class="headerlink" title="5 全局配置文件"></a>5 全局配置文件</h4><p><img src="/imgs/image-20220819200635988.png" srcset="/img/loading.gif" lazyload alt="image-20220819200635988"></p>
+<blockquote>
+<p>win + R  &#x3D;&#x3D;&gt; cmd &#x3D;&#x3D;&gt; .gitconfig </p>
+</blockquote>
+<p><img src="/imgs/image-20220819200808457.png" srcset="/img/loading.gif" lazyload alt="image-20220819200808457"></p>
+<h3 id="2-4-git-三个区域"><a href="#2-4-git-三个区域" class="headerlink" title="2.4 git 三个区域"></a>2.4 git 三个区域</h3><p><img src="/imgs/image-20220819200107697.png" srcset="/img/loading.gif" lazyload alt="image-20220819200107697"></p>
+<h3 id="2-5-状态"><a href="#2-5-状态" class="headerlink" title="2.5 状态"></a>2.5 状态</h3><p><img src="/imgs/image-20220819202828314.png" srcset="/img/loading.gif" lazyload alt="image-20220819202828314"></p>
+<h3 id="2-6-基本工作流程"><a href="#2-6-基本工作流程" class="headerlink" title="2.6 基本工作流程"></a>2.6 基本工作流程</h3><p><img src="/imgs/image-20220819203036481.png" srcset="/img/loading.gif" lazyload alt="image-20220819203036481"></p>
+<h2 id="3-基本操作"><a href="#3-基本操作" class="headerlink" title="3. 基本操作"></a>3. 基本操作</h2><h3 id="3-1-git-init"><a href="#3-1-git-init" class="headerlink" title="3.1 git init"></a>3.1 git init</h3><h4 id="建Git仓库"><a href="#建Git仓库" class="headerlink" title="建Git仓库"></a>建Git仓库</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 方式 1.1   用Git之前已经有项目代码</span><br>cd 项目代码所在的文件夹<br>git init<br><br><span class="hljs-comment">// 方式 1.2   用Git之前还没有项目代码</span><br>cd 某个文件夹 <br>git init project_name <span class="hljs-comment">// 在在当前路径下创建和项目名称同名的文件夹</span><br>cd project_name<br><br><span class="hljs-comment">// 方式 2    从其他服务器上克隆一个已经存在的Git仓库</span><br>cd 文件夹<br>git clone 某个地址<br></code></pre></td></tr></table></figure>
+
+<p><img src="/imgs/image-20220819204618718.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="文件的4种状态"><a href="#文件的4种状态" class="headerlink" title="文件的4种状态"></a>文件的4种状态</h4><p><img src="/imgs/image-20220819210318274.png" srcset="/img/loading.gif" lazyload alt="image-20220819210318274"></p>
+<ol>
+<li>未被跟踪的状态 Untracked  :  未跟踪 ,  文件没有纳入git管理</li>
+<li>已被跟踪的状态<ol>
+<li>未修改  Unmodified</li>
+<li>已修改 Modified</li>
+<li>已暂存  Staged</li>
+</ol>
+</li>
+</ol>
+<p>终极目标: 让工作区的内容, 和仓库中所保存的内容完全一致.</p>
+<p><img src="/imgs/image-20220819202324100.png" srcset="/img/loading.gif" lazyload alt="image-20220819202324100"></p>
+<h3 id="3-2-git-status"><a href="#3-2-git-status" class="headerlink" title="3.2 git status"></a>3.2 git status</h3><h4 id="检查当前文件的状态"><a href="#检查当前文件的状态" class="headerlink" title="检查当前文件的状态"></a>检查当前文件的状态</h4><blockquote>
+<p>git status 检查当前文件的状态</p>
+</blockquote>
+<ul>
+<li><span style="color:red"><strong>红色</strong></span> 表示工作区中的文件需要提交</li>
+<li><span style="color:lightGreen"><strong>绿色</strong></span>  表示暂存区中的文件需要提交</li>
+</ul>
+<p><img src="/imgs/image-20220819212041215.png" srcset="/img/loading.gif" lazyload alt="image-20220819212041215"></p>
+<h4 id="中文乱码解决"><a href="#中文乱码解决" class="headerlink" title="中文乱码解决"></a>中文乱码解决</h4><p>如果执行git status中文乱码 如下</p>
+<p><img src="/imgs/image-20220819211732097.png" srcset="/img/loading.gif" lazyload alt="image-20220819211732097"></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 解决git status中文显示问题</span><br>git config --<span class="hljs-variable language_">global</span> core.<span class="hljs-property">quotepath</span> <span class="hljs-literal">false</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="精简模式"><a href="#精简模式" class="headerlink" title="精简模式"></a>精简模式</h4><p><img src="/imgs/image-20220819212323001.png" srcset="/img/loading.gif" lazyload alt="image-20220819212323001"></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js">git status -s <br>git status --short<br><br><span class="hljs-comment">// 清空终端  cls  clear</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>?? :  新添加的未跟踪文件</li>
+<li>A :  新添加到暂存区中的文件</li>
+<li>M : 修改过的文件 (暂存区)</li>
+</ul>
+<p><img src="/imgs/image-20220824014922460.png" srcset="/img/loading.gif" lazyload alt="image-20220824014922460"></p>
+<h3 id="3-3-git-add"><a href="#3-3-git-add" class="headerlink" title="3.3 git add"></a>3.3 git add</h3><h4 id="跟踪新文件"><a href="#跟踪新文件" class="headerlink" title="跟踪新文件"></a>跟踪新文件</h4><blockquote>
+<p>使用命令 <code>git add</code> 开始跟踪一个文件,  并且添加后的文件处于<strong>暂存状态</strong></p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">git add 文件名<br></code></pre></td></tr></table></figure>
+
+<p><img src="/imgs/image-20220819212925919.png" srcset="/img/loading.gif" lazyload alt="image-20220819212925919"></p>
+<blockquote>
+<p>只要在 <code>Changes to be committed</code> 这行下面的，就说明是已暂存状态</p>
+</blockquote>
+<h4 id="暂存已修改的文件"><a href="#暂存已修改的文件" class="headerlink" title="暂存已修改的文件"></a>暂存已修改的文件</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">git add 文件名<br></code></pre></td></tr></table></figure>
+
+<p><img src="/imgs/image-20220819224431442.png" srcset="/img/loading.gif" lazyload alt="image-20220819224431442"></p>
+<h4 id="向暂存区一次性添加多个文件"><a href="#向暂存区一次性添加多个文件" class="headerlink" title="向暂存区一次性添加多个文件"></a>向暂存区一次性添加多个文件</h4><p>如果需要被暂存的文件个数比较多，可以使用如下的命令，一次性将所有的新增和修改过的文件加入暂存区：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">git add . <span class="hljs-comment">// 注意 add后面是空格</span><br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p> <strong>今后在项目开发中，会经常使用这个命令，将新增和修改过后的文件加入暂存区</strong></p>
+</blockquote>
+<h3 id="3-4-git-commit"><a href="#3-4-git-commit" class="headerlink" title="3.4 git commit"></a>3.4 git commit</h3><h4 id="提交更新"><a href="#提交更新" class="headerlink" title="提交更新"></a>提交更新</h4><p>在提交更新之前，务必确认还有什么已修改或新建的文件还没有 <code>git add</code> 过， 否则提交的时候不会记录这些尚未暂存的变化。 这些已修改但未暂存的文件只会保留在本地磁盘。</p>
+<p> 所以，每次准备提交前，先用 <code>git status</code> 看下，你所需要的文件是不是都已暂存起来了， 然后再运行提交命令 <code>git commit</code>：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 1. 提交之前 检查状态  git status</span><br><span class="hljs-comment">// 2. git commit -m &quot;update&quot;   ===&gt; git commit -m&quot;update&quot; m和消息之间的空格可以省略</span><br><span class="hljs-comment">// 3. 提交完成后 检测状态  git status</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git commit -m <span class="hljs-string">&quot;本次提交要记录的提交描述信息&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/imgs/image-20220819214756905.png" srcset="/img/loading.gif" lazyload alt="image-20220819214756905"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 提交完成后，检测状态</span><br><span class="hljs-comment"># git status</span><br>On branch master<br>nothing to commit, working tree clean<br><br><span class="hljs-comment"># 只要执行git commit -m &quot;&quot;  就会把已暂存的文件 提交到本地仓库中持久的保存起来。（记录快照）</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/imgs/image-20220819215343933.png" srcset="/img/loading.gif" lazyload alt="image-20220819215343933"></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// git add 新建的文件     ==&gt;  暂存区</span><br><span class="hljs-comment">// git add 修改后的文件   ==&gt;  暂存区</span><br><span class="hljs-comment">// git commit -m &quot;msg&quot;  =&gt;  将暂存区文件 ===&gt;提交到本地仓库</span><br><span class="hljs-comment">//  commit后，工作区的文件内容， 和 仓库中所保存的文件内容一致</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="提交已暂存的文件"><a href="#提交已暂存的文件" class="headerlink" title="提交已暂存的文件"></a>提交已暂存的文件</h4><p><img src="/imgs/image-20220819224723361.png" srcset="/img/loading.gif" lazyload alt="image-20220819224723361"></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js">git commit -m <span class="hljs-string">&quot;update&quot;</span><br><br><span class="hljs-comment">// 修改最近一次提交说明 amend修正</span><br>git commit --amend -m <span class="hljs-string">&quot;修改最近一次提交信息&quot;</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="跳过使用暂存区"><a href="#跳过使用暂存区" class="headerlink" title="跳过使用暂存区"></a>跳过使用暂存区</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">git commit -a -m <span class="hljs-string">&quot;描述信息&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/imgs/image-20220819231117445.png" srcset="/img/loading.gif" lazyload alt="image-20220819231117445"></p>
+<h3 id="3-5-修改文件"><a href="#3-5-修改文件" class="headerlink" title="3.5 修改文件"></a>3.5 修改文件</h3><blockquote>
+<p>对工作区的文件进行修改后， 修改后的文件会变为Modified 状态</p>
+</blockquote>
+<p><img src="/imgs/image-20220819220157643.png" srcset="/img/loading.gif" lazyload alt="image-20220819220157643"></p>
+<p><img src="/imgs/image-20220820000516557.png" srcset="/img/loading.gif" lazyload alt="image-20220820000516557"></p>
+<h4 id="撤销对文件的修改"><a href="#撤销对文件的修改" class="headerlink" title="撤销对文件的修改"></a>撤销对文件的修改</h4><ul>
+<li>实际开发用得非常少</li>
+</ul>
+<p><img src="/imgs/image-20220819225608494.png" srcset="/img/loading.gif" lazyload alt="image-20220819225608494"></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">git checkout -- 要撤销修改的文件<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-6-git-reset"><a href="#3-6-git-reset" class="headerlink" title="3.6 git reset"></a>3.6 git reset</h3><h4 id="取消暂存的文件"><a href="#取消暂存的文件" class="headerlink" title="取消暂存的文件"></a>取消暂存的文件</h4><p>如果需要从暂存区中移除对应的文件，可以使用如下的命令：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js">git reset <span class="hljs-variable constant_">HEAD</span> 要移出的文件名称<br><span class="hljs-comment">// git status 再次检查</span><br><br>git reset <span class="hljs-variable constant_">HEAD</span> . <span class="hljs-comment">// 空格 英文点号， 把暂存区所有的文件都移到工作区</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="回退到指定版本"><a href="#回退到指定版本" class="headerlink" title="回退到指定版本"></a>回退到指定版本</h4><p><img src="/imgs/image-20220820002011012.png" srcset="/img/loading.gif" lazyload alt="image-20220820002011012"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 在一行上展示所有的提交历史</span><br>git <span class="hljs-built_in">log</span> --oneline<br><br><span class="hljs-comment"># 使用 git reset --hard 命令，根据指定的提交 ID 回退到指定版本</span><br>git reset --hard &lt;CommitID&gt;<br><br><span class="hljs-comment"># 可以查看所有的版本记录</span><br>git reflog <br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="3-7-git-rm"><a href="#3-7-git-rm" class="headerlink" title="3.7 git rm"></a>3.7 git rm</h3><p><img src="/imgs/image-20220819231337803.png" srcset="/img/loading.gif" lazyload alt="image-20220819231337803"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 从 Git仓库和工作区中同时移除 index.js 文件</span><br>git <span class="hljs-built_in">rm</span> -f index.js<br><span class="hljs-comment"># 只从 Git 仓库中移除 index.css，但保留工作区中的 index.css 文件</span><br>git <span class="hljs-built_in">rm</span> --cached index.css<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-8-gitignore"><a href="#3-8-gitignore" class="headerlink" title="3.8 .gitignore"></a>3.8 .gitignore</h3><p><img src="/imgs/image-20220820002525887.png" srcset="/img/loading.gif" lazyload alt="image-20220820002525887"></p>
+<p><img src="/imgs/image-20220820002559849.png" srcset="/img/loading.gif" lazyload alt="image-20220820002559849"></p>
+<h4 id="匹配规则"><a href="#匹配规则" class="headerlink" title="匹配规则"></a>匹配规则</h4><p><img src="/imgs/image-20220819231622983.png" srcset="/img/loading.gif" lazyload alt="image-20220819231622983"></p>
+<h4 id="glob模式"><a href="#glob模式" class="headerlink" title="glob模式"></a>glob模式</h4><p><img src="/imgs/image-20220819231725786.png" srcset="/img/loading.gif" lazyload alt="image-20220819231725786"></p>
+<h4 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h4><p><img src="/imgs/image-20220819232211503.png" srcset="/img/loading.gif" lazyload alt="image-20220819232211503"></p>
+<blockquote>
+<p> 注意: .gitignore 只忽略没有被追踪的文件, 如果文件已经被纳入了管理, 则修改.gitignore无效.</p>
+</blockquote>
+<p>解决办法 :先把本地缓存删除, 把仓库中的文件 改为  未被追踪的状态. 重新提交 </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 0. 进入项目路径</span><br><br><span class="hljs-comment"># 1. 清除本地当前的Git缓存</span><br>git <span class="hljs-built_in">rm</span> -r --cached .<br><br><span class="hljs-comment"># 2. 应用.gitignore等本地配置文件重新建立Git索引</span><br>git add .<br><br><span class="hljs-comment"># 3. （可选）提交当前Git版本并备注说明</span><br>git commit -m <span class="hljs-string">&#x27;update .gitignore&#x27;</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="3-9-git-log"><a href="#3-9-git-log" class="headerlink" title="3.9 git log"></a>3.9 git log</h3><p>回车， 上下翻页， q退出</p>
+<p><img src="/imgs/image-20220819232619093.png" srcset="/img/loading.gif" lazyload alt="image-20220819232619093"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 按时间先后顺序列出所有的提交历史，最近的提交在最上面</span><br>git <span class="hljs-built_in">log</span><br><br><span class="hljs-comment"># 只展示最新的两条提交历史，数字可以按需进行填写</span><br>git <span class="hljs-built_in">log</span> -2<br><br><span class="hljs-comment"># 一行显示 ，hash简写</span><br>git <span class="hljs-built_in">log</span> --online <br><br><span class="hljs-comment"># 在一行上展示最近两条提交历史的信息</span><br>git <span class="hljs-built_in">log</span> -2 --pretty=oneline<br><br><span class="hljs-comment"># 在一行上展示最近两条提交历史信息，并自定义输出的格式</span><br><span class="hljs-comment"># &amp;h 提交的简写哈希值  %an 作者名字  %ar 作者修订日志  %s 提交说明</span><br>git <span class="hljs-built_in">log</span> -2 --pretty=format:<span class="hljs-string">&quot;%h | %an | %ar | %s&quot;</span><br></code></pre></td></tr></table></figure>
+
+
+
+  
+
+</article>
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
