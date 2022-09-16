@@ -1,0 +1,956 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta property="og:type" content="website">
+<meta property="og:title" content="每日笔记">
+<meta property="og:url" content="http://example.com/page/2/index.html">
+<meta property="og:site_name" content="每日笔记">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>每日笔记</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 100vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="An elegant Material-Design theme for Hexo"></span>
+          
+        </div>
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      <div class="container nopadding-x-md">
+        <div id="board"
+          style="margin-top: 0">
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
+
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/09/16/JavaScript%E5%9F%BA%E7%A1%80v8.0/JavaScript%20%E5%9F%BA%E7%A1%80%E7%AC%AC%E5%9B%9B%E5%A4%A9%20%E5%87%BD%E6%95%B0/" target="_self">
+          JavaScript 基础 第四天
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/09/16/JavaScript%E5%9F%BA%E7%A1%80v8.0/JavaScript%20%E5%9F%BA%E7%A1%80%E7%AC%AC%E5%9B%9B%E5%A4%A9%20%E5%87%BD%E6%95%B0/" target="_self">
+        <div>
+          JavaScript 基础第四天 函数一、函数1.为什么需要函数 2.函数使用2.1函数的声明语法函数可以把具有相同或相似逻辑的代码“包裹”起来，通过函数调用执行这些被“包裹”的代码逻辑，这么做的优势是有利于精简代码方便复用。 声明（定义）声明（定义）一个完整函数包括关键字、函数名、形式参数、函数体、返回值5个部分  2.2函数名命名规范  2.3函数的调用语法123456789101112131
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-09-16 10:53" pubdate>
+              2022-09-16
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/JavaScript-%E5%9F%BA%E7%A1%80/" class="category-chain-item">JavaScript 基础</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/JavaScript-%E5%9F%BA%E7%A1%80/%E7%AC%AC%E5%9B%9B%E5%A4%A9/" class="category-chain-item">第四天</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/09/16/JavaScript%E5%9F%BA%E7%A1%80v8.0/JavaScript%20%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%BA%94%E5%A4%A9%20%E5%AF%B9%E8%B1%A1/" target="_self">
+          JavaScript 基础 第五天
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/09/16/JavaScript%E5%9F%BA%E7%A1%80v8.0/JavaScript%20%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%BA%94%E5%A4%A9%20%E5%AF%B9%E8%B1%A1/" target="_self">
+        <div>
+          JavaScript 基础第五天 对象一、对象1.什么是对象对象是 JavaScript 数据类型的一种，之前已经学习了数值类型、字符串类型、布尔类型、undefined。对象数据类型可以被理解成是一种数据集合。它由属性和方法两部分构成。  2.对象使用2.1对象声明语法声明对象，并添加了若干属性后，可以使用 . 或 [] 获得对象中属性对应的值，我称之为属性访问。 声明一个对象类型的变量与之前声
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-09-16 10:53" pubdate>
+              2022-09-16
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/JavaScript-%E5%9F%BA%E7%A1%80/" class="category-chain-item">JavaScript 基础</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/JavaScript-%E5%9F%BA%E7%A1%80/%E7%AC%AC%E4%BA%94%E5%A4%A9/" class="category-chain-item">第五天</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/09/16/JavaScript%E5%9F%BA%E7%A1%80v8.0/JavaScript%20%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%BA%8C%E5%A4%A9%20%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/" target="_self">
+          JavaScript 基础 第二天
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/09/16/JavaScript%E5%9F%BA%E7%A1%80v8.0/JavaScript%20%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%BA%8C%E5%A4%A9%20%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/" target="_self">
+        <div>
+          JavaScript 基础 第二天 流程控制一、运算符1.1 赋值运算符 12345678910111213&lt;body&gt;  &lt;script&gt;    let num = 1    // num = num + 1    // 采取赋值运算符    // num += 1    num += 3    console.log(num)  &lt;/script&gt;&lt;/
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-09-16 10:53" pubdate>
+              2022-09-16
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/JavaScript-%E5%9F%BA%E7%A1%80/" class="category-chain-item">JavaScript 基础</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/JavaScript-%E5%9F%BA%E7%A1%80/%E7%AC%AC%E4%BA%8C%E5%A4%A9/" class="category-chain-item">第二天</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/09/16/JavaScript%E5%9F%BA%E7%A1%80v8.0/JavaScript%20%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%B8%89%E5%A4%A9%20%E6%95%B0%E7%BB%84/" target="_self">
+          JavaScript 基础 第三天
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/09/16/JavaScript%E5%9F%BA%E7%A1%80v8.0/JavaScript%20%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%B8%89%E5%A4%A9%20%E6%95%B0%E7%BB%84/" target="_self">
+        <div>
+          JavaScript 基础第三天 数组一、循环–for1. for 循环-基本使用  123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354&lt;!DOCTYPE html&gt;&lt;html lang=&quot;en&quot;&gt;&lt;h
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-09-16 10:53" pubdate>
+              2022-09-16
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/JavaScript-%E5%9F%BA%E7%A1%80/" class="category-chain-item">JavaScript 基础</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/JavaScript-%E5%9F%BA%E7%A1%80/%E7%AC%AC%E4%B8%89%E5%A4%A9/" class="category-chain-item">第三天</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/09/16/JavaScript%E5%9F%BA%E7%A1%80v8.0/JavaScript%20%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%B8%80%E5%A4%A9%20%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" target="_self">
+          JavaScript 基础 第一天
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/09/16/JavaScript%E5%9F%BA%E7%A1%80v8.0/JavaScript%20%E5%9F%BA%E7%A1%80%E7%AC%AC%E4%B8%80%E5%A4%A9%20%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" target="_self">
+        <div>
+          JavaScript 基础第一天 基础语法1.1 JavaScript的含义JavaScript是一种运行在客户端（浏览器）的编程语言，实现人机交互效果。 1.2 JavaScript的作用网页特效（监听用户的一些行为让网页做出对应的反馈） 表单验证（针对表单数据的合法性进行判断） 数据交互（获取后台的数据，渲染到前端） 服务器编程（node.js） 1.3.JavaScript的组成1.3.1
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-09-16 10:53" pubdate>
+              2022-09-16
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/JavaScript-%E5%9F%BA%E7%A1%80/" class="category-chain-item">JavaScript 基础</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/JavaScript-%E5%9F%BA%E7%A1%80/%E7%AC%AC%E4%B8%80%E5%A4%A9/" class="category-chain-item">第一天</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/09/16/Git/day02/day02/" target="_self">
+          Git 第二天
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/09/16/Git/day02/day02/" target="_self">
+        <div>
+          Target 能够知道Github的作用  能够创建并配置Github账号 能够在Github中创建仓库并使用 能够知道分支的作用 能够创建分支与合并 能够操作远程分支  💡🚀🤟👉👇☀️🍉🍍🍇🍓🥕🍭🎖️🎁☘️🍀💯🔆❗🔥🚩 1. 开源1.1 基本概念 1.2 开源协议开源并不意味着完全没有限制，为了限制使用者的使用范围和保护作者的权利，每个开源项目都应该遵守开源许
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-09-16 10:53" pubdate>
+              2022-09-16
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Git/" class="category-chain-item">Git</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Git/%E7%AC%AC%E4%BA%8C%E5%A4%A9/" class="category-chain-item">第二天</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/09/16/Git/day01/day01/" target="_self">
+          Git 第一天
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/09/16/Git/day01/day01/" target="_self">
+        <div>
+          Target 能够知道如何在现有目录中初始化Git仓库 (git init) 能够知道如何检查文件的状态 (git status) 能够知道如何把文件加入暂存区 (git add) 能够说出提交更新的命令  (git commit -m) 能够知道如何向暂存区中一次性添加多个文件 (git add .)  💡🚀🤟👉👇☀️🍉🍍🍇🍓🥕🍭🎖️🎁☘️🍀💯🔆❗🔥🚩 1.
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-09-16 10:53" pubdate>
+              2022-09-16
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Git/" class="category-chain-item">Git</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Git/%E7%AC%AC%E4%B8%80%E5%A4%A9/" class="category-chain-item">第一天</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/09/16/Echarts/03%20%E7%AC%94%E8%AE%B0/Echarts/" target="_self">
+          Echarts 第三天
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/09/16/Echarts/03%20%E7%AC%94%E8%AE%B0/Echarts/" target="_self">
+        <div>
+          1. 渠道分布模块 - 雷达图1234567891011121314151617181920212223242526272829303132333435363738&lt;!-- 渠道分布模块-雷达图 --&gt;&lt;div class=&quot;wrap&quot;&gt;    &lt;div class=&quot;channel panel&quot;&gt;    &lt;div
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-09-16 10:53" pubdate>
+              2022-09-16
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Echarts/" class="category-chain-item">Echarts</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Echarts/%E7%AC%AC%E4%B8%89%E5%A4%A9/" class="category-chain-item">第三天</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/09/16/Echarts/02%20%E7%AC%94%E8%AE%B0/02-echarts/" target="_self">
+          Echarts 第二天
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/09/16/Echarts/02%20%E7%AC%94%E8%AE%B0/02-echarts/" target="_self">
+        <div>
+          Target 能够跟随视频定制点位分布模块图表  能够写出Echarts图表适配浏览器缩放代码  能够跟随视频完成柱形图基本定制  能够说出如何在柱形图中单独定制某个柱形  能够完成销售统计模块 - 定制折线图表   01 监控区域-效果切换功能：  绑定 标签页点击 事件 当前容器加active其他容器移除active index对应的内容容器显示其他容器隐藏  1234567 // 切换$(&
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-09-16 10:53" pubdate>
+              2022-09-16
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Echarts/" class="category-chain-item">Echarts</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Echarts/%E7%AC%AC%E4%BA%8C%E5%A4%A9/" class="category-chain-item">第二天</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/09/16/Echarts/02%20%E7%AC%94%E8%AE%B0/02%20%E7%BD%91%E7%BB%9C%E5%90%8D%E8%AF%8D%20DNS%E8%A7%A3%E6%9E%90%E7%AD%89/" target="_self">
+          Echarts 第二天
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/09/16/Echarts/02%20%E7%AC%94%E8%AE%B0/02%20%E7%BD%91%E7%BB%9C%E5%90%8D%E8%AF%8D%20DNS%E8%A7%A3%E6%9E%90%E7%AD%89/" target="_self">
+        <div>
+          HTTPHTTP (HyperText Transfer Protocol)，超文本传输协议。 HTTP 是一个在计算机世界里专门在两点之间传输文字、图片、音频、视频等超文本数据的约定和规范。 CDNContent Delivery Network, 内容分发网络。它应用了HTTP协议里的缓存和代理技术，代替源站响应客户端的请求。 它可以缓存源站的数据，让浏览器的请求不用“千里迢迢”地到达源站服务
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-09-16 10:53" pubdate>
+              2022-09-16
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Echarts/" class="category-chain-item">Echarts</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Echarts/%E7%AC%AC%E4%BA%8C%E5%A4%A9/" class="category-chain-item">第二天</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+
+
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/#board">3</a><a class="extend next" rel="next" href="/page/3/#board"><i class="iconfont icon-arrowright"></i></a>
+    </span>
+  </nav>
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
