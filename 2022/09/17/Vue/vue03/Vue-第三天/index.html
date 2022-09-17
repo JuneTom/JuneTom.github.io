@@ -1,0 +1,691 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Vue第三天一、Vue应用1. v-for 渲染列表数据时，直接在标签结构中进行数组遍历 循环时需要给v-for当前标签加上一个key属性，用来表现每个被循环出来的标签结构唯一且不同   语法 （类比forEach）  v-for&#x3D;”(值, 索引) in 目标结构” v-for&#x3D;”值 in 目标结构”   目标结构:  可以遍历数组 &#x2F; 对象 &#x2F; 数字 &amp;#">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue 第三天">
+<meta property="og:url" content="http://example.com/2022/09/17/Vue/vue03/Vue-%E7%AC%AC%E4%B8%89%E5%A4%A9/index.html">
+<meta property="og:site_name" content="每日笔记">
+<meta property="og:description" content="Vue第三天一、Vue应用1. v-for 渲染列表数据时，直接在标签结构中进行数组遍历 循环时需要给v-for当前标签加上一个key属性，用来表现每个被循环出来的标签结构唯一且不同   语法 （类比forEach）  v-for&#x3D;”(值, 索引) in 目标结构” v-for&#x3D;”值 in 目标结构”   目标结构:  可以遍历数组 &#x2F; 对象 &#x2F; 数字 &amp;#">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20220917225655592.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20220917225756812.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20220917223323051.png">
+<meta property="article:published_time" content="2022-09-17T14:26:34.666Z">
+<meta property="article:modified_time" content="2022-09-17T15:19:49.218Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://image.zhangyc.top/img/image-20220917225655592.png">
+  
+  
+  
+  <title>Vue 第三天 - 每日笔记</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Vue 第三天"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-09-17 22:26" pubdate>
+          2022年9月17日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          50 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Vue 第三天</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="Vue第三天"><a href="#Vue第三天" class="headerlink" title="Vue第三天"></a>Vue第三天</h1><h2 id="一、Vue应用"><a href="#一、Vue应用" class="headerlink" title="一、Vue应用"></a>一、Vue应用</h2><h3 id="1-v-for"><a href="#1-v-for" class="headerlink" title="1. v-for"></a>1. v-for</h3><blockquote>
+<p>渲染列表数据时，直接在标签结构中进行数组遍历</p>
+<p>循环时需要给v-for当前标签加上一个key属性，用来表现每个被循环出来的标签结构唯一且不同</p>
+</blockquote>
+<ul>
+<li><p>语法 （类比forEach）</p>
+<ul>
+<li>v-for&#x3D;”(值, 索引) in 目标结构”</li>
+<li>v-for&#x3D;”值 in 目标结构”</li>
+</ul>
+</li>
+<li><p>目标结构:</p>
+<ul>
+<li>可以遍历数组 &#x2F; 对象 &#x2F; 数字 &#x2F; 字符串 (可遍历结构)</li>
+</ul>
+</li>
+<li><p>注意:</p>
+<p>v-for的临时变量名不能用到v-for范围外</p>
+</li>
+</ul>
+<p>Ex:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;div&gt;<br>    &lt;!-- v-for遍历数组<br>      v-for=&quot;(值, 当前索引) in 需要遍历的数据结构&quot;<br>      和forEach非常相似的<br>      循环遍历是，需要给v-for标签上添加一个key属性，用来表现当前循环的每一个元素它的唯一 (一般可以用索引来作为它的key)<br>      口诀： 谁要循环就放在谁上面<br>      (主要去掌握数组，数组对象的遍历方式，其他的遍历只是vue提供了这样的功能，实际上并不常用)<br>    --&gt;<br>    &lt;ul&gt;<br>        &lt;li v-for=&quot;(value, index) in arr&quot; :key=&quot;index&quot;&gt;<br>            &#123;&#123; value &#125;&#125; ----- &#123;&#123; index &#125;&#125;<br>        &lt;/li&gt;<br>    &lt;/ul&gt;<br><br>   &lt;!-- v-for遍历数组对象<br>      当遍历的是一个数组对象，且每一个对象元素中，都有一个属性它的值能够表示当前元素的唯一性，<br>      那么就可以在循环遍历的时候不使用index来作为key属性的值，而替换成这个唯一的属性值<br>    --&gt;<br>    &lt;ul&gt;<br>        &lt;li v-for=&quot;(value) in arr2&quot; :key=&quot;value.id&quot;&gt;<br>            &#123;&#123; value &#125;&#125;<br>        &lt;/li&gt;<br>    &lt;/ul&gt;<br><br>    &lt;!-- v-for遍历对象<br>      当遍历对象时， 第一个参数是对象中每个属性的值<br>                    第二个参数是对象中每个属性的键<br>    --&gt;<br>    &lt;ul&gt;<br>        &lt;li v-for=&quot;(value, key) in obj&quot; :key=&quot;key&quot;&gt;<br>            &#123;&#123; value &#125;&#125; ----- &#123;&#123; key &#125;&#125;<br>        &lt;/li&gt;<br>    &lt;/ul&gt;<br><br>    &lt;!-- v-for遍历数字<br>      当遍历数字时， 第一个参数是从 1 开始一次递增<br>                    第二个参数是当前遍历的索引位置<br>    --&gt;<br>    &lt;ul&gt;<br>        &lt;li v-for=&quot;(value, index) in 10&quot; :key=&quot;index&quot;&gt;<br>            &#123;&#123; value &#125;&#125; ----- &#123;&#123; index &#125;&#125;<br>        &lt;/li&gt;<br>    &lt;/ul&gt;<br><br>    &lt;!-- v-for遍历字符串<br>      当遍历字符串时， 第一个参数是字符串中每个字符<br>                    第二个参数是当前遍历的索引位置<br>    --&gt;<br>    &lt;ul&gt;<br>        &lt;li v-for=&quot;(value, index) in str&quot; :key=&quot;index&quot;&gt;<br>            &#123;&#123; value &#125;&#125; ----- &#123;&#123; index &#125;&#125;<br>        &lt;/li&gt;<br>    &lt;/ul&gt;<br>  &lt;/div&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>export default &#123;<br>  name: &quot;demo-12&quot;,<br>  data() &#123;<br>    return &#123;<br>        arr: [&#x27;张三&#x27;, &#x27;李四&#x27;, &#x27;卢本伟&#x27;, &#x27;张三&#x27;],<br>        arr2:[<br>            &#123;name: &#x27;张三&#x27;,age: 20,id: 1&#125;,<br>            &#123;name: &#x27;卢本伟&#x27;,age: 29,id: 2&#125;,<br>        ], <br>        obj:&#123;<br>            name: &#x27;卢本伟&#x27;,<br>            age: 29,<br>            content: &#x27;干哈&#x27;,<br>        &#125;,<br>        str:&#x27;lbw&#x27;,<br>    &#125;;<br>  &#125;,<br>&#125;;<br>&lt;/script&gt;<br><br>&lt;style&gt;&lt;/style&gt;<br><br></code></pre></td></tr></table></figure>
+
+<p><img src="http://image.zhangyc.top/img/image-20220917225655592.png" srcset="/img/loading.gif" lazyload alt="image-20220917225655592"></p>
+<h3 id="2-v-for和v-if的组合使用"><a href="#2-v-for和v-if的组合使用" class="headerlink" title="2. v-for和v-if的组合使用"></a>2. v-for和v-if的组合使用</h3><p>当 v-if 与 v-for 一起使用时，v-for 具有比 v-if 更高的优先级。这意味着 v-if 将分别重复运行于 每个 v-for 循环中，即先运行 v-for 的循环，然后在每一个 v-for 的循环中，再进行 v-if 的条件对比，会造成性能问题，影响速度</p>
+<p><strong>解决方法：在v-for前对数组进行筛选</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;div&gt;<br>    &lt;!-- 遍历arr数组，只显示没有张三的内容 --&gt;<br>    &lt;!-- v-for与v-if不允许在同一个标签中使用 --&gt;<br>    &lt;!-- 当不得不既需要遍历又需要判断时，可以在遍历数组之前进行filter的过滤操作（就是把原本写在v-if中的判断条件，写到filter的回调函数中即可） --&gt;<br>    &lt;ul&gt;<br>      &lt;!-- 错误！ &lt;li v-for=&quot;(value, index) in arr&quot; :key=&quot;index&quot; v-if=&quot;value !== &#x27;张三&#x27;&quot;&gt; --&gt;<br>      &lt;li v-for=&quot;(item, index) in arr.filter(v =&gt; v !== &#x27;张三&#x27;)&quot; :key=&quot;index&quot;&gt;<br>        &#123;&#123; item &#125;&#125;<br>      &lt;/li&gt;<br>    &lt;/ul&gt;<br>  &lt;/div&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>export default &#123;<br>  name: &#x27;demo-02&#x27;,<br>  data () &#123;<br>    return &#123;<br>      arr: [&#x27;张三&#x27;, &#x27;李四&#x27;, &#x27;卢本伟&#x27;, &#x27;张三&#x27;]<br>    &#125;<br>  &#125;<br>&#125;<br>&lt;/script&gt;<br><br>&lt;style&gt;<br><br>&lt;/style&gt;<br></code></pre></td></tr></table></figure>
+
+<p><img src="http://image.zhangyc.top/img/image-20220917225756812.png" srcset="/img/loading.gif" lazyload alt="image-20220917225756812"></p>
+<h3 id="3-v-for更新监测"><a href="#3-v-for更新监测" class="headerlink" title="3. v-for更新监测"></a>3. v-for更新监测</h3><blockquote>
+<p>原因: 当v-for遍历的目标结构改变, <code>Vue</code>触发v-for的更新</p>
+</blockquote>
+<p><strong>口诀：</strong></p>
+<ul>
+<li>数组变更方法, 就会导致v-for更新, 页面更新</li>
+<li>数组非变更方法, 返回新数组, 就不会导致v-for更新, 可采用覆盖数组或this.$set()</li>
+</ul>
+<p>Ex:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;div&gt;<br>    &lt;!-- <br>      将js中遍历数组、处理数组的方式形参笔记<br>      forEach((value, index) =&gt; &#123;&#125;)<br>      filter((value, index) =&gt; &#123;&#125;)<br>      map((value, index) =&gt; &#123;&#125;)<br>      some((value, index) =&gt; &#123;&#125;)<br>      every((value, index) =&gt; &#123;&#125;)<br>    --&gt;<br>    &lt;!-- 1. 当v-for遍历的数组发生变化时，(一定是得发生变化) , 会触发v-for的遍历更新 --&gt;<br>    &lt;!-- 2. 如果某个数组处理方式不会改变原数组，那么通过赋值的操作来让数组发生变化 --&gt;<br>    &lt;!-- 3. 如果遍历的数据无法实时响应式，可以使用this.$set()方法来进行强制响应，这一方法其实是应急手段，在迫不得已时（找不到其他解决办法时）再去使用 --&gt;<br>    &lt;ul&gt;<br>      &lt;li v-for=&quot;(item, index) in arr&quot; :key=&quot;index&quot;&gt;<br>        &#123;&#123; item &#125;&#125;<br>      &lt;/li&gt;<br>    &lt;/ul&gt;<br><br>    &lt;!-- 设计一个按钮，点击下去的时候，arr数组元素位置颠倒 - reverse() --&gt;<br>    &lt;button @click=&quot;revBtn&quot;&gt;数组颠倒&lt;/button&gt;<br>    &lt;!-- 设置一个按钮，点击下去的时候，保留前3个元素 (数组的截取) --&gt;<br>    &lt;button @click=&quot;sliceBtn&quot;&gt;数组截取&lt;/button&gt;<br>    &lt;!-- 设置一个按钮，点击下去的时候，修改第一个元素的值改为1000 --&gt;<br>    &lt;button @click=&quot;updateBtn&quot;&gt;修改索引为0的元素值&lt;/button&gt;<br><br>  &lt;/div&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>export default &#123;<br>  name: &#x27;demo-02&#x27;,<br>  data () &#123;<br>    return &#123;<br>      arr: [1, 2, 3, 4, 5]<br>    &#125;<br>  &#125;,<br>  methods: &#123;<br>    revBtn () &#123;<br>      this.arr.reverse()<br>    &#125;,<br><br>    // 数组截取<br>    sliceBtn () &#123;<br>      // 通过slice方法来截取数组<br>      // this.arr.slice(0, 3) // 发现页面并不更新，其原因是slice方法并不会改变原数组<br><br>      // 通过重新赋值的形式，来改变数组<br>      // this.arr = this.arr.slice(0, 3)<br><br>      // 通过splice方法就能够改变原数组，不需要进行赋值操作<br>      this.arr.splice(3, 2)<br>    &#125;,<br><br>    // 修改索引为0的元素的值<br>    // 在修改引用数据类型（主要指的是数组元素），若数据发生变化，但页面并没有产生响应式，尝试使用this.$set() vue内置的更新数据方式来强制刷新<br>    updateBtn () &#123;<br>      // this.arr[0] = 1000<br>      // this.arr.length = 100<br><br>      /* <br>        this.$set(参数1， 参数2， 参数3)<br>        参数1： 更新的目标结构 - v-for所遍历的数据<br>        参数2： 更新数据的位置 - 常常是索引位置<br>        参数3： 需要更新的值<br>      */<br>      // this.$set(this.arr, 0, 1000)<br><br>      // 正确的替换索引位置元素的操作 splice(目标索引位置, 删除当前索引位置的一个元素， 需要替换的元素)<br>      this.arr.splice(0, 1, 1000)<br>    &#125;<br>  &#125;<br>&#125;<br>&lt;/script&gt;<br><br>&lt;style&gt;<br><br>&lt;/style&gt;<br></code></pre></td></tr></table></figure>
+
+<p><video src="D:\Video\Video_2022-09-17_230954.wmv"></video></p>
+<h3 id="4-v-for-立即更新"><a href="#4-v-for-立即更新" class="headerlink" title="4.v-for 立即更新"></a>4.v-for 立即更新</h3><blockquote>
+<p> <code>v-for</code> 的默认行为会尝试原地修改元素而不是移动它们。</p>
+<p> 简单来说就是不删除原来的dom元素，而是尽量去修改各循环元素内部的值</p>
+</blockquote>
+<p>原来webapi是如何做列表更新的？ &#x3D;》 删除所有列表的dom元素，重新渲染</p>
+<p>v-for尝试去用原来的dom元素进行修改，能改就不删</p>
+<p><img src="http://image.zhangyc.top/img/image-20220917223323051.png" srcset="/img/loading.gif" lazyload alt="image-20220917223323051"></p>
+<p>Ex:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;div&gt;<br>    &lt;ul&gt;<br>      &lt;!-- eslint-disable --&gt;<br>      &lt;!-- 问题？ 既然用索引作为key和没有key时页面更新的效率完全一样，那为什么要加key呢？？ --&gt;<br>      &lt;!-- 答：满足vue的代码规范，以及满足eslint的书写规范 --&gt;<br>      &lt;li v-for=&quot;(obj, index) in arr&quot; :key=&quot;obj.id&quot;&gt;<br>        &#123;&#123; obj.name &#125;&#125;<br>        &lt;!-- 如果input框没有绑定v-model时，页面中输入的内容只与inputdom元素有关 --&gt;<br>        &lt;input type=&quot;text&quot;&gt;<br>      &lt;/li&gt;<br>    &lt;/ul&gt;<br>    &lt;button @click=&quot;btn&quot;&gt;下标1位置插入新来的&lt;/button&gt;<br>  &lt;/div&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>export default &#123;<br>  data() &#123;<br>    return &#123;<br>      arr: [<br>        &#123;name: &#x27;老大&#x27;,id: 50&#125;,<br>        &#123;name: &#x27;老二&#x27;,id: 31&#125;,<br>        &#123;name: &#x27;老三&#x27;,id: 10&#125;<br>      ],<br>    &#125;;<br>  &#125;,<br>  methods: &#123;<br>    btn()&#123;<br>      this.arr.splice(1, 0, &#123;<br>        id: 19, <br>        name: &#x27;新来的&#x27;<br>      &#125;)<br>    &#125;<br>  &#125;<br>&#125;;<br>&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+
+<p><video src="D:\Video\Video_2022-09-17_231934.wmv"></video></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Vue/" class="category-chain-item">Vue</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Vue/%E7%AC%AC%E4%B8%89%E5%A4%A9/" class="category-chain-item">第三天</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Vue 第三天</div>
+      <div>http://example.com/2022/09/17/Vue/vue03/Vue-第三天/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>John Doe</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年9月17日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/09/16/Web-API/%E9%98%B6%E6%AE%B5%E6%A1%88%E4%BE%8B%EF%BC%88%E5%B0%8F%E5%85%94%E9%B2%9C%EF%BC%89/" title="Web APIs 阶段案例（小兔鲜）">
+                        <span class="hidden-mobile">Web APIs 阶段案例（小兔鲜）</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
