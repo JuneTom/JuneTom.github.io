@@ -1,0 +1,815 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Vue 第五天一. vue生命周期1.1 生命周期 一个vue组件从 创建 到 销毁 的整个过程就是生命周期   1.2 钩子函数（真正的生命周期不止这几个，今天主要介绍工作中常用的生命周期，没有介绍的后期再去了解，一般仅局限于面试）  目标: Vue 框架内置函数，随着组件的生命周期阶段，自动执行  作用: 特定的时间点，执行特定的操作 场景: 组件创建完毕后，可以在created 生命周期函数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue 第五天">
+<meta property="og:url" content="http://example.com/2022/09/21/Vue/vue05/Vue-%E7%AC%AC%E4%BA%94%E5%A4%A9/index.html">
+<meta property="og:site_name" content="每日笔记">
+<meta property="og:description" content="Vue 第五天一. vue生命周期1.1 生命周期 一个vue组件从 创建 到 销毁 的整个过程就是生命周期   1.2 钩子函数（真正的生命周期不止这几个，今天主要介绍工作中常用的生命周期，没有介绍的后期再去了解，一般仅局限于面试）  目标: Vue 框架内置函数，随着组件的生命周期阶段，自动执行  作用: 特定的时间点，执行特定的操作 场景: 组件创建完毕后，可以在created 生命周期函数">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20220921192351724.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/70a18eca2aa3421689884f09a666813b.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/6.gif">
+<meta property="og:image" content="http://image.zhangyc.top/img/4.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20220921204300593.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20220921204734660.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20220921204516880.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20220921205724436.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/123.gif">
+<meta property="article:published_time" content="2022-09-21T11:20:59.147Z">
+<meta property="article:modified_time" content="2022-09-21T13:24:19.194Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://image.zhangyc.top/img/image-20220921192351724.png">
+  
+  
+  
+  <title>Vue 第五天 - 每日笔记</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Vue 第五天"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-09-21 19:20" pubdate>
+          2022年9月21日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          8.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          69 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Vue 第五天</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="Vue-第五天"><a href="#Vue-第五天" class="headerlink" title="Vue 第五天"></a>Vue 第五天</h1><h2 id="一-vue生命周期"><a href="#一-vue生命周期" class="headerlink" title="一. vue生命周期"></a>一. vue生命周期</h2><h3 id="1-1-生命周期"><a href="#1-1-生命周期" class="headerlink" title="1.1 生命周期"></a>1.1 生命周期</h3><blockquote>
+<p>一个vue组件从 创建 到 销毁 的整个过程就是生命周期</p>
+</blockquote>
+<p><img src="http://image.zhangyc.top/img/image-20220921192351724.png" srcset="/img/loading.gif" lazyload alt="image-20220921192351724"></p>
+<h3 id="1-2-钩子函数"><a href="#1-2-钩子函数" class="headerlink" title="1.2 钩子函数"></a>1.2 钩子函数</h3><p>（真正的生命周期不止这几个，今天主要介绍工作中常用的生命周期，没有介绍的后期再去了解，一般仅局限于面试）</p>
+<blockquote>
+<p>目标: <strong>Vue</strong> 框架内置函数，随着组件的生命周期阶段，自动执行</p>
+</blockquote>
+<p>作用: 特定的时间点，执行特定的操作</p>
+<p>场景: 组件创建完毕后，可以在created 生命周期函数中发起Ajax 请求，从而初始化 data 数据</p>
+<p>分类: 4大阶段8个方法</p>
+<ul>
+<li>初始化</li>
+<li>挂载</li>
+<li>更新</li>
+<li>销毁</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><strong>阶段</strong></th>
+<th><strong>方法名</strong></th>
+<th><strong>方法名</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>初始化</td>
+<td>beforeCreate</td>
+<td>created</td>
+</tr>
+<tr>
+<td>挂载</td>
+<td>beforeMount</td>
+<td>mounted</td>
+</tr>
+<tr>
+<td>更新</td>
+<td>beforeUpdate</td>
+<td>updated</td>
+</tr>
+<tr>
+<td>销毁</td>
+<td>beforeDestroy</td>
+<td>destroyed</td>
+</tr>
+</tbody></table>
+<p><a target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/guide/instance.html#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%9B%BE%E7%A4%BA">官网文档</a>下图展示了实例的生命周期。你不需要立马弄明白所有的东西，不过随着你的不断学习和使用，它的参考价值会越来越高。</p>
+<p><img src="http://image.zhangyc.top/img/70a18eca2aa3421689884f09a666813b.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="1-3-初始化阶段"><a href="#1-3-初始化阶段" class="headerlink" title="1.3 初始化阶段"></a>1.3 初始化阶段</h3><blockquote>
+<p>目标: 掌握初始化阶段2个钩子函数作用和执行时机</p>
+</blockquote>
+<p>含义讲解:</p>
+<p>1.new Vue() – Vue实例化(组件也是一个小的Vue实例)</p>
+<p>2.Init Events &amp; Lifecycle – 初始化事件和生命周期函数</p>
+<p>3.beforeCreate – 生命周期钩子函数被执行</p>
+<p>4.Init injections&amp;reactivity – Vue内部添加data和methods等</p>
+<p>5.created – 生命周期钩子函数被执行, 实例创建</p>
+<h3 id="1-4-挂载阶段"><a href="#1-4-挂载阶段" class="headerlink" title="1.4 挂载阶段"></a>1.4 挂载阶段</h3><blockquote>
+<p>目标: 掌握挂载阶段2个钩子函数作用和执行时机</p>
+</blockquote>
+<p>1.template选项检查</p>
+<p> 有 - 编译template返回render渲染函数</p>
+<p> 无 – 编译el选项对应标签作为template(要渲染的模板)（非脚手架）</p>
+<p>2.虚拟DOM挂载成真实DOM之前</p>
+<p>3.beforeMount – 生命周期钩子函数被执行</p>
+<p>4.Create … – 把虚拟DOM和渲染的数据一并挂到真实DOM上</p>
+<p>5.真实DOM挂载完毕</p>
+<p>6.mounted – 生命周期钩子函数被执行</p>
+<h3 id="1-5-更新阶段"><a href="#1-5-更新阶段" class="headerlink" title="1.5 更新阶段"></a>1.5 更新阶段</h3><blockquote>
+<p>目标: 掌握更新阶段2个钩子函数作用和执行时机</p>
+</blockquote>
+<p>含义讲解:</p>
+<p>1.当data里数据改变, 更新DOM之前</p>
+<p>2.beforeUpdate – 生命周期钩子函数被执行</p>
+<p>3.Virtual DOM…… – 虚拟DOM重新渲染, 打补丁到真实DOM</p>
+<p>4.updated – 生命周期钩子函数被执行</p>
+<p>5.当有data数据改变 – 重复这个循环</p>
+<h3 id="1-6-销毁阶段"><a href="#1-6-销毁阶段" class="headerlink" title="1.6 销毁阶段"></a>1.6 销毁阶段</h3><blockquote>
+<p>目标: 掌握销毁阶段2个钩子函数作用和执行时机</p>
+</blockquote>
+<p>含义讲解:</p>
+<p>1.当$destroy()被调用 – 比如组件DOM被移除(例v-if)</p>
+<p>2.beforeDestroy – 生命周期钩子函数被执行</p>
+<p>3.拆卸数据监视器、子组件和事件侦听器</p>
+<p>4.实例销毁后, 最后触发一个钩子函数</p>
+<p>5.destroyed – 生命周期钩子函数被执行</p>
+<h3 id="1-7-代码块"><a href="#1-7-代码块" class="headerlink" title="1.7 代码块"></a>1.7 代码块</h3><blockquote>
+<p>App.vue</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;div id=&quot;app&quot;&gt;<br>    &lt;!-- &lt;Life v-if=&quot;flag&quot;&gt;&lt;/Life&gt; --&gt;<br>    &lt;!-- &lt;button @click=&quot;flag = !flag&quot;&gt;销毁life组件&lt;/button&gt; --&gt;<br>    &lt;Ref&gt;&lt;/Ref&gt;<br>  &lt;/div&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>// import Life from &#x27;./components/life.vue&#x27;<br>  import Ref from &#x27;./components/refandRefs.vue&#x27;<br>export default &#123;<br>  name: &#x27;App&#x27;,<br>  components: &#123;<br>    // Life,<br>    Ref<br>  &#125;,<br>  data () &#123;<br>    return &#123;<br>      flag: true<br>    &#125;<br>  &#125;<br>&#125;<br>&lt;/script&gt;<br><br>&lt;style scoped&gt;<br>&lt;/style&gt;<br><br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>components&#x2F;life.vue</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;div&gt;<br>    &lt;!-- <br>      如果在vue项目中，我希望当某个组件渲染到页面之前、渲染到也上时、组件从页面上删除前<br>      在这3个时间点，我们有一些业务逻辑操作需要执行<br><br>      eventBus.$on() =&gt; mounted()&#123;&#125;<br>     --&gt;<br>     &lt;div id=&quot;demo&quot;&gt;&#123;&#123; msg &#125;&#125;&lt;/div&gt;<br>     &lt;ul&gt;<br>        &lt;li v-for=&quot;(value, index) in arr&quot; :key=&quot;index&quot;&gt;&#123;&#123; value &#125;&#125;&lt;/li&gt;<br>     &lt;/ul&gt;<br>     &lt;button @click=&quot;arr.push(4)&quot;&gt;加一行&lt;/button&gt;<br>  &lt;/div&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>export default &#123;<br>  name: &#x27;LifeIndex&#x27;,<br>  data () &#123;<br>    return &#123;<br>      msg: &#x27;hello world&#x27;,<br>      arr: [1, 2, 3],<br>      timer: null // 定时器<br>    &#125;<br>  &#125;,<br><br>  // 1. 初始化阶段<br>  // 1.1 初始化前 beforeCreate<br>  beforeCreate () &#123;<br>    console.log(&#x27;----beforeCreate执行----&#x27;)<br>    console.log(&#x27;初始化前访问data中的数据：&#x27;, this.msg)<br>  &#125;,<br><br>  // 1.2 初始化后 created （常用）<br>  // 在created中是最先获取data数据，使用methods方法等的时机<br>  // 使用场景： 当处理数据（静态数据，通过网络请求后端获取的数据），注册一些全局事件时，应该设置在created中<br>  created () &#123;<br>    console.log(&#x27;----created执行----&#x27;)<br>    console.log(&#x27;初始化后访问数据：&#x27;, this.msg)<br>    console.log(document.querySelector(&#x27;#demo&#x27;))<br>    // this.timer = setInterval(() =&gt; &#123;console.log(&#x27;setInterval&#x27;)&#125;, 2000)<br>  &#125;,<br><br>  // 2. 挂载阶段<br>  // 2.1 挂载前 beforeMount 在此时，不能访问dom元素，但可以读取data数据，与created中能执行的操作完全一样<br>  beforeMount () &#123;<br>    console.log(&#x27;----beforeMount执行----&#x27;)<br>    console.log(&#x27;挂载前获取dom元素&#x27;, document.querySelector(&#x27;#demo&#x27;))<br>  &#125;,<br><br>  // 2.2 挂载后 mounted （常用）<br>  // 此时真实dom已挂载到页面上，可以执行dom操作<br>  // 同时也可以堆数据进行处理<br><br>  // 注意事项：如果你比较懒，同时也不确定是否需要左dom操作，那么直接把逻辑放到mounted里面绝不会错<br>  mounted () &#123;<br>    console.log(&#x27;----mounted执行----&#x27;)<br>    console.log(&#x27;挂载后获取dom元素&#x27;, document.querySelector(&#x27;#demo&#x27;))<br>  &#125;,<br><br>  // 3. 更新阶段<br>  // 3.1 更新前 BeforeUpdate<br>  beforeUpdate () &#123;<br>    console.log(&#x27;----beforeUpdate执行----&#x27;)<br>    console.log(this.arr[3])<br>    console.log(document.querySelectorAll(&#x27;li&#x27;)[3])<br>  &#125;,<br><br>  // 3.2 更新后 updated<br>  // update阶段会产生无限的更新循环，所以如果以后需要在数据变化时做业务操作时，用监听器watch来实现<br>  updated() &#123;<br>    console.log(&#x27;----updated执行----&#x27;)<br>    console.log(this.arr[3])<br>    console.log(document.querySelectorAll(&#x27;li&#x27;)[3])<br>  &#125;,<br><br>  // 4. 销毁阶段<br>  // 4.1 销毁前 beforeDestroy (常用)<br>  // 使用场景： 如果当前组件存在计时器定时器等等异步操作时，需要在当前阶段将其关闭<br>  beforeDestroy () &#123;<br>    console.log(&#x27;----beforeDestroy执行----&#x27;)<br>    clearInterval(this.timer)<br>  &#125;,<br><br>  // 4.2 销毁后 destroyed<br>  destroyed () &#123;<br>    console.log(&#x27;----destroyed执行----&#x27;)<br>  &#125;<br><br>  /* <br>   工作中需要使用到的钩子函数有：created初始化后， mounted挂载后， beforeDestroy销毁前<br>  */<br>&#125;<br>&lt;/script&gt;<br><br>&lt;style&gt;<br><br>&lt;/style&gt;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>components&#x2F;child.vue</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;div&gt;<br>    &#123;&#123; msg &#125;&#125;<br>  &lt;/div&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>export default &#123;<br>  name: &#x27;ChildIndex&#x27;,<br>  data () &#123;<br>    return &#123;<br>      msg: &#x27;hello world&#x27;<br>    &#125;<br>  &#125;,<br><br>  methods: &#123;<br>    // 修改msg信息<br>    changeMsg (value) &#123;<br>      this.msg = value<br>    &#125;<br>  &#125;<br>&#125;<br>&lt;/script&gt;<br><br>&lt;style&gt;<br><br>&lt;/style&gt;<br></code></pre></td></tr></table></figure>
+
+<p><img src="http://image.zhangyc.top/img/6.gif" srcset="/img/loading.gif" lazyload alt="6"></p>
+<h3 id="1-8-总结"><a href="#1-8-总结" class="headerlink" title="1.8 总结"></a>1.8 总结</h3><p><img src="http://image.zhangyc.top/img/4.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="二-axios"><a href="#二-axios" class="headerlink" title="二. axios"></a>二. axios</h2><h3 id="2-1-axios基本使用"><a href="#2-1-axios基本使用" class="headerlink" title="2.1 axios基本使用"></a>2.1 axios基本使用</h3><blockquote>
+<p>axios是基于原神ajax+Promise技术封装通用于前后端的请求库</p>
+<p>其原理为： 浏览器window接口的XMLHttpRequest</p>
+<p><a target="_blank" rel="noopener" href="http://www.axios-js.com/">axios文档</a></p>
+</blockquote>
+<p><strong>特点</strong></p>
+<ul>
+<li>支持客户端发送Ajax请求</li>
+<li>支持服务端Node.js发送请求</li>
+<li>支持Promise相关用法</li>
+<li>支持请求和响应的拦截器功能</li>
+<li>自动转换JSON数据</li>
+</ul>
+<p><strong>axios 底层还是原生js实现, 内部通过Promise封装的</strong></p>
+<p><strong>axios的基本使用</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-title function_">axios</span>(&#123;<br>  <span class="hljs-attr">method</span>: <span class="hljs-string">&#x27;请求方式&#x27;</span>, <span class="hljs-comment">// get post delete put</span><br>  <span class="hljs-attr">url</span>: <span class="hljs-string">&#x27;请求地址&#x27;</span>,<br>  <span class="hljs-attr">data</span>: &#123;    <span class="hljs-comment">// 拼接到请求体的参数,  post请求的参数</span><br>    <span class="hljs-attr">xxx</span>: xxx,<br>  &#125;,<br>  <span class="hljs-attr">params</span>: &#123;  <span class="hljs-comment">// 拼接到请求行的参数, get请求的参数</span><br>       <span class="hljs-attr">xxx</span>: xxx <br>  &#125;<br>&#125;).<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> &#123;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(res.<span class="hljs-property">data</span>) <span class="hljs-comment">// 后台返回的结果</span><br>&#125;).<span class="hljs-title function_">catch</span>(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> &#123;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(err) <span class="hljs-comment">// 后台报错返回</span><br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-2-获取数据-get"><a href="#2-2-获取数据-get" class="headerlink" title="2.2 获取数据 - get"></a>2.2 获取数据 - get</h3><blockquote>
+<p>目标: 调用文档最后_获取所有图书信息接口</p>
+</blockquote>
+<p>功能: 点击调用后台接口, 拿到所有数据 – 打印到控制台</p>
+<p>接口: <code>http://123.57.109.30:3006/api/getbooks</code></p>
+<p>引入: 下载axios, 引入后才能使用</p>
+<blockquote>
+<p>npm i axios</p>
+</blockquote>
+<p>效果：</p>
+<p><img src="http://image.zhangyc.top/img/image-20220921204300593.png" srcset="/img/loading.gif" lazyload alt="image-20220921204300593"></p>
+<h3 id="2-3-获取数据-get传参"><a href="#2-3-获取数据-get传参" class="headerlink" title="2.3 获取数据 - get传参]"></a>2.3 获取数据 - get传参]</h3><blockquote>
+<p>问：ajax如何给后台传参?</p>
+<ol>
+<li>在url?拼接–查询字符串</li>
+<li>在url路径上–需要后端特殊处理</li>
+<li>在请求体&#x2F; 请求头传参给后台</li>
+</ol>
+</blockquote>
+<blockquote>
+<p>目标: 调用接口-获取某本书籍信息</p>
+</blockquote>
+<p>功能: 点击调用后台接口, 查询用户想要的书籍信息 – 打印到控制台</p>
+<p>接口: <code>/api/getbooks</code></p>
+<p><img src="http://image.zhangyc.top/img/image-20220921204734660.png" srcset="/img/loading.gif" lazyload alt="image-20220921204734660"></p>
+<h3 id="2-4-新增书籍-post"><a href="#2-4-新增书籍-post" class="headerlink" title="2.4 新增书籍 - post"></a>2.4 新增书籍 - post</h3><blockquote>
+<p>目标: 完成发布书籍功能</p>
+</blockquote>
+<p>功能: 点击新增按钮, 把用户输入的书籍信息, 传递给后台 – 把结果打印在控制台</p>
+<p>接口: <code>/api/addbook</code></p>
+<p><img src="http://image.zhangyc.top/img/image-20220921204516880.png" srcset="/img/loading.gif" lazyload alt="image-20220921204516880"></p>
+<p><strong>注意：</strong></p>
+<ol>
+<li><p>axios 默认为后台发送的请求数据格式为json字符串</p>
+<p><img src="http://image.zhangyc.top/img/image-20220921205724436.png" srcset="/img/loading.gif" lazyload alt="image-20220921205724436"></p>
+</li>
+<li><p>post请求参数写在data中，get请求参数写在params中</p>
+</li>
+</ol>
+<h3 id="2-5-代码块"><a href="#2-5-代码块" class="headerlink" title="2.5 代码块"></a>2.5 代码块</h3><blockquote>
+<p>components&#x2F;UseAxios.vue</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;div&gt;<br>    &lt;p&gt;1. 查询所有图书信息&lt;/p&gt;<br>    &lt;button @click=&quot;getAllFn&quot;&gt;点击-查看控制台&lt;/button&gt;<br>    &lt;p&gt;2. 查询图书信息&lt;/p&gt;<br>    &lt;input type=&quot;text&quot; placeholder=&quot;请输入要查询 的书名&quot; v-model=&quot;bName&quot; /&gt;<br>    &lt;button @click=&quot;findFn&quot;&gt;查询&lt;/button&gt;<br>    &lt;p&gt;3. 新增图书信息&lt;/p&gt;<br>    &lt;div&gt;<br>      &lt;input type=&quot;text&quot; placeholder=&quot;书名&quot; v-model=&quot;bookObj.bookname&quot; /&gt;<br>    &lt;/div&gt;<br>    &lt;div&gt;<br>      &lt;input type=&quot;text&quot; placeholder=&quot;作者&quot; v-model=&quot;bookObj.author&quot; /&gt;<br>    &lt;/div&gt;<br>    &lt;div&gt;<br>      &lt;input type=&quot;text&quot; placeholder=&quot;出版社&quot; v-model=&quot;bookObj.publisher&quot; /&gt;<br>    &lt;/div&gt;<br>    &lt;button @click=&quot;sendFn&quot;&gt;发布&lt;/button&gt;<br>  &lt;/div&gt;<br>&lt;/template&gt;<br>&lt;script&gt;<br>import axios from &quot;axios&quot;;<br>// 全局配置<br>axios.defaults.baseURL = &quot;http://123.57.109.30:3006&quot;;<br>export default &#123;<br>  data() &#123;<br>    return &#123;<br>      bName: &quot;&quot;,<br>      bookObj: &#123;<br>        // 参数名提前和后台的参数名对上-发送请求就不用再次修改<br>        bookname: &quot;&quot;,<br>        author: &quot;&quot;,<br>        publisher: &quot;&quot;,<br>      &#125;,<br>    &#125;;<br>  &#125;,<br>  methods: &#123;<br>    // 获取所有图书信息<br>    getAllFn() &#123;<br>      axios(&#123;<br>        method: &quot;GET&quot;, // 默认就是GET方式请求, 但不准省略<br>        url: &quot;/api/getbooks&quot;,<br>      &#125;)<br>        .then((res) =&gt; &#123;<br>          // axios()-原地得到Promise对象<br>          console.log(res);<br>        &#125;)<br>        .catch((err) =&gt; &#123;<br>          console.log(err);<br>        &#125;);<br>    &#125;,<br>    // 查询某本书籍信息<br>    findFn() &#123;<br>      axios(&#123;<br>        method: &quot;GET&quot;, // 默认就是GET方式请求, 但不准省略<br>        url: &quot;/api/getbooks&quot;,<br>        params: &#123;<br>          bookname: this.bName,<br>        &#125;,<br>      &#125;)<br>        .then((res) =&gt; &#123;<br>          // axios()-原地得到Promise对象<br>          console.log(res);<br>        &#125;)<br>        .catch((err) =&gt; &#123;<br>          console.log(err);<br>        &#125;);<br>    &#125;,<br>    // 新增图书信息<br>    sendFn() &#123;<br>      axios(&#123;<br>        url: &quot;/api/addbook&quot;,<br>        method: &quot;POST&quot;,<br>        data: &#123;<br>          appkey: &quot;7250d3eb-18e1-41bc-8bb2-11483665535a&quot;,<br>          ...this.bookObj,<br>          //等同于下面<br>          //    bookname: this.bookObj.bookname,<br>          //    author: this.bookObj.author,<br>          //    publisher: this.bookObj.publisher<br>        &#125;,<br>      &#125;).then((res) =&gt; &#123;<br>        alert(&quot;添加图书成功&quot;);<br>      &#125;);<br>    &#125;,<br>  &#125;,<br>&#125;;<br>&lt;/script&gt;<br>&lt;style scoped&gt;<br>&lt;/style&gt;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>App.vue</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;div id=&quot;app&quot;&gt;<br>    &lt;UseAxios&gt;&lt;/UseAxios&gt;<br>  &lt;/div&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>import UseAxios from &quot;./components/UseAxios&quot;;<br>export default &#123;<br>  name: &quot;App&quot;,<br>  components: &#123;<br>    // Life,<br>    // Ref,<br>    UseAxios,<br>  &#125;,<br>  data() &#123;<br>    return &#123;<br>      flag: true,<br>    &#125;;<br>  &#125;,<br>&#125;;<br>&lt;/script&gt;<br><br>&lt;style scoped&gt;<br>&lt;/style&gt;<br><br></code></pre></td></tr></table></figure>
+
+<p><img src="http://image.zhangyc.top/img/123.gif" srcset="/img/loading.gif" lazyload alt="123"></p>
+<h2 id="三-VUE实例的方法"><a href="#三-VUE实例的方法" class="headerlink" title="三. VUE实例的方法"></a>三. VUE实例的方法</h2>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Vue/" class="category-chain-item">Vue</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Vue/%E7%AC%AC%E4%BA%94%E5%A4%A9/" class="category-chain-item">第五天</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Vue 第五天</div>
+      <div>http://example.com/2022/09/21/Vue/vue05/Vue-第五天/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>John Doe</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年9月21日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/09/20/Vue/vue04/Vue-%E7%AC%AC%E5%9B%9B%E5%A4%A9/" title="Vue 第四天">
+                        <span class="hidden-mobile">Vue 第四天</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
