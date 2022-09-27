@@ -1,0 +1,1210 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="VUE第八天 本地接口项目部署 下载网易云音乐node接口项目, 在本地启动, 为我们vue项目提供数据支持（课件里有本地包，可以直接解压使用） 项目地址 备用地址 下载后, 安装所有依赖, 在本地启动起来, 测试访问此地址是否有数据 http:&#x2F;&#x2F;localhost:3000, 看到如下页面就成功了 - 等着明天上课启动即可   总结: 前端请求本地的node项目, node服务器伪装请求去拿网">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue 第八天">
+<meta property="og:url" content="http://example.com/2022/09/14/Vue/vue08/vue%E7%AC%AC%E5%85%AB%E5%A4%A9/index.html">
+<meta property="og:site_name" content="每日笔记">
+<meta property="og:description" content="VUE第八天 本地接口项目部署 下载网易云音乐node接口项目, 在本地启动, 为我们vue项目提供数据支持（课件里有本地包，可以直接解压使用） 项目地址 备用地址 下载后, 安装所有依赖, 在本地启动起来, 测试访问此地址是否有数据 http:&#x2F;&#x2F;localhost:3000, 看到如下页面就成功了 - 等着明天上课启动即可   总结: 前端请求本地的node项目, node服务器伪装请求去拿网">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20210328231901220.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20220613111642608.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20210426212251154.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20220613104731874.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20220613113420507.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20220613114144868.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20220613115047483.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20220613114717111.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20220613125223297.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20220613125459328.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20220613132918308.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20220613133308964.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20220613134918780.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20220613133933555.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20220613140319803.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20220613142004089.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20220613143854299.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20220613145957129.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20220613135859518.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20220613150709423.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20220613152101751.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20220613152607518.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20220613152109901.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20220613153621543.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20220613154551760.png">
+<meta property="article:published_time" content="2022-09-14T01:56:25.804Z">
+<meta property="article:modified_time" content="2022-09-27T10:34:59.468Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://image.zhangyc.top/img/image-20210328231901220.png">
+  
+  
+  
+  <title>Vue 第八天 - 每日笔记</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Vue 第八天"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-09-14 09:56" pubdate>
+          2022年9月14日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          26k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          218 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Vue 第八天</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="VUE第八天"><a href="#VUE第八天" class="headerlink" title="VUE第八天"></a>VUE第八天</h1><blockquote>
+<h4 id="本地接口项目部署"><a href="#本地接口项目部署" class="headerlink" title="本地接口项目部署"></a>本地接口项目部署</h4></blockquote>
+<p>下载网易云音乐node接口项目, 在本地启动, 为我们vue项目提供数据支持（课件里有本地包，可以直接解压使用）</p>
+<p><a target="_blank" rel="noopener" href="https://binaryify.github.io/NeteaseCloudMusicApi/#/?id=%e5%ae%89%e8%a3%85">项目地址</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/Binaryify/NeteaseCloudMusicApi/tree/master/docs">备用地址</a></p>
+<p>下载后, 安装所有依赖, 在本地启动起来, 测试访问此地址是否有数据</p>
+<p><a target="_blank" rel="noopener" href="http://localhost:3000/">http://localhost:3000</a>, 看到如下页面就成功了 - 等着明天上课启动即可</p>
+<p><img src="http://image.zhangyc.top/img/image-20210328231901220.png" srcset="/img/loading.gif" lazyload alt="image-20210328231901220"></p>
+<blockquote>
+<p>总结: 前端请求本地的node项目, node服务器伪装请求去拿网易云音乐服务器数据转发回给自己前端</p>
+</blockquote>
+<h1 id="案例-网易云音乐"><a href="#案例-网易云音乐" class="headerlink" title="案例-网易云音乐"></a>案例-网易云音乐</h1><h2 id="面试背点01"><a href="#面试背点01" class="headerlink" title="面试背点01"></a>面试背点01</h2><ol>
+<li><p>什么是跨域</p>
+<p><strong>同源策略：</strong>一个域下的js脚本未经运行情况下，不能访问另一个域下的内容。通常判断域的依赖是<strong>协议</strong>、<strong>域名</strong>、<strong>端口号</strong>是否相同，不同则跨域。同源策略是对js脚本的一种限制，并不是对浏览器的限制，像img, script脚本请求不会有跨域限制</p>
+<p><strong>解决跨域通讯的几种方式：</strong></p>
+<ol>
+<li><code>jsonp</code>(利用<code>script</code>标签没有跨域限制的漏洞实现。缺点：只支持<code>GET</code>请求)</li>
+<li><code>CORS</code>(设置<code>Access-Control-Allow-Origin</code>：指定可访问资源的域名)</li>
+<li><code>postMessage</code>(<code>message,targetOrigin,[transfer]</code>)(<code>HTML5</code>新增API用于多窗口消息、页面内嵌iframe消息传递)，通过<code>onmessage</code>监听传递过来的数据</li>
+<li><code>Websocket</code>是HTML5的一个持久化的协议，它实现了浏览器与服务器的全双工通信，同时也是跨域的一种解决方案</li>
+<li><code>Node</code>中间件代理</li>
+<li><code>Nginx</code>反向代理</li>
+<li>各种嵌套<code>iframe</code>的方式，不常用</li>
+<li>日常工作中用的最对的跨域方案是CORS和Nginx反向代理</li>
+</ol>
+</li>
+</ol>
+<h2 id="1-1-本地接口"><a href="#1-1-本地接口" class="headerlink" title="1.1 本地接口"></a>1.1 本地接口</h2><blockquote>
+<p>目的: 请求网易云音乐服务器API接口-获取数据</p>
+</blockquote>
+<p><img src="http://image.zhangyc.top/img/image-20220613111642608.png" srcset="/img/loading.gif" lazyload alt="image-20220613104731874"></p>
+<blockquote>
+<p>总结: 反向代理就是用本地开启cors的服务器去转发请求拿到数据</p>
+</blockquote>
+<h2 id="1-2本地接口启动"><a href="#1-2本地接口启动" class="headerlink" title="1.2本地接口启动"></a>1.2本地接口启动</h2><blockquote>
+<p>目的: 启动本地网易云音乐API服务</p>
+</blockquote>
+<p>在今天的笔记铺垫中, 大家自学下载了一个项目启动即可</p>
+<h2 id="1-3-前端项目初始化"><a href="#1-3-前端项目初始化" class="headerlink" title="1.3 前端项目初始化"></a>1.3 前端项目初始化</h2><blockquote>
+<p>目标: 初始化项目, 下载必备包, 引入初始文件, 配置按需自动引入vant, 创建页面组件</p>
+<p>若创建出现问题，可查阅<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_58946786/article/details/124595797">解决babel报错</a></p>
+</blockquote>
+<ol>
+<li><p>初始化工程</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">vue create music-demo<br></code></pre></td></tr></table></figure>
+
+<p><strong>建议使用以往初始化后的项目文件直接拷贝过来</strong></p>
+</li>
+<li><p>下载需要的所有第三方依赖包</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">yarn add axios vant@latest-v2 vue-router@3.5.1<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>引入笔记代码里准备好的reset.css和flexible.js - 实现样式初始化和适配问题 - 引入到main.js、</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs arduino"><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;./mobile/flexible.js&quot;</span> <span class="hljs-comment">// 适配</span><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;./styles/reset.css&quot;</span> <span class="hljs-comment">// 初始化样式</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="http://image.zhangyc.top/img/image-20210426212251154.png" srcset="/img/loading.gif" lazyload alt="image-20220613111642608"></p>
+</li>
+<li><p>本次vant使用<strong>自动按需引入</strong>的方式</p>
+<p>文档: <a target="_blank" rel="noopener" href="https://vant-contrib.gitee.io/vant/#/zh-CN/quickstart">https://vant-contrib.gitee.io/vant/#/zh-CN/quickstart</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm i babel-plugin-import  -D<br></code></pre></td></tr></table></figure>
+
+<p>在babel.config.js - 添加插件配置</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-attr">plugins</span>: [<br>    [<span class="hljs-string">&#x27;import&#x27;</span>, &#123;<br>        <span class="hljs-attr">libraryName</span>: <span class="hljs-string">&#x27;vant&#x27;</span>,<br>        <span class="hljs-attr">libraryDirectory</span>: <span class="hljs-string">&#x27;es&#x27;</span>,<br>        <span class="hljs-attr">style</span>: <span class="hljs-literal">true</span><br>    &#125;, <span class="hljs-string">&#x27;vant&#x27;</span>]<br>]<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="1-4-需求分析"><a href="#1-4-需求分析" class="headerlink" title="1.4 需求分析"></a>1.4 需求分析</h2><blockquote>
+<p>1.3 5:23</p>
+</blockquote>
+<p>根据需求, 创建路由所需要的5个页面的组件：</p>
+<ol>
+<li>Layout 布局页<ol>
+<li>顶部导航 Header</li>
+<li>内容（二级路由）<ol>
+<li>Home 首页</li>
+<li>Search 查询</li>
+</ol>
+</li>
+<li>底部导航 Hooter</li>
+</ol>
+</li>
+<li>Play 播放详情页</li>
+</ol>
+<p><strong>注意：</strong>该项目的顶部导航和底部导航不存在其他组件的复用，仅使用在Layout中，所以不做组件拆分</p>
+<p><img src="http://image.zhangyc.top/img/image-20220613104731874.png" srcset="/img/loading.gif" lazyload alt="image-20210426212251154"></p>
+<p>步骤：</p>
+<ol>
+<li><p>在views文件夹中创建4个组件</p>
+<p><img src="http://image.zhangyc.top/img/image-20220613113420507.png" srcset="/img/loading.gif" lazyload alt="image-20220613113420507"></p>
+</li>
+<li><p>为不同组件添加默认样式</p>
+<p>默认样式众多，以提前准备在空项目文件中，直接复制使用。</p>
+</li>
+</ol>
+<h2 id="1-5-路由准备"><a href="#1-5-路由准备" class="headerlink" title="1.5 路由准备"></a>1.5 路由准备</h2><blockquote>
+<p>目标: 准备路由配置, 显示不同路由页面</p>
+</blockquote>
+<p><img src="http://image.zhangyc.top/img/image-20220613114144868.png" srcset="/img/loading.gif" lazyload alt="image-20220613114717111"></p>
+<p>router&#x2F;index.js - 准备路由 - 以及默认显示Layout, 然后Layout默认显示二级路由的首页</p>
+<p><img src="http://image.zhangyc.top/img/image-20220613115047483.png" srcset="/img/loading.gif" lazyload alt="image-20220613114144868"></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><code class="hljs JS"><span class="hljs-comment">// 路由-相关模块</span><br><span class="hljs-keyword">import</span> <span class="hljs-title class_">Vue</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vue&#x27;</span><br><span class="hljs-keyword">import</span> <span class="hljs-title class_">VueRouter</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vue-router&#x27;</span><br><span class="hljs-keyword">import</span> <span class="hljs-title class_">Layout</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../views/Layout/layout.vue&#x27;</span><br><span class="hljs-keyword">import</span> <span class="hljs-title class_">Home</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../views/Home/home.vue&#x27;</span><br><span class="hljs-keyword">import</span> <span class="hljs-title class_">Search</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../views/Search/search.vue&#x27;</span><br><span class="hljs-keyword">import</span> <span class="hljs-title class_">Play</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../views/Play/play.vue&#x27;</span><br><br><span class="hljs-title class_">Vue</span>.<span class="hljs-title function_">use</span>(<span class="hljs-title class_">VueRouter</span>)<br><span class="hljs-keyword">const</span> routes = [<br>    &#123;<br>        <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/&#x27;</span>, <span class="hljs-comment">// 开启项目进入首页，也就是重定向至首页</span><br>        <span class="hljs-attr">redirect</span>: <span class="hljs-string">&#x27;/layout&#x27;</span><br>    &#125;,<br>    &#123;<br>        <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/layout&#x27;</span>,<br>        <span class="hljs-attr">component</span>: <span class="hljs-title class_">Layout</span>,<br>        <span class="hljs-attr">redirect</span>: <span class="hljs-string">&#x27;/layout/home&#x27;</span>, <span class="hljs-comment">// 马上定向到二级路由</span><br>        <span class="hljs-attr">children</span>: [<br>            &#123;<br>                <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;home&#x27;</span>,<br>                <span class="hljs-attr">component</span>: <span class="hljs-title class_">Home</span>,<br>                <span class="hljs-attr">meta</span>: &#123; <span class="hljs-comment">// meta保存路由对象额外信息的</span><br>                    <span class="hljs-attr">title</span>: <span class="hljs-string">&quot;首页&quot;</span><br>                &#125;<br>            &#125;,<br>            &#123;<br>                <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;search&#x27;</span>,<br>                <span class="hljs-attr">component</span>: <span class="hljs-title class_">Search</span>,<br>                <span class="hljs-attr">meta</span>: &#123;<br>                    <span class="hljs-attr">title</span>: <span class="hljs-string">&quot;搜索&quot;</span><br>                &#125;<br>            &#125;<br>        ]<br>    &#125;,<br>    &#123;<br>        <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;/play&#x27;</span>,<br>        <span class="hljs-attr">component</span>: <span class="hljs-title class_">Play</span><br>    &#125;<br>]<br><br><span class="hljs-keyword">const</span> router = <span class="hljs-keyword">new</span> <span class="hljs-title class_">VueRouter</span>(&#123;<br>    routes<br>&#125;)<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> router<br></code></pre></td></tr></table></figure>
+
+<p>步骤：</p>
+<ol>
+<li><p>main.js - 引入路由对象, 注册到new Vue中</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> router <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./router/index.js&#x27;</span><br><br><span class="hljs-keyword">new</span> <span class="hljs-title class_">Vue</span>(&#123;<br>  <span class="hljs-attr">render</span>: <span class="hljs-function"><span class="hljs-params">h</span> =&gt;</span> <span class="hljs-title function_">h</span>(<span class="hljs-title class_">App</span>),<br>  router<br>&#125;).$mount(<span class="hljs-string">&#x27;#app&#x27;</span>)<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>App.vue中留好router-view显示路由页面</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;div&gt;<br>    &lt;router-view&gt;&lt;/router-view&gt;<br>  &lt;/div&gt;<br>&lt;/template&gt;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>Layout中设置二级路由router-view页面</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;div&gt;<br>    layout<br>    header<br>    &lt;router-view&gt;&lt;/router-view&gt;<br>    footer<br>  &lt;/div&gt;<br>&lt;/template&gt;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="1-6-底部导航-Tabbar组件"><a href="#1-6-底部导航-Tabbar组件" class="headerlink" title="1.6 底部导航 - Tabbar组件"></a>1.6 底部导航 - Tabbar组件</h2><blockquote>
+<p>目标: 点击底部导航, 切换路由页面显示</p>
+<p>文档: <a target="_blank" rel="noopener" href="https://vant-contrib.gitee.io/vant/#/zh-CN/tabbar">https://vant-contrib.gitee.io/vant/#/zh-CN/tabbar</a></p>
+</blockquote>
+<p><img src="http://image.zhangyc.top/img/image-20220613114717111.png" srcset="/img/loading.gif" lazyload alt="image-20220613115047483"></p>
+<p>步骤：</p>
+<ol>
+<li><p>注册Tabbar组件, 在main.js中</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">Tabbar</span>, <span class="hljs-title class_">TabbarItem</span>  &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vant&#x27;</span>;<br><span class="hljs-title class_">Vue</span>.<span class="hljs-title function_">use</span>(<span class="hljs-title class_">Tabbar</span>);<br><span class="hljs-title class_">Vue</span>.<span class="hljs-title function_">use</span>(<span class="hljs-title class_">TabbarItem</span>);<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>在Layout.vue中使用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;div&gt;<br>    &lt;!-- 二级路由-挂载点 --&gt;<br>    &lt;div class=&quot;main&quot;&gt;<br>      &lt;router-view&gt;&lt;/router-view&gt;<br>    &lt;/div&gt;<br>    &lt;van-tabbar v-model=&quot;active&quot;&gt;<br>      &lt;van-tabbar-item icon=&quot;home-o&quot;&gt;标签&lt;/van-tabbar-item&gt;<br>      &lt;van-tabbar-item icon=&quot;search&quot;&gt;标签&lt;/van-tabbar-item&gt;<br>    &lt;/van-tabbar&gt;<br>  &lt;/div&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>export default &#123;<br>  name: &#x27;layout-index&#x27;,<br>  data() &#123;<br>    return &#123;<br>      activeTitle: 0<br>    &#125;;<br>  &#125;,<br>&#125;<br>&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>通过tabbar的路由模式实现切换二级页面</p>
+<p><img src="http://image.zhangyc.top/img/image-20220613125223297.png" srcset="/img/loading.gif" lazyload alt="image-20220613125223297"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;div&gt;<br>    &lt;!-- 二级路由-挂载点 --&gt;<br>    &lt;div class=&quot;main&quot;&gt;<br>      &lt;router-view&gt;&lt;/router-view&gt;<br>    &lt;/div&gt;<br>    &lt;van-tabbar route&gt;<br>      &lt;van-tabbar-item replace to=&quot;/layout/home&quot; icon=&quot;home-o&quot;<br>        &gt;首页&lt;/van-tabbar-item&gt;<br>      &lt;van-tabbar-item replace to=&quot;/layout/search&quot; icon=&quot;search&quot;<br>        &gt;搜索&lt;/van-tabbar-item&gt;<br>    &lt;/van-tabbar&gt;<br>  &lt;/div&gt;<br>&lt;/template&gt;<br></code></pre></td></tr></table></figure>
+
+<p><strong>注：</strong>开启路由模式 route属性, 和to属性指向要切换的路由路径</p>
+</li>
+</ol>
+<h2 id="1-7-头部导航-NavBar组件"><a href="#1-7-头部导航-NavBar组件" class="headerlink" title="1.7 头部导航 - NavBar组件"></a>1.7 头部导航 - NavBar组件</h2><blockquote>
+<p>目标: 实现顶部标题展示</p>
+<p>文档: <a target="_blank" rel="noopener" href="https://vant-contrib.gitee.io/vant/#/zh-CN/nav-bar">https://vant-contrib.gitee.io/vant/#/zh-CN/nav-bar</a></p>
+</blockquote>
+<p><img src="http://image.zhangyc.top/img/image-20220613125459328.png" srcset="/img/loading.gif" lazyload alt="image-20220613125459328"></p>
+<ol>
+<li><p>main.js - 注册NavBar组件</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">NavBar</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vant&#x27;</span>;<br><br><br><span class="hljs-title class_">Vue</span>.<span class="hljs-title function_">use</span>(<span class="hljs-title class_">NavBar</span>);<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>复制文档里的, 然后删删只留标题</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;van-nav-bar :title=&quot;activeTitle&quot; fixed /&gt;<br><br>&lt;script&gt;<br>    export default &#123;<br>        activeTitle: &#x27;首页&#x27;<br>    &#125;<br>&lt;/script&gt;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="1-8-标题切换"><a href="#1-8-标题切换" class="headerlink" title="1.8 标题切换"></a>1.8 标题切换</h2><blockquote>
+<p>目标: 实现点击底部导航&#x2F;刷新非第一页面页面, 导航标题正确显示</p>
+</blockquote>
+<p>步骤：</p>
+<ol>
+<li><p>在router&#x2F;index.js - 给$route里需要导航标题的添加meta(元信息属性)</p>
+<figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs xl">&#123;<br>    <span class="hljs-built_in">path</span>: <span class="hljs-string">&#x27;home&#x27;</span>,<br>    component: Home,<br>    meta: &#123; <span class="hljs-comment">// meta保存路由对象额外信息的</span><br>        <span class="hljs-built_in">title</span>: <span class="hljs-string">&quot;首页&quot;</span><br>    &#125;<br>&#125;,<br>&#123;<br>    <span class="hljs-built_in">path</span>: <span class="hljs-string">&#x27;search&#x27;</span>,<br>    component: Search,<br>    meta: &#123;<br>        <span class="hljs-built_in">title</span>: <span class="hljs-string">&quot;搜索&quot;</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>Layout.vue中监听$route改变: 给导航active的值设置$route里的元信息的标题</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;<br>  <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;layout-index&#x27;</span>,<br>  <span class="hljs-title function_">data</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">return</span> &#123;<br>      <span class="hljs-attr">activeTitle</span>: <span class="hljs-variable language_">this</span>.<span class="hljs-property">$route</span>.<span class="hljs-property">meta</span>.<span class="hljs-property">title</span>, <span class="hljs-comment">// &quot;默认&quot;顶部导航要显示的标题 (默认获取当前路由对象里的meta中title值)</span><br>    &#125;;<br>  &#125;,<br>  <span class="hljs-comment">// 路由切换 - 侦听$route对象改变</span><br>  <span class="hljs-attr">watch</span>: &#123;<br>    $route() &#123;<br>      <span class="hljs-variable language_">this</span>.<span class="hljs-property">activeTitle</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-property">$route</span>.<span class="hljs-property">meta</span>.<span class="hljs-property">title</span>; <span class="hljs-comment">// 提取切换后路由信息对象里的title显示</span><br>    &#125;,<br>  &#125;,<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>总结: 点击底部导航和刷新当前网页, 都能保证导航标题的正确显示</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="1-9-网络请求封装"><a href="#1-9-网络请求封装" class="headerlink" title="1.9 网络请求封装"></a>1.9 网络请求封装</h2><blockquote>
+<p>目标: 不想把网络请求散落在各个逻辑页面里, 不然以后找起来改起来很麻烦</p>
+</blockquote>
+<ol>
+<li><p>封装utils&#x2F;request.js - 基于axios进行二次封装 - 设置基础地址（原来是放在main.js中的）</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 网络请求 - 二次封装</span><br><span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;axios&#x27;</span><br>axios.<span class="hljs-property">defaults</span>.<span class="hljs-property">baseURL</span> = <span class="hljs-string">&quot;http://localhost:3000&quot;</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> axios<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>封装src&#x2F;api&#x2F;Home.js</p>
+<p>统一封装网络请求方法</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 文件名-尽量和模块页面文件名统一(方便查找)</span><br><span class="hljs-keyword">import</span> request <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@/utils/request&#x27;</span><br><br><span class="hljs-comment">// 首页 - 推荐歌单</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title function_">recommendMusic</span> = params =&gt; <span class="hljs-title function_">request</span>(&#123;<br>    <span class="hljs-attr">url</span>: <span class="hljs-string">&#x27;/personalized&#x27;</span>,<br>    params<br>    <span class="hljs-comment">// 将来外面可能传入params的值 &#123;limit: 20&#125;</span><br>&#125;)<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>在src&#x2F;api&#x2F;index.js - 统一导出接口供外部使用</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// api文件夹下 各个请求模块js, 都统一来到index.js再向外导出</span><br><span class="hljs-keyword">import</span> &#123;recommendMusic&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./Home&#x27;</span><br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> recommendMusicAPI = recommendMusic <span class="hljs-comment">// 请求推荐歌单的方法导出</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>在main.js - <strong>测试</strong>使用一下.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> &#123; recommendMusicAPI &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./api/index&#x27;</span><br><span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">myFn</span>(<span class="hljs-params"></span>)&#123;<br>  <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> <span class="hljs-title function_">recommendMusicAPI</span>(&#123;<span class="hljs-attr">limit</span>: <span class="hljs-number">6</span>&#125;);<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(res);<br>&#125;<br><span class="hljs-title function_">myFn</span>();<br></code></pre></td></tr></table></figure>
+
+<p><img src="http://image.zhangyc.top/img/image-20220613132918308.png" srcset="/img/loading.gif" lazyload alt="image-20220613132918308"></p>
+</li>
+</ol>
+<blockquote>
+<p>思考，为什么不直接引用<code>src/api/Home.js</code>中的方法，而是要设置<code>index.js</code></p>
+</blockquote>
+<blockquote>
+<p>总结: 封装网络请求方法目的, 方便我们统一管理</p>
+</blockquote>
+<h2 id="1-10-首页-推荐歌单-home-vue"><a href="#1-10-首页-推荐歌单-home-vue" class="headerlink" title="1.10 首页-推荐歌单 - home.vue"></a>1.10 首页-推荐歌单 - home.vue</h2><blockquote>
+<p> 接口地址: &#x2F;personalized</p>
+</blockquote>
+<p><img src="http://image.zhangyc.top/img/image-20220613133308964.png" srcset="/img/loading.gif" lazyload alt="image-20220613133933555"></p>
+<p>步骤：</p>
+<ol>
+<li><p>布局采用van-row和van-col </p>
+<p>布局文档<a target="_blank" rel="noopener" href="https://vant-contrib.gitee.io/vant/#/zh-CN/col">https://vant-contrib.gitee.io/vant/#/zh-CN/col</a></p>
+<p><img src="http://image.zhangyc.top/img/image-20220613134918780.png" srcset="/img/loading.gif" lazyload alt="image-20220613133308964"></p>
+</li>
+<li><p>使用vant内置的图片组件来显示图片</p>
+</li>
+<li><p>在main.js注册使用的组件</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">Col</span>, <span class="hljs-title class_">Row</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vant&#x27;</span>;<br><br><span class="hljs-title class_">Vue</span>.<span class="hljs-title function_">use</span>(<span class="hljs-title class_">Col</span>);<br><span class="hljs-title class_">Vue</span>.<span class="hljs-title function_">use</span>(<span class="hljs-title class_">Row</span>);<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>设置基本栅格</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;div&gt;<br>    &lt;p class=&quot;title&quot;&gt;&lt;/p&gt;<br>    &lt;van-row gutter=&quot;6&quot;&gt;<br>      &lt;van-col span=&quot;8&quot;&gt;span: 8&lt;/van-col&gt;<br>      &lt;van-col span=&quot;8&quot;&gt;span: 8&lt;/van-col&gt;<br>      &lt;van-col span=&quot;8&quot;&gt;span: 8&lt;/van-col&gt;<br>    &lt;/van-row&gt;<br>  &lt;/div&gt;<br>&lt;/template&gt;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>引入图片组件 - VanImage </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">Image</span> <span class="hljs-keyword">as</span> <span class="hljs-title class_">VanImage</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vant&#x27;</span>;<br><span class="hljs-title class_">Vue</span>.<span class="hljs-title function_">use</span>(<span class="hljs-title class_">VanImage</span>);<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>制作栅格静态内容（上图片下名称）</p>
+<p><img src="http://image.zhangyc.top/img/image-20220613133933555.png" srcset="/img/loading.gif" lazyload alt="image-20220613134918780"></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;title&quot;</span>&gt;</span>推荐歌单<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br><br>    <span class="hljs-tag">&lt;<span class="hljs-name">van-row</span> <span class="hljs-attr">gutter</span>=<span class="hljs-string">&quot;6&quot;</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">van-col</span> <span class="hljs-attr">span</span>=<span class="hljs-string">&quot;8&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">van-image</span> <span class="hljs-attr">width</span>=<span class="hljs-string">&quot;100%&quot;</span> <span class="hljs-attr">height</span>=<span class="hljs-string">&quot;3rem&quot;</span> <span class="hljs-attr">fit</span>=<span class="hljs-string">&quot;cover&quot;</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg&quot;</span> /&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;song_name&quot;</span>&gt;</span>歌单名称<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>      <span class="hljs-tag">&lt;/<span class="hljs-name">van-col</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">van-col</span> <span class="hljs-attr">span</span>=<span class="hljs-string">&quot;8&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">van-image</span> <span class="hljs-attr">width</span>=<span class="hljs-string">&quot;100%&quot;</span> <span class="hljs-attr">height</span>=<span class="hljs-string">&quot;3rem&quot;</span> <span class="hljs-attr">fit</span>=<span class="hljs-string">&quot;cover&quot;</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg&quot;</span> /&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;song_name&quot;</span>&gt;</span>歌单名称<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>      <span class="hljs-tag">&lt;/<span class="hljs-name">van-col</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">van-col</span> <span class="hljs-attr">span</span>=<span class="hljs-string">&quot;8&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">van-image</span> <span class="hljs-attr">width</span>=<span class="hljs-string">&quot;100%&quot;</span> <span class="hljs-attr">height</span>=<span class="hljs-string">&quot;3rem&quot;</span> <span class="hljs-attr">fit</span>=<span class="hljs-string">&quot;cover&quot;</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg&quot;</span> /&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;song_name&quot;</span>&gt;</span>歌单名称<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>      <span class="hljs-tag">&lt;/<span class="hljs-name">van-col</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">van-row</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>在<code>api/home.js</code>下定义推荐歌单的接口方法，并且在<code>api/index.js</code>用引出</p>
+<p>home.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 首页 - 推荐歌单</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title function_">recommendMusic</span> = params =&gt; <span class="hljs-title function_">request</span>(&#123;<br>  <span class="hljs-attr">url</span>: <span class="hljs-string">&#x27;/personalized&#x27;</span>,<br>  <span class="hljs-attr">method</span>: <span class="hljs-string">&#x27;GET&#x27;</span>,<br>  params<br>  <span class="hljs-comment">// 将来外面可能传入params的值 &#123;limit: 20&#125;</span><br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>index.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> &#123;recommendMusic&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./Home&#x27;</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> recommendMusicAPI = recommendMusic <span class="hljs-comment">// 请求推荐歌单的方法导出</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>把数据请求回来, 用van-image和p标签展示推荐歌单和歌单名字</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;div&gt;<br>    &lt;p class=&quot;title&quot;&gt;推荐歌单&lt;/p&gt;<br><br>    &lt;van-row gutter=&quot;6&quot;&gt;<br>      &lt;van-col span=&quot;8&quot; v-for=&quot;obj in reList&quot; :key=&quot;obj.id&quot;&gt;<br>        &lt;van-image width=&quot;100%&quot; height=&quot;3rem&quot; fit=&quot;cover&quot; :src=&quot;obj.picUrl&quot; /&gt;<br>        &lt;p class=&quot;song_name&quot;&gt;&#123;&#123; obj.name &#125;&#125;&lt;/p&gt;<br>      &lt;/van-col&gt;<br>      &lt;!-- &lt;van-col span=&quot;8&quot;&gt;<br>        &lt;van-image width=&quot;100%&quot; height=&quot;3rem&quot; fit=&quot;cover&quot; src=&quot;https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg&quot; /&gt;<br>        &lt;p class=&quot;song_name&quot;&gt;歌单名称&lt;/p&gt;<br>      &lt;/van-col&gt; --&gt;<br>    &lt;/van-row&gt;<br>  &lt;/div&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>// 目标: 铺设推荐歌单<br>// 1. van-row和van-col来搭建外框布局<br>// 2. van-col里内容(van-image和p)<br>// 3. 调整间距和属性值<br>// 4. 调用封装的api/index.js-推荐歌单api方法<br>// 5. 拿到数据保存到data里变量-去上面循环标签<br>import &#123; recommendMusicAPI &#125; from &#x27;../../api/index&#x27;<br>export default &#123;<br>  name: &#x27;home-index&#x27;,<br>  data() &#123;<br>    return &#123;<br>      reList: [], // 推荐歌单数据<br>    &#125;<br>  &#125;,<br>  async created() &#123;<br>    const res = await recommendMusicAPI(&#123;<br>      limit: 6,<br>    &#125;);<br>    console.log(res);<br>    // 保存到data数据中<br>    this.reList = res.data.result;<br>  &#125;,<br>&#125;<br>&lt;/script&gt;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="1-11-首页-最新音乐-home-vue"><a href="#1-11-首页-最新音乐-home-vue" class="headerlink" title="1.11 首页 - 最新音乐 - home.vue"></a>1.11 首页 - 最新音乐 - home.vue</h2><blockquote>
+<p>目标: van-cell单元格使用</p>
+<p>请求地址: &#x2F;personalized&#x2F;newsong</p>
+</blockquote>
+<p><img src="http://image.zhangyc.top/img/image-20220613140319803.png" srcset="/img/loading.gif" lazyload alt="image-20220613135859518"></p>
+<ol>
+<li><p>引入van-cell使用 - 注册组件main.js中 (单行单元格)</p>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs clean"><span class="hljs-keyword">import</span> &#123;Cell&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vant&#x27;</span>;<br>Vue.use(Cell);<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>设置基本页面</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;div&gt;<br>    &lt;p class=&quot;title&quot;&gt;推荐歌单&lt;/p&gt;<br>    &lt;van-cell title=&quot;单元格&quot; value=&quot;内容&quot; label=&quot;描述信息&quot; /&gt;<br>  &lt;/div&gt;<br>&lt;/template&gt;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>自定义组件标签 - 插槽</p>
+<p><img src="http://image.zhangyc.top/img/image-20220613142004089.png" srcset="/img/loading.gif" lazyload alt="image-20220613140319803"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;van-cell title=&quot;单元格&quot; label=&quot;描述信息&quot;&gt;<br>  &lt;template #right-icon&gt;<br>    &lt;van-icon name=&quot;play-circle-o&quot; class=&quot;search-icon&quot; size=&quot;0.6rem&quot; /&gt;<br>  &lt;/template&gt;<br>&lt;/van-cell&gt;<br></code></pre></td></tr></table></figure>
+
+<p>注意：引入新组件要在main.js中注册</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">Icon</span>  &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vant&#x27;</span>;<br><span class="hljs-title class_">Vue</span>.<span class="hljs-title function_">use</span>(<span class="hljs-title class_">Icon</span>);<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>给cell单元格添加下边框</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.van-cell</span> &#123;<br>  <span class="hljs-attribute">border-bottom</span>: <span class="hljs-number">1px</span> solid lightgray;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>在<code>api/home.js</code>下定义推荐歌单的接口方法，并且在<code>api/index.js</code>用引出</p>
+<p>home.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 首页 - 推荐新音乐</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title function_">newMusic</span> = params =&gt; <span class="hljs-title function_">request</span>(&#123;<br>  <span class="hljs-attr">url</span>: <span class="hljs-string">&quot;/personalized/newsong&quot;</span>,<br>  <span class="hljs-attr">method</span>: <span class="hljs-string">&#x27;GET&#x27;</span>,<br>  params<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>index.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// api文件夹下 各个请求模块js, 都统一来到index.js再向外导出</span><br><span class="hljs-keyword">import</span> &#123;recommendMusic, newMusic&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./Home&#x27;</span><br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> newMusicAPI = newMusic <span class="hljs-comment">// 首页 - 最新音乐</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>把数据请求回来, 用van-cell在页面上遍历</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;div&gt;<br>    &lt;p class=&quot;title&quot;&gt;推荐歌单&lt;/p&gt;<br><br>    &lt;van-cell :title=&quot;obj.name&quot; :label=&quot;obj.song.artists[0].name&quot; v-for=&quot;obj in songList&quot; :key=&quot;obj.id&quot;&gt;<br>      &lt;template #right-icon&gt;<br>        &lt;van-icon name=&quot;play-circle-o&quot; class=&quot;search-icon&quot; size=&quot;0.6rem&quot; /&gt;<br>      &lt;/template&gt;<br>    &lt;/van-cell&gt;<br><br>  &lt;/div&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>// 目标: 铺设最新音乐<br>// 1. van-cell铺设一套标签结构<br>// 2. 自定义右侧插槽里小图标, 调整垂直居中<br>// 3. api/Home.js和api/index.js-封装导出获取最新音乐接口方法<br>// 4. 获取数据循环铺设页面即可<br>import &#123; recommendMusicAPI, newMusicAPI &#125; from &#x27;../../api/index&#x27;<br>export default &#123;<br>  name: &#x27;home-index&#x27;,<br>  data() &#123;<br>    return &#123;<br>      reList: [], // 推荐歌单数据<br>      songList: [], // 最新音乐数据<br>    &#125;<br>  &#125;,<br>  async created() &#123;<br>    const res2 = await newMusicAPI(&#123;<br>      limit: 20<br>    &#125;)<br>    console.log(res2);<br>    this.songList = res2.data.result<br>  &#125;,<br>&#125;<br>&lt;/script&gt;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="1-12-搜索-热搜关键字-search-vue"><a href="#1-12-搜索-热搜关键字-search-vue" class="headerlink" title="1.12 搜索-热搜关键字 - search.vue"></a>1.12 搜索-热搜关键字 - search.vue</h2><blockquote>
+<p>目标: 完成热搜关键字铺设 使用 搜索框组件 – van-search</p>
+</blockquote>
+<ol>
+<li><p>api&#x2F;Search.js – 热搜关键字 - 请求接口</p>
+<blockquote>
+<p>请求地址: &#x2F;personalized&#x2F;newsong</p>
+</blockquote>
+</li>
+<li><p>Search&#x2F;search.vue引入-获取热搜关键字 - 铺设页面</p>
+</li>
+<li><p>点击文字填充到输入框中</p>
+</li>
+</ol>
+<p><img src="http://image.zhangyc.top/img/image-20220613143854299.png" srcset="/img/loading.gif" lazyload alt="image-20220613142004089"></p>
+<p>步骤：</p>
+<ol>
+<li><p>引入van-search使用 - 注册组件main.js中 (单行单元格)</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">import</span> &#123;<span class="hljs-keyword">Search</span>&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vant&#x27;</span>;<br>Vue.use(<span class="hljs-keyword">Search</span>)<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>设置基本页面</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;div&gt;<br>    &lt;van-search<br>      shape=&quot;round&quot;<br>      placeholder=&quot;请输入搜索关键词&quot;<br>    /&gt;<br>    &lt;!-- 搜索下容器 --&gt;<br>    &lt;div class=&quot;search_wrap&quot;&gt;<br>      &lt;!-- 标题 --&gt;<br>      &lt;p class=&quot;hot_title&quot;&gt;热门搜索&lt;/p&gt;<br>      &lt;!-- 热搜关键词容器 --&gt;<br>      &lt;div class=&quot;hot_name_wrap&quot;&gt;<br>        &lt;!-- 每个搜索关键词 --&gt;<br>        &lt;span<br>          class=&quot;hot_item&quot;<br>          &gt;热搜关键字&lt;/span<br>        &gt;<br>      &lt;/div&gt;<br>    &lt;/div&gt;<br>  &lt;/div&gt;<br>&lt;/template&gt;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>在<code>api/Search.js</code>下定义热门搜索接口方法和搜索结果方法，并且在<code>api/index.js</code>用引出</p>
+<p>api&#x2F;Search.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 搜索模块</span><br><span class="hljs-keyword">import</span> request <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../utils/request.js&#x27;</span><br><br><span class="hljs-comment">// 热搜关键字</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title function_">hotSearch</span> = params =&gt; <span class="hljs-title function_">request</span>(&#123;<br>  <span class="hljs-attr">url</span>: <span class="hljs-string">&#x27;/search/hot&#x27;</span>,<br>  <span class="hljs-attr">method</span>: <span class="hljs-string">&#x27;GET&#x27;</span>,<br>  params<br>&#125;)<br><br><span class="hljs-comment">// 搜索结果</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title function_">searchResultList</span> = params =&gt; <span class="hljs-title function_">request</span>(&#123;<br>  <span class="hljs-attr">url</span>: <span class="hljs-string">&#x27;/cloudsearch&#x27;</span>,<br>  <span class="hljs-attr">method</span>: <span class="hljs-string">&#x27;GET&#x27;</span>,<br>  params<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>api&#x2F;index.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> &#123; hotSearch, searchResultList &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./Search&#x27;</span><br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> hotSearchAPI = hotSearch <span class="hljs-comment">// 搜索 - 热搜关键词</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> searchResultListAPI = searchResultList <span class="hljs-comment">// 搜索 = 搜索结果</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>created中请求接口-拿到热搜关键词列表</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;div&gt;<br>    &lt;van-search<br>      shape=&quot;round&quot;<br>      placeholder=&quot;请输入搜索关键词&quot;<br>    /&gt;<br>    &lt;!-- 搜索下容器 --&gt;<br>    &lt;div class=&quot;search_wrap&quot;&gt;<br>      &lt;!-- 标题 --&gt;<br>      &lt;p class=&quot;hot_title&quot;&gt;热门搜索&lt;/p&gt;<br>      &lt;!-- 热搜关键词容器 --&gt;<br>      &lt;div class=&quot;hot_name_wrap&quot;&gt;<br>        &lt;!-- 每个搜索关键词 --&gt;<br>        &lt;span class=&quot;hot_item&quot; v-for=&quot;(obj, i) in hotArr&quot; :key=&quot;i&quot;&gt;<br>          &#123;&#123;obj.first&#125;&#125;<br>          &lt;/span&gt;<br>      &lt;/div&gt;<br>    &lt;/div&gt;<br>  &lt;/div&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>// 目标: 铺设热搜关键字<br>// 1. 搜索框van-search组件, 关键词标签和样式<br>// 2. 找接口, api/Search.js里定义获取搜索关键词的请求方法<br>// 3. 引入到当前页面, 调用接口拿到数据循环铺设页面<br>// 4. 点击关键词把值赋予给van-search的v-model变量<br>import &#123; hotSearchAPI &#125; from &#x27;../../api/index&#x27;<br><br>export default &#123;<br>  name: &#x27;search-index&#x27;,<br>          data()&#123;<br>            return &#123;<br>                hotArr: [], // 热搜关键字<br>            &#125;<br>        &#125;,<br>        async created() &#123;<br>            const res = await hotSearchAPI();<br>            console.log(res);<br>            this.hotArr = res.data.result.hots;<br>        &#125;,<br>&#125;<br>&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>点击热词填充到输入框</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;van-search shape=&quot;round&quot; placeholder=&quot;请输入搜索关键词&quot; v-model=&quot;value&quot;/&gt;<br><br>&lt;script&gt;<br>import &#123; hotSearchAPI &#125; from &#x27;../../api/index&#x27;<br><br>export default &#123;<br>  name: &#x27;search-index&#x27;,<br>  data() &#123;<br>    return &#123;<br>      value: &quot;&quot;, // 搜索关键词<br>      hotArr: [], // 热搜关键字<br>    &#125;<br>  &#125;,<br>  async created() &#123;<br>    const res = await hotSearchAPI();<br>    this.hotArr = res.data.result.hots;<br>  &#125;,<br>  methods: &#123;<br>    fn(val) &#123;<br>      this.value = val // 选中的关键词显示到搜索框<br>    &#125;<br>  &#125;,<br>&#125;<br>&lt;/script&gt;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<blockquote>
+<p>总结: 写好标签和样式, 拿到数据循环铺设, 点击关键词填入到van-search中</p>
+</blockquote>
+<h2 id="1-13-搜索-点击热词-搜索结果-search-vue"><a href="#1-13-搜索-点击热词-搜索结果-search-vue" class="headerlink" title="1.13 搜索-点击热词-搜索结果 - search.vue"></a>1.13 搜索-点击热词-搜索结果 - search.vue</h2><blockquote>
+<p>1.12 18:09</p>
+</blockquote>
+<blockquote>
+<p>目标: 点击热词填充到输入框-出搜索结果</p>
+</blockquote>
+<ol>
+<li><p>api&#x2F;Search.js - 搜索结果, 接口方法</p>
+</li>
+<li><p>Search&#x2F;index.vue引入-获取搜索结果 - 铺设页面</p>
+<p><img src="http://image.zhangyc.top/img/image-20220613145957129.png" srcset="/img/loading.gif" lazyload alt="image-20220613143854299"></p>
+</li>
+<li><p>和热搜关键字容器 – 互斥显示</p>
+</li>
+<li><p>点击文字填充到输入框, 请求搜索结果铺设</p>
+</li>
+</ol>
+<p><strong>步骤：</strong></p>
+<ol>
+<li><p>搜索结果显示区域标签+样式 （与最新歌单非常相似）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;!-- 搜索结果 --&gt;<br>&lt;div class=&quot;search_wrap&quot;&gt;<br>  &lt;!-- 标题 --&gt;<br>  &lt;p class=&quot;hot_title&quot;&gt;最佳匹配&lt;/p&gt;<br>  &lt;van-cell<br>    center<br>    title=&#x27;结果名字&#x27;<br>  &gt;<br>    &lt;template #right-icon&gt;<br>      &lt;van-icon name=&quot;play-circle-o&quot; size=&quot;0.6rem&quot;/&gt;<br>    &lt;/template&gt;<br>  &lt;/van-cell&gt;<br>&lt;/div&gt;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-comment">/* 给单元格设置底部边框 */</span><br><span class="hljs-selector-class">.van-cell</span> &#123;<br>  <span class="hljs-attribute">border-bottom</span>: <span class="hljs-number">1px</span> solid lightgray;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>创建获取搜索结果列表方法 - getListFn()</p>
+<blockquote>
+<p>注意：</p>
+<ol>
+<li>async修饰的函数 -&gt; 默认返回一个全新Promise对象</li>
+<li>这个Promise对象的结果就是async函数内return的值</li>
+<li>拿到getListFn的返回值用await提取结果</li>
+</ol>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;<br>  <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;search-index&#x27;</span>,<br>  <span class="hljs-title function_">data</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">return</span> &#123;<br>      <span class="hljs-attr">value</span>: <span class="hljs-string">&quot;&quot;</span>, <span class="hljs-comment">// 搜索关键词</span><br>      <span class="hljs-attr">hotArr</span>: [], <span class="hljs-comment">// 热搜关键字</span><br>      <span class="hljs-attr">resultList</span>: [], <span class="hljs-comment">// 搜索结果</span><br>    &#125;<br>  &#125;,<br>  <span class="hljs-keyword">async</span> <span class="hljs-title function_">created</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> <span class="hljs-title function_">hotSearchAPI</span>();<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(res);<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">hotArr</span> = res.<span class="hljs-property">data</span>.<span class="hljs-property">result</span>.<span class="hljs-property">hots</span>;<br>  &#125;,<br>  <span class="hljs-attr">methods</span>: &#123;<br>    <span class="hljs-keyword">async</span> <span class="hljs-title function_">fn</span>(<span class="hljs-params">val</span>) &#123;<br>      <span class="hljs-variable language_">this</span>.<span class="hljs-property">value</span> = val <span class="hljs-comment">// 选中的关键词显示到搜索框</span><br><br>      <span class="hljs-comment">// 选中后搜索数据</span><br>      <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">getListFn</span>()<br>      <span class="hljs-variable language_">this</span>.<span class="hljs-property">resultList</span> = res.<span class="hljs-property">data</span>.<span class="hljs-property">result</span>.<span class="hljs-property">songs</span><br>    &#125;,<br><br>    <span class="hljs-comment">// 获取搜索数据</span><br>    <span class="hljs-keyword">async</span> <span class="hljs-title function_">getListFn</span>(<span class="hljs-params"></span>) &#123;<br>      <span class="hljs-keyword">return</span> <span class="hljs-keyword">await</span> <span class="hljs-title function_">searchResultListAPI</span>(&#123;<br>        <span class="hljs-attr">keywords</span>: <span class="hljs-variable language_">this</span>.<span class="hljs-property">value</span>,<br>        <span class="hljs-attr">limit</span>: <span class="hljs-number">20</span>,<br>      &#125;); <span class="hljs-comment">// 把搜索结果return出去</span><br>      <span class="hljs-comment">// (难点):</span><br>      <span class="hljs-comment">// async修饰的函数 -&gt; 默认返回一个全新Promise对象</span><br>      <span class="hljs-comment">// 这个Promise对象的结果就是async函数内return的值</span><br>      <span class="hljs-comment">// 拿到getListFn的返回值用await提取结果</span><br>    &#125;,<br>  &#125;,<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>将数据铺设到页面上</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;!-- 搜索结果 --&gt;<br>&lt;div class=&quot;search_wrap&quot;&gt;<br>  &lt;!-- 标题 --&gt;<br>  &lt;p class=&quot;hot_title&quot;&gt;最佳匹配&lt;/p&gt;<br>  &lt;van-cell center :title=&quot;obj.name&quot; :label=&quot;obj.ar[0].name&quot; v-for=&quot;obj in resultList&quot; :key=&quot;obj.id&quot;&gt;<br>    &lt;template #right-icon&gt;<br>      &lt;van-icon name=&quot;play-circle-o&quot; size=&quot;0.6rem&quot; /&gt;<br>    &lt;/template&gt;<br>  &lt;/van-cell&gt;<br>&lt;/div&gt;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>互斥显示, 热搜关键词和搜索结果列表</p>
+<p>思考：通过什么条件来互斥 ？</p>
+<p>答： 通过搜索结果列表长度来判断</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;div&gt;<br>    &lt;van-search shape=&quot;round&quot; placeholder=&quot;请输入搜索关键词&quot; v-model=&quot;value&quot; /&gt;<br>    &lt;!-- 搜索下容器 --&gt;<br>    &lt;div class=&quot;search_wrap&quot; v-if=&quot;resultList.length === 0&quot;&gt;<br>      &lt;!-- 标题 --&gt;<br>      &lt;p class=&quot;hot_title&quot;&gt;热门搜索&lt;/p&gt;<br>      &lt;!-- 热搜关键词容器 --&gt;<br>      &lt;div class=&quot;hot_name_wrap&quot;&gt;<br>        &lt;!-- 每个搜索关键词 --&gt;<br>        &lt;span class=&quot;hot_item&quot; v-for=&quot;(obj, i) in hotArr&quot; :key=&quot;i&quot; @click=&quot;fn(obj.first)&quot;&gt;<br>          &#123;&#123; obj.first &#125;&#125;<br>        &lt;/span&gt;<br>      &lt;/div&gt;<br>    &lt;/div&gt;<br><br>    &lt;!-- 搜索结果 --&gt;<br>    &lt;div class=&quot;search_wrap&quot; v-else&gt;<br>      &lt;!-- 标题 --&gt;<br>      &lt;p class=&quot;hot_title&quot;&gt;最佳匹配&lt;/p&gt;<br>      &lt;van-cell center :title=&quot;obj.name&quot; :label=&quot;obj.ar[0].name&quot; v-for=&quot;obj in resultList&quot; :key=&quot;obj.id&quot;&gt;<br>        &lt;template #right-icon&gt;<br>          &lt;van-icon name=&quot;play-circle-o&quot; size=&quot;0.6rem&quot; /&gt;<br>        &lt;/template&gt;<br>      &lt;/van-cell&gt;<br>    &lt;/div&gt;<br>  &lt;/div&gt;<br>&lt;/template&gt;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="1-14-输入框-搜索结果-search-vue"><a href="#1-14-输入框-搜索结果-search-vue" class="headerlink" title="1.14 输入框-搜索结果 search.vue"></a>1.14 输入框-搜索结果 search.vue</h2><blockquote>
+<p>目标: 监测输入框改变-拿到搜索结果</p>
+</blockquote>
+<ol>
+<li><p>观察van-search组件是否支持和实现input事件</p>
+<p><img src="http://image.zhangyc.top/img/image-20220613135859518.png" srcset="/img/loading.gif" lazyload alt="image-20220613145957129"></p>
+</li>
+<li><p>绑定@input事件和方法</p>
+</li>
+<li><p>在事件处理方法中获取对应的值使用</p>
+</li>
+<li><p>如果搜索不存在的数据-要注意接口返回字段不同</p>
+</li>
+</ol>
+<p>步骤：</p>
+<ol>
+<li><p>绑定@input事件在van-search上</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;van-search shape=&quot;round&quot; placeholder=&quot;请输入搜索关键词&quot; v-model=&quot;value&quot; @input=&quot;inputFn&quot; /&gt;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-attr">methods</span>: &#123;<br>	<span class="hljs-comment">// 搜索框查询</span><br>    <span class="hljs-keyword">async</span> <span class="hljs-title function_">inputFn</span>(<span class="hljs-params"></span>) &#123;&#125;,<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>实现输入框改变 - 获取搜索结果铺设</p>
+<blockquote>
+<p>注意：</p>
+<ol>
+<li>@input给van-search绑定事件</li>
+<li>@input事件中, 获取搜索结果保存 resultList中</li>
+<li>判断如果搜索关键字为空(.length &#x3D;&#x3D;&#x3D; 0), 数组清空, 阻止网络请求执行(提前return)</li>
+</ol>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 搜索框查询</span><br><span class="hljs-keyword">async</span> <span class="hljs-title function_">inputFn</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-comment">// 输入框值改变</span><br>  <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">value</span>.<span class="hljs-property">length</span> === <span class="hljs-number">0</span>) &#123;<br>    <span class="hljs-comment">// 搜索关键词如果没有, 就把搜索结果清空阻止网络请求发送(提前return)</span><br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">resultList</span> = [];<br>    <span class="hljs-keyword">return</span>;<br>  &#125;<br>   <br>  <span class="hljs-comment">// 触发查询结果方法</span><br>  <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">getListFn</span>();<br>  <span class="hljs-comment">// 如果搜索结果响应数据没有songs字段-无数据</span><br>  <span class="hljs-keyword">if</span> (res.<span class="hljs-property">data</span>.<span class="hljs-property">code</span> === <span class="hljs-number">400</span> || res.<span class="hljs-property">data</span>.<span class="hljs-property">result</span>.<span class="hljs-property">songs</span> === <span class="hljs-literal">undefined</span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">resultList</span> = [];<br>    <span class="hljs-keyword">return</span>;<br>  &#125;<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">resultList</span> = res.<span class="hljs-property">data</span>.<span class="hljs-property">result</span>.<span class="hljs-property">songs</span>;<br>&#125;,<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="1-15-搜索结果-加载更多-search-js"><a href="#1-15-搜索结果-加载更多-search-js" class="headerlink" title="1.15 搜索结果-加载更多 - search.js"></a>1.15 搜索结果-加载更多 - search.js</h2><blockquote>
+<p>1.14 14.31</p>
+</blockquote>
+<blockquote>
+<p>目标: 触底后, 加载下一页数据</p>
+</blockquote>
+<ol>
+<li><p>van-list组件监测触底执行onload事件</p>
+<p><img src="http://image.zhangyc.top/img/image-20220613150709423.png" srcset="/img/loading.gif" lazyload alt="image-20220613150709423"></p>
+</li>
+<li><p>配合后台接口, 传递下一页的标识</p>
+</li>
+<li><p>拿到下一页数据后追加到当前数组末尾即可</p>
+</li>
+</ol>
+<p><strong>步骤：</strong></p>
+<ol>
+<li><p>注册List组件</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">List</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vant&#x27;</span>;<br><br><span class="hljs-title class_">Vue</span>.<span class="hljs-title function_">use</span>(<span class="hljs-title class_">List</span>);<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>设置van-list组件实现相应的属性和方法, 让page++去请求下页数据</p>
+<blockquote>
+<p>注意</p>
+<ol>
+<li><p>集成list组件-定义相关的变量(搞懂变量的作用) -监测触底事件</p>
+</li>
+<li><p>一旦触底, 自动执行onload方法</p>
+</li>
+<li><p>对page++, 给后台传递offset偏移量参数-请求下一页的数据</p>
+</li>
+<li><p>把当前数据和下一页新来的数据拼接起来用在当前 页面的数组里</p>
+</li>
+<li><p>(切记) - 加载更多数据后,一定要把loading改成false, 保证下一次还能触发onload方法</p>
+</li>
+</ol>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;div&gt;<br>    &lt;!-- 搜索结果 --&gt;<br>    &lt;div class=&quot;search_wrap&quot; v-else&gt;<br>      &lt;!-- 标题 --&gt;<br>      &lt;p class=&quot;hot_title&quot;&gt;最佳匹配&lt;/p&gt;<br><br>      &lt;van-list v-model=&quot;loading&quot; :finished=&quot;finished&quot; finished-text=&quot;没有更多了&quot; @load=&quot;onLoad&quot;&gt;<br>        &lt;van-cell center :title=&quot;obj.name&quot; :label=&quot;obj.ar[0].name&quot; v-for=&quot;obj in resultList&quot; :key=&quot;obj.id&quot;&gt;<br>          &lt;template #right-icon&gt;<br>            &lt;van-icon name=&quot;play-circle-o&quot; size=&quot;0.6rem&quot; /&gt;<br>          &lt;/template&gt;<br>        &lt;/van-cell&gt;<br>      &lt;/van-list&gt;<br>    &lt;/div&gt;<br>  &lt;/div&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>export default &#123;<br>  name: &#x27;search-index&#x27;,<br>  data() &#123;<br>    return &#123;<br>      value: &quot;&quot;, // 搜索关键词<br>      hotArr: [], // 热搜关键字<br>      resultList: [], // 搜索结果<br>      loading: false, // 加载中 (状态) - 只有为false, 才能触底后自动触发onload方法<br>      finished: false, // 未加载全部 (如果设置为true, 底部就不会再次执行onload, 代表全部加载完成)<br>      page: 1, // 当前搜索结果的页码<br>    &#125;<br>  &#125;,<br>  methods: &#123;<br>    // 获取搜索数据<br>    async getListFn() &#123;<br>      return await searchResultListAPI(&#123;<br>        keywords: this.value,<br>        limit: 20,<br>        offset: (this.page - 1) * 20, // 固定公式<br>      &#125;); // 把搜索结果return出去<br>      // (难点):<br>      // async修饰的函数 -&gt; 默认返回一个全新Promise对象<br>      // 这个Promise对象的结果就是async函数内return的值<br>      // 拿到getListFn的返回值用await提取结果<br>    &#125;,<br><br>    // 搜索框查询<br>    async inputFn() &#123;<br>      // 输入框值改变<br>      if (this.value.length === 0) &#123;<br>        // 搜索关键词如果没有, 就把搜索结果清空阻止网络请求发送(提前return)<br>        this.resultList = [];<br>        return;<br>      &#125;<br><br>      // 触发查询结果方法<br>      const res = await this.getListFn();<br>      // 如果搜索结果响应数据没有songs字段-无数据<br>      if (res.data.code === 400 || res.data.result.songs === undefined) &#123;<br>        this.resultList = [];<br>        return;<br>      &#125;<br>      this.resultList = res.data.result.songs;<br>    &#125;,<br><br>    async onLoad() &#123;<br>      // 触底事件(要加载下一页的数据咯), 内部会自动把loading改为true<br>      console.log(123)<br>      this.page++<br>      const res = await this.getListFn()<br>      console.log(res.data.result)<br>      this.resultList = [...this.resultList, ...res.data.result.songs]<br>      this.loading = false; // 数据加载完毕-保证下一次还能触发onload<br>    &#125;,<br>  &#125;,<br>&#125;<br>&lt;/script&gt;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<blockquote>
+<p>总结: list组件负责UI层监测触底, 执行onload函数, page++, 请求下页数据, 和现在数据合并显示更多, 设置loading为false, 确保下次触底还能执行onLoad</p>
+</blockquote>
+<p>问题： 当无法查到歌曲时，页面会报错</p>
+<p><img src="http://image.zhangyc.top/img/image-20220613152101751.png" srcset="/img/loading.gif" lazyload alt="image-20220613152101751"></p>
+<p><img src="http://image.zhangyc.top/img/image-20220613152607518.png" srcset="/img/loading.gif" lazyload alt="image-20220613152109901"></p>
+<h2 id="1-16-加载更多-bug修复-search-js"><a href="#1-16-加载更多-bug修复-search-js" class="headerlink" title="1.16 加载更多-bug修复 - search.js"></a>1.16 加载更多-bug修复 - search.js</h2><blockquote>
+<p>目标: 如果只有一页数据&#x2F;无数据判断</p>
+</blockquote>
+<p>无数据&#x2F;只有一页数据, finished为true</p>
+<p>防止list组件触底再加载更多</p>
+<p>还要测试-按钮点击&#x2F;输入框有数据情况的加载更多</p>
+<p>步骤：</p>
+<ol>
+<li><p>修复onLoad方法，如果全部加载完成<code>res.data.result.songs</code>没有更多数据显示，则告诉list完成全部的加载，不再触发onLoad方法</p>
+<p><img src="http://image.zhangyc.top/img/image-20220613152109901.png" srcset="/img/loading.gif" lazyload alt="image-20220613152607518"></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">async</span> <span class="hljs-title function_">onLoad</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-comment">// 触底事件(要加载下一页的数据咯), 内部会自动把loading改为true</span><br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">page</span>++;<br>  <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">getListFn</span>();<br>  <span class="hljs-keyword">if</span> (res.<span class="hljs-property">data</span>.<span class="hljs-property">code</span> === <span class="hljs-number">400</span> || res.<span class="hljs-property">data</span>.<span class="hljs-property">result</span>.<span class="hljs-property">songs</span> === <span class="hljs-literal">undefined</span>) &#123; <span class="hljs-comment">// 没有更多数据了</span><br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">finished</span> = <span class="hljs-literal">true</span>; <span class="hljs-comment">// 全部加载完成(list不会在触发onload方法)</span><br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">loading</span> = <span class="hljs-literal">false</span>; <span class="hljs-comment">// 本次加载完成</span><br>    <span class="hljs-keyword">return</span>;<br>  &#125;<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">resultList</span> = [...<span class="hljs-variable language_">this</span>.<span class="hljs-property">resultList</span>, ...res.<span class="hljs-property">data</span>.<span class="hljs-property">result</span>.<span class="hljs-property">songs</span>];<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">loading</span> = <span class="hljs-literal">false</span>; <span class="hljs-comment">// 数据加载完毕-保证下一次还能触发onload</span><br>&#125;,<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>发现点击关键字，和输入框查询时，只会加载一页了</p>
+</blockquote>
+</li>
+<li><p>修复点击关键字，和输入框查询时的列表状态</p>
+<p><code>fn()</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">async</span> <span class="hljs-title function_">fn</span>(<span class="hljs-params">val</span>) &#123;<br>  <span class="hljs-comment">// 点击热搜关键词</span><br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">page</span> = <span class="hljs-number">1</span>; <span class="hljs-comment">// 点击重新获取第一页数据</span><br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">finished</span> = <span class="hljs-literal">false</span>; <span class="hljs-comment">// 点击新关键词-可能有新的数据</span><br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">value</span> = val; <span class="hljs-comment">// 选中的关键词显示到搜索框</span><br>  <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">getListFn</span>();<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">resultList</span> = res.<span class="hljs-property">data</span>.<span class="hljs-property">result</span>.<span class="hljs-property">songs</span>;<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">loading</span> = <span class="hljs-literal">false</span>; <span class="hljs-comment">// 本次数据加载完毕-才能让list加载更多</span><br>&#125;,<br></code></pre></td></tr></table></figure>
+
+<p><code>input</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 搜索框查询</span><br><span class="hljs-keyword">async</span> <span class="hljs-title function_">inputFn</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">page</span> = <span class="hljs-number">1</span>; <span class="hljs-comment">// 点击重新获取第一页数据</span><br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">finished</span> = <span class="hljs-literal">false</span> <span class="hljs-comment">// 输入框关键字改变-可能有新数据(不一定加载完成了)</span><br>  <span class="hljs-comment">// 输入框值改变</span><br>  <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">value</span>.<span class="hljs-property">length</span> === <span class="hljs-number">0</span>) &#123;<br>    <span class="hljs-comment">// 搜索关键词如果没有, 就把搜索结果清空阻止网络请求发送(提前return)</span><br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">resultList</span> = [];<br>    <span class="hljs-keyword">return</span>;<br>  &#125;<br>  <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">getListFn</span>();<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(res);<br>  <span class="hljs-comment">// 如果搜索结果响应数据没有songs字段-无数据</span><br>  <span class="hljs-keyword">if</span> (res.<span class="hljs-property">data</span>.<span class="hljs-property">code</span> === <span class="hljs-number">400</span> || res.<span class="hljs-property">data</span>.<span class="hljs-property">result</span>.<span class="hljs-property">songs</span> === <span class="hljs-literal">undefined</span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">resultList</span> = [];<br>    <span class="hljs-keyword">return</span><br>  &#125;<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">resultList</span> = res.<span class="hljs-property">data</span>.<span class="hljs-property">result</span>.<span class="hljs-property">songs</span>;<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">loading</span> = <span class="hljs-literal">false</span>;<br>&#125;,<br></code></pre></td></tr></table></figure></li>
+</ol>
+<blockquote>
+<p>总结: </p>
+<ol>
+<li>在3个函数 上和下, 设置finished还未完成, 最后要把loading改成false, 判断songs字段, 对这里的值要非常熟悉才可以</li>
+<li>并且页码需要初始化</li>
+</ol>
+</blockquote>
+<h2 id="1-17-输入框-防抖-search-js"><a href="#1-17-输入框-防抖-search-js" class="headerlink" title="1.17 输入框-防抖 - search.js"></a>1.17 输入框-防抖 - search.js</h2><blockquote>
+<p>目标: 输入框触发频率过高， 通过防抖降低输入框触发的频率</p>
+</blockquote>
+<p>输入框输入”asdfghjkl”</p>
+<p>​	接着快速的删除</p>
+<p>​	每次改变-马上发送网络请求</p>
+<p>​	网络请求异步耗时 – 数据回来后还是铺设到页面上</p>
+<p><img src="http://image.zhangyc.top/img/image-20220613153621543.png" srcset="/img/loading.gif" lazyload alt="image-20220613153621543"></p>
+<p>解决:</p>
+<p>​	引入防抖功能</p>
+<p>步骤：</p>
+<ol>
+<li><p>在inputFn() 输入框查询方法加入防抖功能</p>
+<blockquote>
+<ol>
+<li>计时n秒, 最后执行一次, 如果再次触发, 重新计时</li>
+<li>用户在n秒内不触发这个事件了, 才会开始执行逻辑代码</li>
+</ol>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 搜索框查询</span><br><span class="hljs-keyword">async</span> <span class="hljs-title function_">inputFn</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-comment">// 目标: 输入框改变-逻辑代码-慢点执行</span><br>  <span class="hljs-comment">// 解决: 防抖</span><br>  <span class="hljs-comment">// 概念: 计时n秒, 最后执行一次, 如果再次触发, 重新计时</span><br>  <span class="hljs-comment">// 效果: 用户在n秒内不触发这个事件了, 才会开始执行逻辑代码</span><br>  <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">timer</span>) &#123; <span class="hljs-comment">// 每次都判断是否有延时任务，如果有则重置任务</span><br>    <span class="hljs-built_in">clearTimeout</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">timer</span>)<br>  &#125;<br>   <br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">this</span> = <span class="hljs-built_in">setTimeout</span>(<span class="hljs-keyword">async</span> () =&gt; &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">page</span> = <span class="hljs-number">1</span>; <span class="hljs-comment">// 点击重新获取第一页数据</span><br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">finished</span> = <span class="hljs-literal">false</span> <span class="hljs-comment">// 输入框关键字改变-可能有新数据(不一定加载完成了)</span><br>    <span class="hljs-comment">// 输入框值改变</span><br>    <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">value</span>.<span class="hljs-property">length</span> === <span class="hljs-number">0</span>) &#123;<br>      <span class="hljs-comment">// 搜索关键词如果没有, 就把搜索结果清空阻止网络请求发送(提前return)</span><br>      <span class="hljs-variable language_">this</span>.<span class="hljs-property">resultList</span> = [];<br>      <span class="hljs-keyword">return</span>;<br>    &#125;<br>    <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">getListFn</span>();<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(res);<br>    <span class="hljs-comment">// 如果搜索结果响应数据没有songs字段-无数据</span><br>    <span class="hljs-keyword">if</span> (res.<span class="hljs-property">data</span>.<span class="hljs-property">result</span>.<span class="hljs-property">songs</span> === <span class="hljs-literal">undefined</span>) &#123;<br>      <span class="hljs-variable language_">this</span>.<span class="hljs-property">resultList</span> = [];<br>      <span class="hljs-keyword">return</span><br>    &#125;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">resultList</span> = res.<span class="hljs-property">data</span>.<span class="hljs-property">result</span>.<span class="hljs-property">songs</span>;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">loading</span> = <span class="hljs-literal">false</span>;<br>  &#125;, <span class="hljs-number">1000</span>)<br>&#125;,<br></code></pre></td></tr></table></figure></li>
+</ol>
+<blockquote>
+<p>总结: 降低函数执行频率</p>
+</blockquote>
+<h2 id="1-18-SongItem封装-封装音乐单元格"><a href="#1-18-SongItem封装-封装音乐单元格" class="headerlink" title="1.18 SongItem封装 - 封装音乐单元格"></a>1.18 SongItem封装 - 封装音乐单元格</h2><blockquote>
+<p>目标: 把首页和搜索结果的歌曲cell封装起来</p>
+</blockquote>
+<p><img src="http://image.zhangyc.top/img/image-20220613154551760.png" srcset="/img/loading.gif" lazyload alt="image-20220613154551760"></p>
+<p>创建src&#x2F;components&#x2F;SongItem.vue</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;van-cell center :title=&quot;name&quot; :label=&quot;author&quot;&gt;<br>    &lt;template #right-icon&gt;<br>      &lt;van-icon name=&quot;play-circle-o&quot; size=&quot;0.6rem&quot;/&gt;<br>    &lt;/template&gt;<br>  &lt;/van-cell&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>export default &#123;<br>  props: &#123;<br>    name: String, // 歌名<br>    author: String, // 歌手<br>    id: Number, // 歌曲id (标记这首歌曲-为将来跳转播放页做准备)<br>  &#125;<br>&#125;;<br>&lt;/script&gt;<br><br>&lt;style scoped&gt;<br>/* 给单元格设置底部边框 */<br>.van-cell &#123;<br>  border-bottom: 1px solid lightgray;<br>&#125;<br>&lt;/style&gt;<br></code></pre></td></tr></table></figure>
+
+<p>Home&#x2F;index.vue - 重构</p>
+<p>&#x3D;&#x3D;注意: author字段不同&#x3D;&#x3D;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;SongItem v-for=&quot;obj in songList&quot;<br>    :key=&quot;obj.id&quot;<br>    :name=&quot;obj.name&quot;<br>    :author=&quot;obj.song.artists[0].name&quot;<br>    :id=&quot;obj.id&quot;<br>&gt;&lt;/SongItem&gt;<br></code></pre></td></tr></table></figure>
+
+<p>Search&#x2F;index.vue - 重构</p>
+<p>&#x3D;&#x3D;注意: author字段不同&#x3D;&#x3D;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;SongItem<br>          v-for=&quot;obj in resultList&quot;<br>          :key=&quot;obj.id&quot;<br>          :name=&quot;obj.name&quot;<br>          :author=&quot;obj.ar[0].name&quot;<br>          :id=&quot;obj.id&quot;<br>&gt;&lt;/SongItem&gt;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>总结: 遇到重复标签要封装</p>
+</blockquote>
+<h2 id="1-19-网易云音乐-播放音乐"><a href="#1-19-网易云音乐-播放音乐" class="headerlink" title="1.19 网易云音乐-播放音乐"></a>1.19 网易云音乐-播放音乐</h2><blockquote>
+<p>目标: 从预习资料拿到播放的api和页面, 配置好路由规则</p>
+</blockquote>
+<p>&#x3D;&#x3D;时间关系,这个页面不用写, 直接用, 注释在备课代码里写好了&#x3D;&#x3D;</p>
+<p>api&#x2F;Play.js – 提前准备好 – 接口方法</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> request <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../utils/request&#x27;</span><br><br><span class="hljs-comment">// 播放页 - 获取歌曲详情</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title function_">getSongById</span> = (<span class="hljs-params">id</span>) =&gt; <span class="hljs-title function_">request</span>(&#123;<br>  <span class="hljs-attr">url</span>: <span class="hljs-string">`/song/detail?ids=<span class="hljs-subst">$&#123;id&#125;</span>`</span>,<br>  <span class="hljs-attr">method</span>: <span class="hljs-string">&quot;GET&quot;</span><br>&#125;)<br><br><span class="hljs-comment">// 播放页 - 获取歌词</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title function_">getLyricById</span> = (<span class="hljs-params">id</span>) =&gt; <span class="hljs-title function_">request</span>(&#123;<br>  <span class="hljs-attr">url</span>: <span class="hljs-string">`/lyric?id=<span class="hljs-subst">$&#123;id&#125;</span>`</span>,<br>  <span class="hljs-attr">method</span>: <span class="hljs-string">&quot;GET&quot;</span><br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>api&#x2F;index.js – 中引入</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> &#123; getSongById, getLyricById &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./Play&#x27;</span><br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> getSongByIdAPI = getSongById <span class="hljs-comment">// 歌曲 - 播放地址</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> getLyricByIdAPI = getLyricById <span class="hljs-comment">// 歌曲 - 歌词数据</span><br></code></pre></td></tr></table></figure>
+
+<p>跳转到Play页面 – 把歌曲id带过进去</p>
+<p>在SongItem.vue - 点击播放字体图标</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;van-cell center :title=&quot;name&quot; :label=&quot;author&quot;&gt;<br>    &lt;template #right-icon&gt;<br>      &lt;van-icon name=&quot;play-circle-o&quot; size=&quot;0.6rem&quot; @click=&quot;playFn&quot;/&gt;<br>    &lt;/template&gt;<br>  &lt;/van-cell&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>export default &#123;<br>  props: &#123;<br>    name: String, // 歌名<br>    author: String, // 歌手<br>    id: Number, // 歌曲id (标记这首歌曲-为将来跳转播放页做准备)<br>  &#125;,<br>  methods: &#123;<br>    playFn()&#123;<br>      this.$router.push(&#123;<br>        path: &#x27;/play&#x27;,<br>        query: &#123;<br>          id: this.id // 歌曲id, 通过路由跳转传递过去<br>        &#125;<br>      &#125;)<br>    &#125;<br>  &#125;<br>&#125;;<br>&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+
+<h2 id="1-20-vant字体大小适配"><a href="#1-20-vant字体大小适配" class="headerlink" title="1.20 vant字体大小适配"></a>1.20 vant字体大小适配</h2><blockquote>
+<p>问题： 在切换一些不同的移动设备时， vant组件表现出来的字体打下差强人意</p>
+<p>原因： vant组件中用的px</p>
+</blockquote>
+<ul>
+<li>postcss – 配合webpack翻译css代码</li>
+<li>postcss-pxtorem – 配合webpack, 自动把px转成rem</li>
+<li>新建postcss.config.js – 设置相关配置</li>
+<li>重启服务器, 再次观察Vant组件是否适配</li>
+</ul>
+<ol>
+<li><p>下载postcss和&#x3D;&#x3D;<a href="mailto:&#x70;&#x6f;&#x73;&#x74;&#x63;&#x73;&#115;&#x2d;&#112;&#120;&#x74;&#x6f;&#114;&#x65;&#x6d;&#64;&#x35;&#46;&#x31;&#46;&#49;">&#x70;&#x6f;&#x73;&#x74;&#x63;&#x73;&#115;&#x2d;&#112;&#120;&#x74;&#x6f;&#114;&#x65;&#x6d;&#64;&#x35;&#46;&#x31;&#46;&#49;</a>&#x3D;&#x3D;</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm i postcss<br>npm i postcss-pxtorem@5.1.1<br></code></pre></td></tr></table></figure>
+
+<p>postcss作用: 是对css代码做降级处理</p>
+<p>postcss-pxtorem: 自动把所有代码里的css样式的px, 自动转rem</p>
+</li>
+<li><p>在package.json同级处创建postcss.config.js</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = &#123;<br>  <span class="hljs-attr">plugins</span>: &#123;<br>    <span class="hljs-string">&#x27;postcss-pxtorem&#x27;</span>: &#123;<br>      <span class="hljs-comment">// 能够把所有元素的px单位转成Rem</span><br>      <span class="hljs-comment">// rootValue: 转换px的基准值。</span><br>      <span class="hljs-comment">// 例如一个元素宽是75px，则换成rem之后就是2rem。</span><br>      <span class="hljs-attr">rootValue</span>: <span class="hljs-number">37.5</span>,<br>      <span class="hljs-attr">propList</span>: [<span class="hljs-string">&#x27;*&#x27;</span>]<br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>&#x3D;&#x3D;以iphone6为基准, 37.5px为基准值换算rem&#x3D;&#x3D;</p>
+</li>
+</ol>
+<blockquote>
+<p>小结：</p>
+<ol>
+<li>移动端如何适配?<ol>
+<li>把所有px转成rem</li>
+<li>利用flexible.js – 网页宽度改变 – 自动切换html的font-size</li>
+</ol>
+</li>
+<li>如何让px自动转rem?<ol>
+<li>让webpack配合postcss和postcss-pxtorem即可</li>
+</ol>
+</li>
+</ol>
+</blockquote>
+<h2 id="1-21-补充-api响应拦截器"><a href="#1-21-补充-api响应拦截器" class="headerlink" title="1.21 补充 - api响应拦截器"></a>1.21 补充 - api响应拦截器</h2><p>可以通过响应拦截器来对接口返回的结果做一次统一筛选，提取自己需要的部分放到数据页面中。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js">axios.<span class="hljs-property">interceptors</span>.<span class="hljs-property">response</span>.<span class="hljs-title function_">use</span>(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> &#123;<br>  <span class="hljs-keyword">return</span> res.<span class="hljs-property">data</span><br>&#125;)<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Vue/" class="category-chain-item">Vue</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Vue/%E7%AC%AC%E5%85%AB%E5%A4%A9/" class="category-chain-item">第八天</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Vue 第八天</div>
+      <div>http://example.com/2022/09/14/Vue/vue08/vue第八天/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>John Doe</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年9月14日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/09/16/hello-world/" title="Hello World">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Hello World</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/08/16/JavaScript%E9%AB%98%E7%BA%A7/JavaScript%20%E9%AB%98%E7%BA%A7%E7%AC%AC%E5%9B%9B%E5%A4%A9%20%E9%AB%98%E9%98%B6%E6%8A%80%E5%B7%A7/" title="JavaScript 进阶 第四天">
+                        <span class="hidden-mobile">JavaScript 进阶 第四天</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
