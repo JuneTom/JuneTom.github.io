@@ -1,0 +1,1099 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Vue 第六天一. 组件进阶1.1 动态组件 目标: 多个组件使用同一个挂载点，并动态切换，这就是动态组件  需求: 完成一个注册功能页面, 2个按钮切换, 一个填写注册信息, 一个填写用户简介信息 效果如下:  1.2  组件缓存 目标: 组件切换会导致组件被频繁销毁和重新创建, 性能不高  使用Vue内置的keep-alive组件, 可以让包裹的组件保存在内存中不被销毁 1.3 keep-al">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue 第六天">
+<meta property="og:url" content="http://example.com/2022/09/19/Vue/vue06/Vue%20%E7%AC%AC%E5%85%AD%E5%A4%A9/index.html">
+<meta property="og:site_name" content="每日笔记">
+<meta property="og:description" content="Vue 第六天一. 组件进阶1.1 动态组件 目标: 多个组件使用同一个挂载点，并动态切换，这就是动态组件  需求: 完成一个注册功能页面, 2个按钮切换, 一个填写注册信息, 一个填写用户简介信息 效果如下:  1.2  组件缓存 目标: 组件切换会导致组件被频繁销毁和重新创建, 性能不高  使用Vue内置的keep-alive组件, 可以让包裹的组件保存在内存中不被销毁 1.3 keep-al">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://image.zhangyc.top/img/%E5%8A%A8%E6%80%81%E7%BB%84%E4%BB%B6.gif">
+<meta property="og:image" content="http://image.zhangyc.top/img/1ddad96d-f925-452b-8c40-85288fc2cbc4.gif">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20220610194401262.png">
+<meta property="og:image" content="file:///D:/Study/JS/T/vue%E5%9F%BA%E7%A1%80/vue06/vue06/images/21_tabbar%E6%A1%88%E4%BE%8B_%E6%89%80%E6%9C%89%E6%95%88%E6%9E%9C.gif?lastModify=1664014631">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20220924191625198.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20220924191640554.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20220924191713497.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20220924191743657.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/tabbar_%E5%88%87%E6%8D%A2%E7%BB%84%E4%BB%B6.gif">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20220924191829566.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20220924191847008.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20220924191903090.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/tabbar_%E5%88%A0%E9%99%A4%E5%8A%9F%E8%83%BD.gif">
+<meta property="og:image" content="http://image.zhangyc.top/img/tabbar_tab%E5%8A%9F%E8%83%BD.gif">
+<meta property="article:published_time" content="2022-09-18T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-10-09T10:42:03.083Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://image.zhangyc.top/img/%E5%8A%A8%E6%80%81%E7%BB%84%E4%BB%B6.gif">
+  
+  
+  
+  <title>Vue 第六天 - 每日笔记</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Vue 第六天"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-09-19 00:00" pubdate>
+          2022年9月19日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          43k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          358 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Vue 第六天</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="Vue-第六天"><a href="#Vue-第六天" class="headerlink" title="Vue 第六天"></a>Vue 第六天</h1><h2 id="一-组件进阶"><a href="#一-组件进阶" class="headerlink" title="一. 组件进阶"></a>一. 组件进阶</h2><h3 id="1-1-动态组件"><a href="#1-1-动态组件" class="headerlink" title="1.1 动态组件"></a>1.1 动态组件</h3><blockquote>
+<p>目标: 多个组件使用同一个挂载点，并动态切换，这就是动态组件</p>
+</blockquote>
+<p>需求: 完成一个注册功能页面, 2个按钮切换, 一个填写注册信息, 一个填写用户简介信息</p>
+<p>效果如下:</p>
+<p><img src="http://image.zhangyc.top/img/%E5%8A%A8%E6%80%81%E7%BB%84%E4%BB%B6.gif" srcset="/img/loading.gif" lazyload alt="动态组件"></p>
+<h3 id="1-2-组件缓存"><a href="#1-2-组件缓存" class="headerlink" title="1.2  组件缓存"></a>1.2  组件缓存</h3><blockquote>
+<p>目标: 组件切换会导致组件被频繁销毁和重新创建, 性能不高</p>
+</blockquote>
+<p>使用Vue内置的keep-alive组件, 可以让包裹的组件保存在内存中不被销毁</p>
+<h3 id="1-3-keep-alive相关钩子函数"><a href="#1-3-keep-alive相关钩子函数" class="headerlink" title="1.3 keep-alive相关钩子函数"></a>1.3 keep-alive相关钩子函数</h3><blockquote>
+<p>目标: 被缓存的组件不再创建和销毁, 而是激活和非激活</p>
+</blockquote>
+<p><strong>补充生命周期:</strong></p>
+<ul>
+<li>activated - 激活</li>
+<li>deactivated - 失去激活状态</li>
+</ul>
+<blockquote>
+<p>总结: keep-alive可以提高组件的性能, 内部包裹的标签不会被销毁和重新创建, 触发激活和非激活的生命周期方法</p>
+</blockquote>
+<h3 id="1-4-代码块"><a href="#1-4-代码块" class="headerlink" title="1.4 代码块"></a>1.4 代码块</h3><blockquote>
+<p>views&#x2F;UseDynamic.vue</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;div&gt;<br>    &lt;button<br>      @click=&quot;<br>        flag = true;<br>        componentName = &#x27;UserInfo&#x27;;<br>      &quot;<br>    &gt;<br>      账号密码填写<br>    &lt;/button&gt;<br>    &lt;button<br>      @click=&quot;<br>        flag = false;<br>        componentName = &#x27;UserName&#x27;;<br>      &quot;<br>    &gt;<br>      个人信息填写<br>    &lt;/button&gt;<br><br>    &lt;!-- 动态组件的切换 --&gt;<br>    &lt;!-- 方案一、通过 v-if v-else 来实现状态的切换 --&gt;<br>    &lt;!-- 用户密码 --&gt;<br>    &lt;UserInfo v-if=&quot;flag&quot;&gt;&lt;/UserInfo&gt;<br>    &lt;!-- 人生格言 --&gt;<br>    &lt;UserName v-else&gt;&lt;/UserName&gt;<br><br>    &lt;!-- 方案二：通过动态组件标签&lt;component&gt;&lt;/component&gt;, <br>        该组件中有一个必填属性 is，<br>        该属性必须是动态属性 :is, <br>        与他绑定的变量的值为当前显示组件的组件名称（在components属性中所定义的组件名称） <br>        --&gt;<br>    &lt;!-- &lt;component :is=&quot;componentName&quot;&gt;&lt;/component&gt; --&gt;<br><br>    &lt;!-- <br>      组件的缓存：<br>      vue提供了一个&lt;keep-alive&gt;&lt;/keep-alive&gt;的标签，<br>      将动态组件&lt;component&gt;&lt;/component&gt;放在keep-alive缓存组件中时，在组件切换的过程中，将不会进行销毁<br>    --&gt;<br>    &lt;keep-alive&gt;<br>        &lt;component :is=&quot;componentName&quot;&gt;&lt;/component&gt;<br>    &lt;/keep-alive&gt;<br>    &lt;!-- <br>        关于缓存组件<br>        它拥有一个新的生命周期阶段 - 激活阶段<br>        以及两个新的钩子函数 activated - 激活时  deactivated - 失活（关闭组件时）<br><br>        作用：<br>        1. 在缓存组件中有些需要进入组件时就需要执行的代码从created和mounted中转换到activated里<br>        2. 在缓存组件中，如果有计时器定时器需要在页面关闭时主动关闭，需要将关闭的代码从beforeDestroy中转换到deactivated里<br><br>        created/mounted =&gt; activated<br>        beforeDestroy =&gt; deactivated<br>       --&gt;<br>  &lt;/div&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>// 目标: 动态组件 - 切换组件显示<br>// 场景: 同一个挂载点要切换 不同组件 显示<br>// 1. 创建要被切换的组件 - 标签+样式<br>// 2. 引入到要展示的vue文件内, 注册<br>// 3. 变量-承载要显示的组件名<br>// 4. 设置挂载点&lt;component :is=&quot;变量&quot;&gt;&lt;/component&gt;<br>// 5. 点击按钮-切换comName的值为要显示的组件名<br><br>import UserName from &quot;../components/UserName.vue&quot;;<br>import UserInfo from &quot;../components/UserInfo.vue&quot;;<br>export default &#123;<br>  data() &#123;<br>    return &#123;<br>      flag: true,<br>      componentName: &quot;UserInfo&quot;,<br>    &#125;;<br>  &#125;,<br>  components: &#123;<br>    UserName,<br>    UserInfo,<br>  &#125;,<br>&#125;;<br>&lt;/script&gt;<br><br>&lt;style&gt;<br>&lt;/style&gt;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>components&#x2F;UserInfo.vue</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;div&gt;<br>      &lt;div&gt;<br>          &lt;span&gt;人生格言:&lt;/span&gt;<br>          &lt;input type=&quot;text&quot;&gt;<br>      &lt;/div&gt;<br>      &lt;div&gt;<br>          &lt;span&gt;个人简介:&lt;/span&gt;<br>          &lt;textarea&gt;&lt;/textarea&gt;<br>      &lt;/div&gt;<br>  &lt;/div&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>export default &#123;<br>    created()&#123;<br>        console.log(&#x27;初始化后&#x27;)<br>    &#125;,<br>    mounted()&#123;<br>        console.log(&#x27;挂载后后&#x27;)<br>    &#125;,<br>    activated()&#123;<br>        console.log(&#x27;激活时&#x27;)<br>    &#125;,<br>        beforeDestory()&#123;<br>        console.log(&#x27;销毁前&#x27;)<br>    &#125;,<br>    deactivated()&#123;<br>        console.log(&#x27;失去活性&#x27;)<br>    &#125;,<br>&#125;<br>&lt;/script&gt;<br><br>&lt;style&gt;<br><br>&lt;/style&gt;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>components&#x2F;UserName.vue</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;div&gt;<br>      &lt;div&gt;<br>          &lt;span&gt;用户名:&lt;/span&gt;<br>          &lt;input type=&quot;text&quot;&gt;<br>      &lt;/div&gt;<br>      &lt;div&gt;<br>          &lt;span&gt;密码:&lt;/span&gt;<br>          &lt;input type=&quot;password&quot;&gt;<br>      &lt;/div&gt;<br>  &lt;/div&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>export default &#123;<br><br>&#125;<br>&lt;/script&gt;<br><br>&lt;style&gt;<br><br>&lt;/style&gt;<br></code></pre></td></tr></table></figure>
+
+<h3 id="1-5-组件插槽"><a href="#1-5-组件插槽" class="headerlink" title="1.5 组件插槽"></a>1.5 组件插槽</h3><blockquote>
+<p>问：给组件传递动态的参数时，可以使用props，那如果给组件传递动态的标签结构呢？</p>
+</blockquote>
+<h4 id="1-5-1-基本用法"><a href="#1-5-1-基本用法" class="headerlink" title="1.5.1 基本用法"></a>1.5.1 基本用法</h4><blockquote>
+<p>目标: 用于实现组件的内容分发, 通过 slot 标签, 可以接收到写在组件标签内的内容</p>
+</blockquote>
+<p>vue提供组件插槽能力, 允许开发者在封装组件时，把不确定的部分定义为插槽</p>
+<p><strong>插槽例子：</strong>以下时而是图片，时而是文字，单纯传参数好像比较难实现</p>
+<p><img src="http://image.zhangyc.top/img/1ddad96d-f925-452b-8c40-85288fc2cbc4.gif" srcset="/img/loading.gif" lazyload alt="1ddad96d-f925-452b-8c40-85288fc2cbc4"></p>
+<h4 id="1-5-2-插槽默认内容"><a href="#1-5-2-插槽默认内容" class="headerlink" title="1.5.2 插槽默认内容"></a>1.5.2 插槽默认内容</h4><blockquote>
+<p>目标: 如果外面不给传, 想给个默认显示内容</p>
+</blockquote>
+<p>口诀:  <code>&lt;slot&gt;</code>夹着内容默认显示内容, 如果不给插槽slot传东西, 则使用<code>&lt;slot&gt;</code>夹着的内容在原地显示</p>
+<h4 id="1-5-3-具名插槽"><a href="#1-5-3-具名插槽" class="headerlink" title="1.5.3 具名插槽"></a>1.5.3 具名插槽</h4><blockquote>
+<p>目标: 当一个组件内有2处以上需要外部传入标签的地方，传入的标签可以分别派发给不同的slot位置</p>
+</blockquote>
+<h4 id="1-5-4-作用域插槽-接收-prop-的具名插槽"><a href="#1-5-4-作用域插槽-接收-prop-的具名插槽" class="headerlink" title="1.5.4 作用域插槽 - 接收 prop 的具名插槽"></a>1.5.4 作用域插槽 - 接收 prop 的具名插槽</h4><blockquote>
+<p>目标: 子组件里值, 在给插槽赋值时在父组件环境下使用</p>
+</blockquote>
+<p><strong>口诀:</strong> </p>
+<ol>
+<li>子组件, 在slot上绑定属性和子组件内的值</li>
+<li>使用组件, 传入自定义标签, 用template和v-slot&#x3D;”自定义变量名” </li>
+<li>scope变量名自动绑定slot上所有属性和值</li>
+</ol>
+<h4 id="1-5-5-代码块"><a href="#1-5-5-代码块" class="headerlink" title="1.5.5 代码块"></a>1.5.5 代码块</h4><p>需求: 以前折叠面板案例, 想要实现不同<strong>内容显示</strong>, 我们把折叠面板里的Pannel组件, 添加组件插槽方式</p>
+<blockquote>
+<p>views&#x2F;UserSlot.vue</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;div&gt;<br>    &lt;!-- <br>      插槽的基本使用：<br>      1. 在子组件中，确定需要父组件插入内容的位置，设置&lt;slot&gt;&lt;/slot&gt;标签<br>        &lt;slot&gt;&lt;/slot&gt;的作用的占位<br>      2. 在父组件的子组件双标签插入希望设置的内容<br>      3. 插槽的默认值： &lt;slot&gt;&lt;/slot&gt;标签中，添加默认的结构即可，当父组件的子组件中没设置相应插槽内容时，自动展示默认内容<br>      <br>      思考： 如果子组件内有两个位置需要设置插槽时，父组件设置内容以后又怎样的效果<br>      解决方案参照特点4<br>      4. 具名插槽<br>        4.1 给子组件中不同位置的slot标签，通过它的实际作用的描述来起一个名字（name属性）<br>        4.2 在父组件中的子组件标签内，设置&lt;template&gt;标签, 并且在该标签上设置（v-slot:name）来进行一一对应<br>        例子： &lt;template v-slot:title&gt;&lt;/template&gt;<br>          简写 &lt;template #title&gt;&lt;/template&gt;<br>        4.3 注意事项： 如果父组件中子组件标签内的某些元素没有正确的设置对应插槽名称时，就不会在子组件插槽中生效<br><br>      思考： 如果说父组件中子组件标签内的具名插槽template里需要用到一些子组件的数据时，该怎么办？<br>      数据来源于哪里？ =&gt; 子组件<br>      5. 作用域插槽 - 让子组件中的某些变量可以提供给父组件使用<br>       5.1 在子组件的slot标签中，设置 自定义属性 （该自定义属性所设置的属性值就是子组件中的变量）<br>       5.2 在父组件的子组件标签中的template标签上，具名插槽的部分后面添加一下内容 #插槽名称=&quot;自定义变量名&quot;<br>          自定义变量名所包含的内容是一个对象， 这个对象里所承载的是 slot标签中，设置自定义属性 的键值对<br>       5.3 注意事项： 在父组件的子组件标签中的template标签上，声明的 自定义变量 只能作用在当前template标签中<br><br>      例子： &lt;slot name=&quot;content&quot; :dataObj=&quot;obj&quot; :dataArr=&quot;arr&quot;&gt;<br>            &lt;template #content=&quot;scope&quot;&gt;<br>            scope = &#123;<br>              dataObj: obj,<br>              dataArr: arr<br>            &#125;<br>     --&gt;<br>    &lt;Pannel&gt;<br>      &lt;p&gt;寒雨连江夜入吴,&lt;/p&gt;<br>      &lt;p&gt;平明送客楚山孤。&lt;/p&gt;<br>      &lt;p&gt;洛阳亲友如相问，&lt;/p&gt;<br>      &lt;p&gt;一片冰心在玉壶。&lt;/p&gt;<br>    &lt;/Pannel&gt;<br><br>    &lt;Pannel&gt;<br>      &lt;img src=&quot;../assets/a.jpg&quot; alt=&quot;&quot; /&gt;<br>      图片<br>    &lt;/Pannel&gt;<br><br>    &lt;!-- 默认插槽 --&gt;<br>    &lt;Pannel&gt;&lt;/Pannel&gt;<br><br>    &lt;!-- 具名插槽 --&gt;<br>    &lt;Pannel&gt;<br>      &lt;template v-slot:title&gt;<br>        芙蓉楼送辛渐<br>      &lt;/template&gt;<br><br>      &lt;template #content&gt;<br>        &lt;p&gt;寒雨连江夜入吴, &lt;/p&gt;<br>        &lt;p&gt;平明送客楚山孤。&lt;/p&gt;<br>        &lt;p&gt;洛阳亲友如相问，&lt;/p&gt;<br>        &lt;p&gt;一片冰心在玉壶。&lt;/p&gt;<br>      &lt;/template&gt;<br>    &lt;/Pannel&gt;<br><br>    &lt;!-- 作用域插槽 --&gt;<br>    &lt;Pannel&gt;<br>      &lt;template v-slot:title&gt;<br>        芙蓉楼送辛渐<br>      &lt;/template&gt;<br><br>      &lt;template #content=&quot;scope&quot;&gt;<br>        &lt;div&gt;dataObj: &#123;&#123; scope.dataObj &#125;&#125;&lt;/div&gt;<br>        &lt;div&gt;dataArr: &#123;&#123; scope.dataArr &#125;&#125;&lt;/div&gt;<br>      &lt;/template&gt;<br>    &lt;/Pannel&gt;<br>  &lt;/div&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>import Pannel from &#x27;../components/pannel.vue&#x27;<br>export default &#123;<br>  name: &#x27;UserSlot&#x27;,<br>  components: &#123;<br>    Pannel<br>  &#125;<br>&#125;<br>&lt;/script&gt;<br><br>&lt;style&gt;<br><br>&lt;/style&gt;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>components&#x2F;pannel.vue</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;div&gt;<br>    &lt;!-- 按钮标题 --&gt;<br>    &lt;div class=&quot;title&quot;&gt;<br>      &lt;h4&gt;<br>        &lt;slot name=&quot;title&quot;&gt;默认标题&lt;/slot&gt;<br>      &lt;/h4&gt;<br>      &lt;span class=&quot;btn&quot; @click=&quot;isShow = !isShow&quot;&gt;<br>        &#123;&#123; isShow ? &quot;收起&quot; : &quot;展开&quot; &#125;&#125;<br>      &lt;/span&gt;<br>    &lt;/div&gt;<br>    &lt;!-- 下拉内容 --&gt;<br>    &lt;div class=&quot;container&quot; v-show=&quot;isShow&quot;&gt;<br>      &lt;slot name=&quot;content&quot; :dataObj=&quot;obj&quot; :dataArr=&quot;arr&quot;&gt;<br>        默认插槽内容<br>        &lt;img src=&quot;../assets/mm.gif&quot; alt=&quot;&quot;&gt;<br>      &lt;/slot&gt;<br>    &lt;/div&gt;<br>  &lt;/div&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>export default &#123;<br>  name: &#x27;pannelIndex&#x27;,<br>  data() &#123;<br>    return &#123;<br>      isShow: false,<br>      obj: &#123;<br>        name1: &#x27;张三&#x27;,<br>        name2: &#x27;李四&#x27;<br>      &#125;,<br>      arr: [1, 2, 3]<br>    &#125;;<br>  &#125;,<br>&#125;;<br>&lt;/script&gt;<br><br>&lt;style scoped&gt;<br>h3 &#123;<br>  text-align: center;<br>&#125;<br><br>.title &#123;<br>  display: flex;<br>  justify-content: space-between;<br>  align-items: center;<br>  border: 1px solid #ccc;<br>  padding: 0 1em;<br>&#125;<br><br>.title h4 &#123;<br>  line-height: 2;<br>  margin: 0;<br>&#125;<br><br>.container &#123;<br>  border: 1px solid #ccc;<br>  padding: 0 1em;<br>&#125;<br><br>.btn &#123;<br>  /* 鼠标改成手的形状 */<br>  cursor: pointer;<br>&#125;<br><br>img &#123;<br>  width: 50%;<br>&#125;<br>&lt;/style&gt;<br></code></pre></td></tr></table></figure>
+
+<h4 id="1-5-6-作用域插槽使用场景-当需要使用组件内的变量时"><a href="#1-5-6-作用域插槽使用场景-当需要使用组件内的变量时" class="headerlink" title="1.5.6 作用域插槽使用场景 - 当需要使用组件内的变量时"></a>1.5.6 作用域插槽使用场景 - 当需要使用组件内的变量时</h4><blockquote>
+<p>目标: 了解作用域插槽使用场景, 自定义组件内标签+<strong>内容</strong></p>
+</blockquote>
+<p><strong>插槽使用规律:</strong></p>
+<ol>
+<li>先找v-slot后面有无name， 根据对应名称去找子组件的插槽位置</li>
+<li>再找插槽是否有变量，自定义命名再使用</li>
+<li>最后在template中编辑自定义标签，对应转换至子组件插槽位置</li>
+<li>子组件构建完成，展示页面</li>
+</ol>
+<p>案例: 封装一个表格组件, 在表格组件内循环产生单元格</p>
+<p><img src="http://image.zhangyc.top/img/image-20220610194401262.png" srcset="/img/loading.gif" lazyload alt="image-20220610194401262"></p>
+<h4 id="1-5-7-代码块"><a href="#1-5-7-代码块" class="headerlink" title="1.5.7 代码块"></a>1.5.7 代码块</h4><blockquote>
+<p>views&#x2F;UserTable.vue</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;div&gt;<br>    &lt;!-- 要求1： 头像部分是一个链接，能让用户进行点击跳转<br>         步骤：<br>         1. 在子组件中用slot标签进行占位<br>         2. 给当前slot标签起一个 描述实际作用的名称<br>         3. 将当前遍历行的obj作为属性设置在slot标签上 供父组件使用<br>         4. 父组件中通过具名插槽和作用域插槽的组合使用来设置插槽的内容<br>     --&gt;<br><br>     &lt;!-- 要求一、头像部分是一个链接，能让用户进行点击跳转 --&gt;<br>    &lt;MyTable :dataList=&quot;list&quot;&gt;<br>      &lt;template #tableTr=&quot;scope&quot;&gt;<br>          &lt;td&gt;&#123;&#123; scope.index + 1 &#125;&#125;&lt;/td&gt;<br>          &lt;td&gt;&#123;&#123; scope.obj.name &#125;&#125;&lt;/td&gt;<br>          &lt;td&gt;&#123;&#123; scope.obj.age &#125;&#125;&lt;/td&gt;<br>          &lt;td&gt;<br>            &lt;a :href=&quot;scope.obj.headImgUrl&quot;&gt;&#123;&#123; scope.obj.headImgUrl &#125;&#125;&lt;/a&gt;<br>          &lt;/td&gt;<br>      &lt;/template&gt;<br>    &lt;/MyTable&gt;<br><br>     &lt;!-- 要求二、头像部分设置为图片 --&gt;<br>    &lt;MyTable :dataList=&quot;list&quot;&gt;<br>      &lt;template #tableTr=&quot;scope&quot;&gt;<br>          &lt;td&gt;&#123;&#123; scope.index + 1 &#125;&#125;&lt;/td&gt;<br>          &lt;td&gt;&#123;&#123; scope.obj.name &#125;&#125;&lt;/td&gt;<br>          &lt;td&gt;&#123;&#123; scope.obj.age &#125;&#125;&lt;/td&gt;<br>          &lt;td&gt;<br>            &lt;img :src=&quot;scope.obj.headImgUrl&quot; alt=&quot;&quot; /&gt;<br>          &lt;/td&gt;<br>      &lt;/template&gt;<br>    &lt;/MyTable&gt;<br> <br><br>  &lt;/div&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>import MyTable from &quot;../components/MyTable&quot;;<br>export default &#123;<br>  components: &#123;<br>    MyTable,<br>  &#125;,<br>  data() &#123;<br>    return &#123;<br>      list: [<br>        &#123;<br>          name: &quot;小传同学&quot;,<br>          age: 18,<br>          headImgUrl:<br>            &quot;http://yun.itheima.com/Upload/./Images/20210303/603f2d2153241.jpg&quot;,<br>        &#125;,<br>        &#123;<br>          name: &quot;小黑同学&quot;,<br>          age: 25,<br>          headImgUrl:<br>            &quot;http://yun.itheima.com/Upload/./Images/20210304/6040b101a18ef.jpg&quot;,<br>        &#125;,<br>        &#123;<br>          name: &quot;智慧同学&quot;,<br>          age: 21,<br>          headImgUrl:<br>            &quot;http://yun.itheima.com/Upload/./Images/20210302/603e0142e535f.jpg&quot;,<br>        &#125;,<br>      ],<br>    &#125;;<br>  &#125;,<br>&#125;;<br>&lt;/script&gt;<br><br>&lt;style&gt;<br>&lt;/style&gt;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>components&#x2F;MyTable.vue</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>    &lt;div&gt;<br>        &lt;table border=&quot;1&quot;&gt;<br>            &lt;thead&gt;<br>                &lt;tr&gt;<br>                    &lt;th&gt;序号&lt;/th&gt;<br>                    &lt;th&gt;姓名&lt;/th&gt;<br>                    &lt;th&gt;年龄&lt;/th&gt;<br>                    &lt;th&gt;头像&lt;/th&gt;<br>                &lt;/tr&gt;<br>            &lt;/thead&gt;<br>            &lt;tbody&gt;<br>                &lt;tr v-for=&quot;(obj, index) in dataList&quot; :key=&quot;index&quot;&gt;<br>                    &lt;slot :obj=&quot;obj&quot; name=&quot;tableTr&quot; :index=&quot;index&quot;&gt;<br>                        &lt;td&gt;&#123;&#123; index + 1 &#125;&#125;&lt;/td&gt;<br>                        &lt;td&gt;&#123;&#123; obj.name &#125;&#125;&lt;/td&gt;<br>                        &lt;td&gt;&#123;&#123; obj.age &#125;&#125;&lt;/td&gt;                            <br>                        &lt;td&gt;<br>                            &lt;!-- 默认值给上,如果使用组件不自定义标签显示默认文字 --&gt;<br>                                &#123;&#123; obj.headImgUrl&#125;&#125;<br>                        &lt;/td&gt;<br>                    &lt;/slot&gt;<br>                &lt;/tr&gt;<br>            &lt;/tbody&gt;<br>        &lt;/table&gt;<br>    &lt;/div&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>export default &#123;<br>    props: &#123;<br>       dataList:&#123;<br>            type:Array,<br>            default: () =&gt; []<br>       &#125;<br>    &#125;<br>&#125;<br>&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+
+<h2 id="二-自定义指令"><a href="#二-自定义指令" class="headerlink" title="二. 自定义指令"></a>二. 自定义指令</h2><blockquote>
+<p>自定义指令的目的是为标签添加额外的功能</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://v3.cn.vuejs.org/guide/custom-directive.html#%E7%AE%80%E4%BB%8B">自定义指令文档</a></p>
+<p>除了核心功能默认内置的指令 (<code>v-model</code> 和 <code>v-show</code>)，Vue 也允许注册自定义指令。 <code>v-xxx</code>  </p>
+<p>html+css的复用的主要形式是组件</p>
+<p>你需要对普通 DOM 元素进行底层操作，这时候就会用到自定义指令</p>
+<h3 id="2-1-注册"><a href="#2-1-注册" class="headerlink" title="2.1 注册"></a>2.1 注册</h3><blockquote>
+<p>目标: 获取标签, 扩展额外的功能</p>
+</blockquote>
+<h3 id="2-1-1-全局注册"><a href="#2-1-1-全局注册" class="headerlink" title="2.1.1 全局注册"></a>2.1.1 全局注册</h3><p>在main.js用 Vue.directive()方法来进行注册, 以后随便哪个.vue文件里都可以直接用v-gfocus指令</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 全局指令 - 到处&quot;直接&quot;使用</span><br><span class="hljs-title class_">Vue</span>.<span class="hljs-title function_">directive</span>(<span class="hljs-string">&quot;gfocus&quot;</span>, &#123;<br>  <span class="hljs-title function_">inserted</span>(<span class="hljs-params">el</span>) &#123; <span class="hljs-comment">// 当绑定元素插入到父元素时调用</span><br>    el.<span class="hljs-title function_">focus</span>() <span class="hljs-comment">// 触发标签的事件方法</span><br>  &#125;,<br>  <span class="hljs-title function_">update</span>(<span class="hljs-params">el</span>) &#123; <span class="hljs-comment">// 值或模板更新时，触发此函数</span><br>  &#125;<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<h4 id="2-1-2-局部注册"><a href="#2-1-2-局部注册" class="headerlink" title="2.1.2 局部注册"></a>2.1.2 局部注册</h4><p>只能在当前组件.vue文件中使用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;script&gt;<br>// 目标: 创建 &quot;自定义指令&quot;, 让输入框自动聚焦<br>// 1. 创建自定义指令<br>// 全局 / 局部<br>// 2. 在标签上使用自定义指令  v-指令名<br>export default &#123;<br>    directives: &#123;<br>        focus: &#123;<br>            inserted(el)&#123; // 当绑定元素插入到父元素时调用<br>                el.focus()<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br>&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+
+<h4 id="2-1-3-实际使用"><a href="#2-1-3-实际使用" class="headerlink" title="2.1.3 实际使用"></a>2.1.3 实际使用</h4><blockquote>
+<p> 目标: 创建 “自定义指令”, 让输入框自动聚焦</p>
+</blockquote>
+<p>自定义指令的两个事件：</p>
+<ol>
+<li>inserted方法 - 指令所在标签, 被插入到网页上触发(一次)</li>
+<li>update方法 - 指令对应数据&#x2F;标签更新时, 此方法执行</li>
+</ol>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_58032613/article/details/122759818">场景使用demo</a></p>
+<p>07_UseDirective.vue</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;div&gt;<br>      &lt;!-- &lt;input type=&quot;text&quot; v-gfocus&gt; --&gt;<br>      &lt;input type=&quot;text&quot; v-focus&gt;<br>      <br>  &lt;/div&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>// 目标: 创建 &quot;自定义指令&quot;, 让输入框自动聚焦<br>// 1. 创建自定义指令<br>// 全局 / 局部<br>// 2. 在标签上使用自定义指令  v-指令名<br>// 注意:<br>// inserted方法 - 指令所在标签, 被插入到网页上触发(一次)<br>// update方法 - 指令对应数据/标签更新时, 此方法执行<br>export default &#123;<br>    data()&#123;<br>        return &#123;<br>            colorStr: &#x27;red&#x27;<br>        &#125;<br>    &#125;,<br>    directives: &#123;<br>        focus: &#123;<br>            inserted(el)&#123;<br>                el.focus()<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br>&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-2-自定义指令传参"><a href="#2-2-自定义指令传参" class="headerlink" title="2.2 自定义指令传参"></a>2.2 自定义指令传参</h3><blockquote>
+<p>目标: 使用自定义指令, 传入一个值</p>
+</blockquote>
+<p>语法：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 目标: 自定义指令传值</span><br><span class="hljs-title class_">Vue</span>.<span class="hljs-title function_">directive</span>(<span class="hljs-string">&#x27;自定义指令名&#x27;</span>, &#123;<br>  <span class="hljs-title function_">inserted</span>(<span class="hljs-params">el, binding</span>) &#123; <span class="hljs-comment">// 当绑定元素插入到父元素时调用</span><br>  &#125;,<br>  <span class="hljs-title function_">update</span>(<span class="hljs-params">el, binding</span>) &#123; <span class="hljs-comment">// 值或模板更新时，触发此函数</span><br>  &#125;<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>需求: 定义color指令-传入一个颜色, 给标签设置文字颜色</p>
+<p>main.js定义处修改一下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs vue">// 目标: 自定义指令传值<br>Vue.directive(&#x27;color&#x27;, &#123;<br>  inserted(el, binding) &#123;<br>    el.style.color = binding.value<br>  &#125;,<br>  update(el, binding) &#123;<br>    el.style.color = binding.value<br>  &#125;<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>UserDirect.vue处更改一下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;p v-color=&quot;colorStr&quot; @click=&quot;changeColor&quot;&gt;修改文字颜色&lt;/p&gt;<br><br>&lt;script&gt;<br>  data() &#123;<br>    return &#123;<br>      colorStr: &quot;red&quot;,<br>    &#125;;<br>  &#125;,<br>  methods: &#123;<br>    changeColor() &#123;<br>      this.colorStr = &#x27;blue&#x27;;<br>    &#125;,<br>  &#125;,<br>&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-3-代码块"><a href="#2-3-代码块" class="headerlink" title="2.3 代码块"></a>2.3 代码块</h3><blockquote>
+<p>views&#x2F;userDirective.vue</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;div&gt;<br>    &lt;!-- <br>      自定义指令<br>      1. 全局注册 - main.js<br>      Vue.filter(&#x27;自定义过滤器名称&#x27;, (value, 传入的参数) =&gt; &#123;&#125;)<br><br>      Vue.directive(&#x27;自定义指令名称（不带v-）&#x27;, &#123;<br>        inserted (element, binding) &#123; // 当绑定元素插入到父元素中时 - 当前绑定的标签渲染到页面时<br>          // element: 当前绑定的元素<br>          对该元素进行业务处理<br>        &#125;,<br><br>        update (element) &#123; // 当前标签发生更新时，会自定触发一下内容<br>        &#125;<br>      &#125;)<br><br>      2. 局部注册指令 - vue组件<br>      filters: &#123;<br>        &#x27;自定义过滤器名称&#x27; () &#123;&#125;<br>      &#125;<br><br>      directives: &#123;<br>        &#x27;自定义指令名称（不带v)&#x27;: &#123;<br>          inserted (element) &#123; // 当绑定元素插入到父元素中时 - 当前绑定的标签渲染到页面时<br>            // element: 当前绑定的元素<br>            对该元素进行业务处理<br>          &#125;,<br><br>          update (element) &#123; // 当前标签发生更新时，会自定触发一下内容<br>          &#125;<br>        &#125;<br>      &#125;<br>     --&gt;<br><br>     &lt;!-- 让这个input框在渲染页面时，就自定聚焦 --&gt;<br>     &lt;!-- 思考：我们的自定义指令和 如v-if内置指令差点什么？ --&gt;<br>     &lt;input type=&quot;text&quot; ref=&quot;input&quot; v-focus/&gt;<br><br>     &lt;p v-color=&quot;&#x27;#666666&#x27;&quot;&gt;改颜色&lt;/p&gt;<br>     &lt;p v-color=&quot;&#x27;red&#x27;&quot;&gt;改颜色&lt;/p&gt;<br>  &lt;/div&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>export default &#123;<br>  directives: &#123;<br>    &#x27;focus&#x27;: &#123;<br>      inserted (element) &#123;<br>        element.focus()<br>      &#125;<br>    &#125;,<br><br>    // 能够在标签加载时让标签中的文本自定义变色的指令<br>    &#x27;color&#x27;: &#123;<br>      inserted (element, binding) &#123;<br>        // binding得到的是自定义指令的整个对象， binding.value则是在标签中传递的值<br>        console.log(binding)<br>        element.style.color = binding.value<br>      &#125;<br>    &#125;<br>  &#125;,<br>  mounted () &#123;<br>    // this.$refs.input.focus()<br>  &#125;<br>&#125;<br>&lt;/script&gt;<br><br>&lt;style&gt;<br><br>&lt;/style&gt;<br></code></pre></td></tr></table></figure>
+
+<h2 id="三、-案例-tabbar"><a href="#三、-案例-tabbar" class="headerlink" title="三、 案例-tabbar"></a>三、 案例-tabbar</h2><p><img src="file://D:/Study/JS/T/vue%E5%9F%BA%E7%A1%80/vue06/vue06/images/21_tabbar%E6%A1%88%E4%BE%8B_%E6%89%80%E6%9C%89%E6%95%88%E6%9E%9C.gif?lastModify=1664014631" srcset="/img/loading.gif" lazyload alt="21_tabbar案例_所有效果"></p>
+<h3 id="3-1-初始化项目"><a href="#3-1-初始化项目" class="headerlink" title="3.1 初始化项目"></a>3.1 初始化项目</h3><blockquote>
+<p>创建项目，打造初始化项目结构</p>
+</blockquote>
+<p>组件分析:</p>
+<ul>
+<li><p>组件拆分:</p>
+<ul>
+<li>MyHeader.vue – 复用之前的</li>
+<li>MyTabBar.vue – 底部导航</li>
+<li>MyTable.vue – 封装表格</li>
+</ul>
+</li>
+<li><p>三个页面</p>
+<ul>
+<li>-MyGoodsList.vue – 商品页</li>
+<li>MyGoodsSearch.vue – 搜索页</li>
+<li>-MyUserInfo.vue – 用户信息页</li>
+</ul>
+</li>
+</ul>
+<p><img src="http://image.zhangyc.top/img/image-20220924191625198.png" srcset="/img/loading.gif" lazyload alt="image-20220924191625198"></p>
+<ol>
+<li><p>将基本结构构建完成</p>
+<p><img src="http://image.zhangyc.top/img/image-20220924191640554.png" srcset="/img/loading.gif" lazyload alt="image-20220611102858906"></p>
+</li>
+<li><p>复用昨日的MyHeader.vue，以及</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;div class=&quot;my-header&quot;<br>    :style=&quot;&#123;backgroundColor: background, color: fontColor&#125;&quot;<br>  &gt;&#123;&#123; title &#125;&#125;&lt;/div&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>// 目标: 让组件支持不同的项目情况<br>// 1. 需要关心哪些特性需要变化 (背景色, 文字颜色, 文字内容)<br>// 2. props等待使用者给我传具体的值<br>export default &#123;<br>  props: &#123;<br>    background: String, // 变量名: 类型校验 (因为外部使用者不知道应该传什么类型, 所以最好给一个检验规则)<br>    fontColor: &#123;<br>      type: String, // 修饰变量值的类型必须是字符串类型<br>      default: &quot;#fff&quot; // 当外部不给fontColor变量赋值, 使用默认值<br>    &#125;,<br>    title: &#123;<br>      type: String,<br>      required: true // 这个变量使用者必须传入值<br>    &#125;<br>  &#125;<br>&#125;<br>&lt;/script&gt;<br><br>&lt;style lang=&quot;less&quot; scoped&gt;<br>  .my-header &#123;<br>    height: 45px;<br>    line-height: 45px;<br>    text-align: center;<br>    background-color: #1d7bff;<br>    color: #fff;<br>    position: fixed;<br>    top: 0;<br>    left: 0;<br>    width: 100%;<br>    z-index: 2;<br>  &#125;<br>&lt;/style&gt;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>在main.js中引入bootStrap.css和字体图标样式</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;./assets/fonts/iconfont.css&quot;</span> <span class="hljs-comment">// 引入字体图标css文件</span><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;bootstrap/dist/css/bootstrap.css&quot;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>在App.vue中引入基本页面组件结构</p>
+<p><strong>注意：</strong>CSS部分一定要用<code>scoped</code>属性</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;div&gt;<br>    &lt;MyHeader :background=&quot;&#x27;blue&#x27;&quot; :fontColor=&quot;&#x27;white&#x27;&quot; title=&quot;TabBar案例&quot;&gt;&lt;/MyHeader&gt;<br>    &lt;div class=&quot;main&quot;&gt;<br>      内容<br>    &lt;/div&gt;<br>    &lt;MyTabBar&gt;&lt;/MyTabBar&gt;<br>  &lt;/div&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>import MyHeader from &quot;./components/MyHeader&quot;;<br>import MyTabBar from &#x27;./components/MyTabBar&#x27;<br>export default &#123;<br>  components: &#123;<br>    MyHeader,<br>    MyTabBar,<br>    // MyGoodsList,<br>    // MyGoodsSearch,<br>    // MyUserInfo<br>  &#125;,<br>&#125;<br>&lt;/script&gt;<br><br>&lt;style scoped&gt;<br>.main&#123;<br>  padding-top: 45px;<br>  padding-bottom: 51px;<br>&#125;<br>&lt;/style&gt;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="3-2-底部封装"><a href="#3-2-底部封装" class="headerlink" title="3.2 底部封装"></a>3.2 底部封装</h3><blockquote>
+<p>目标: 实现MyTabBar.vue组件</p>
+</blockquote>
+<p><img src="http://image.zhangyc.top/img/image-20220924191713497.png" srcset="/img/loading.gif" lazyload alt="image-20220924191713497"></p>
+<p>分析：</p>
+<pre><code class="hljs">①: 基本标签+样式(md里复制)
+
+②: 为tabbar组件指定数据源
+
+③: 数据源最少2个, 最多5个(validator)
+
+④: 从App.vue给MyTabBar.vue传入底部导航的数据
+
+⑤: MyTabBar.vue中循环展示
+</code></pre>
+<p><strong>步骤：</strong></p>
+<ol>
+<li><p>在App.vue中设置底部导航的列表信息，通过数据驱动导航栏</p>
+<p>App.vue</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>    &lt;MyTabBar :arr=&quot;tabList&quot;&gt;&lt;/MyTabBar&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>// 目标: 完成底部封装<br>// 1. MyTabBar.vue 组件标签+样式 准备<br>// 2. 字体图标引入<br>// 3. 准备底部数据<br>// 4. 使用MyTabBar组件, 传入数据(父-&gt;子), 循环产生底部导航<br>// 5. 子组件内props自定义检验规则(2-5项)<br>// 6. 子组件内循环产生底部导航<br>import MyTabBar from &#x27;./components/MyTabBar&#x27;<br>export default &#123;<br> data() &#123;<br>    return &#123;<br>      comName: &quot;MyGoodsList&quot;, // 默认显示的组件<br>      tabList: [ // 底部导航的数据<br>        &#123;<br>          iconText: &quot;icon-shangpinliebiao&quot;,<br>          text: &quot;商品列表&quot;,<br>          componentName: &quot;MyGoodsList&quot;,<br>        &#125;,<br>        &#123;<br>          iconText: &quot;icon-sousuo&quot;,<br>          text: &quot;商品搜索&quot;,<br>          componentName: &quot;MyGoodsSearch&quot;,<br>        &#125;,<br>        &#123;<br>          iconText: &quot;icon-user&quot;,<br>          text: &quot;我的信息&quot;,<br>          componentName: &quot;MyUserInfo&quot;,<br>        &#125;,<br>      ],<br>    &#125;;<br>  &#125;,<br>&#125;<br>&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>配置底部导航基础模板（复制）</p>
+<p>MyTabBar.vue</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;div class=&quot;my-tab-bar&quot;&gt;<br>  	&lt;div class=&quot;tab-item&quot;&gt;<br>      &lt;!-- 图标 --&gt;<br>      &lt;span class=&quot;iconfont&quot;&gt;&lt;/span&gt;<br>      &lt;!-- 文字 --&gt;<br>      &lt;span&gt;&lt;/span&gt;<br>    &lt;/div&gt;<br>  &lt;/div&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>export default &#123;<br>  <br>&#125;<br>&lt;/script&gt;<br><br>&lt;style lang=&quot;less&quot; scoped&gt;<br>.my-tab-bar &#123;<br>  position: fixed;<br>  left: 0;<br>  bottom: 0;<br>  width: 100%;<br>  height: 50px;<br>  border-top: 1px solid #ccc;<br>  display: flex;<br>  justify-content: space-around;<br>  align-items: center;<br>  background-color: white;<br>  .tab-item &#123;<br>    display: flex;<br>    flex-direction: column;<br>    align-items: center;<br>  &#125;<br>&#125;<br>    <br>.current &#123;<br>  color: #1d7bff;<br>&#125;<br>&lt;/style&gt;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>在MyTabBar.vue底部导航中获取列表数据，并设置参数规则（了解）</p>
+<p>MyTabBar.vue</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;script&gt;<br>export default &#123;<br>  props: &#123;<br>    arr: &#123;<br>      type: Array,<br>      default: () =&gt; [],<br>      // 自定义校验规则<br>      validator(value) &#123;<br>        // value就是接到数组<br>        if (value.length &gt;= 2 &amp;&amp; value.length &lt;= 5) &#123;<br>          return true; // 符合条件就return true<br>        &#125; else &#123;<br>          console.error(&quot;数据源必须在2-5项&quot;);<br>          return false;<br>        &#125;<br>      &#125;,<br>    &#125;<br>  &#125;<br>&#125;<br>&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>将数据遍历到页面标签中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;div class=&quot;my-tab-bar&quot;&gt;<br>    &lt;div<br>      class=&quot;tab-item&quot;<br>      v-for=&quot;(obj, index) in arr&quot;<br>      :key=&quot;index&quot;<br>    &gt;<br>      &lt;!-- 图标 --&gt;<br>      &lt;span class=&quot;iconfont&quot; :class=&quot;obj.iconText&quot;&gt;&lt;/span&gt;<br>      &lt;!-- 文字 --&gt;<br>      &lt;span&gt;&#123;&#123; obj.text &#125;&#125;&lt;/span&gt;<br>    &lt;/div&gt;<br>  &lt;/div&gt;<br>&lt;/template&gt;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="3-3-底部高亮"><a href="#3-3-底部高亮" class="headerlink" title="3.3 底部高亮"></a>3.3 底部高亮</h3><blockquote>
+<p>目标: 点击底部导航实现高亮效果</p>
+</blockquote>
+<ul>
+<li>需求: 点击底部实现高亮效果</li>
+</ul>
+<p>效果演示:</p>
+<p><img src="http://image.zhangyc.top/img/image-20220924191743657.png" srcset="/img/loading.gif" lazyload alt="image-20220924191743657"></p>
+<p>分析：</p>
+<pre><code class="hljs">①: 绑定点击事件, 获取点击的索引
+
+②: 循环的标签设置动态class, 遍历的索引, 和点击保存的索引比较, 相同则高亮
+</code></pre>
+<p><strong>步骤：</strong></p>
+<ol>
+<li><p>通过索引号设置默认高亮</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;div class=&quot;my-tab-bar&quot;&gt;<br>    &lt;div<br>      class=&quot;tab-item&quot; <br>      v-for=&quot;(obj, index) in arr&quot; <br>      :key=&quot;index&quot; <br>      :class=&quot;&#123;current: activeIndex === index&#125;&quot;<br>    &gt;<br>    &lt;/div&gt;<br>  &lt;/div&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>export default &#123;<br>  data() &#123;<br>    return &#123;<br>      activeIndex: 0 // 高亮元素下标<br>    &#125;<br>  &#125;,<br>&#125;<br>&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>通过点击事件切换高亮状态</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;div class=&quot;my-tab-bar&quot;&gt;<br>    &lt;div<br>      class=&quot;tab-item&quot; <br>      v-for=&quot;(obj, index) in arr&quot; <br>      :key=&quot;index&quot; <br>      @click=&quot;checkTab(index)&quot;<br>      :class=&quot;&#123;current: activeIndex === index&#125;&quot;<br>    &gt;<br>    &lt;/div&gt;<br>  &lt;/div&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>export default &#123;<br>  data() &#123;<br>    return &#123;<br>      activeIndex: 0 // 高亮元素下标<br>    &#125;<br>  &#125;,<br><br>  methods: &#123;<br>    checkTab(index) &#123;<br>      this.activeIndex = index; // 点谁, 就把谁的索引值保存起来<br>    &#125;,<br>  &#125;,<br>&#125;<br>&lt;/script&gt;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="3-4-内容组件切换"><a href="#3-4-内容组件切换" class="headerlink" title="3.4 内容组件切换"></a>3.4 内容组件切换</h3><blockquote>
+<p>目的: 点击底部导航, 切换页面组件显示</p>
+</blockquote>
+<p>需求: 点击底部切换组件</p>
+<p>效果演示:</p>
+<p><img src="http://image.zhangyc.top/img/tabbar_%E5%88%87%E6%8D%A2%E7%BB%84%E4%BB%B6.gif" srcset="/img/loading.gif" lazyload alt="image-20210511173144326"></p>
+<p>分析：</p>
+<p>①: 底部导航传出动态组件名字符串到App.vue</p>
+<p>②: 切换动态组件is属性的值为要显示的组件名</p>
+<p>补充: 给内容div.app - 设置上下内边距</p>
+<p><strong>步骤：</strong></p>
+<ol>
+<li><p>在 App.vue 中配置动态内容组件， 并配置切换方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;div&gt;<br>    &lt;MyHeader :background=&quot;&#x27;blue&#x27;&quot; :fontColor=&quot;&#x27;white&#x27;&quot; title=&quot;TabBar案例&quot;&gt;&lt;/MyHeader&gt;<br>    &lt;div class=&quot;main&quot;&gt;<br>	  &lt;component :is=&quot;comName&quot;&gt;&lt;/component&gt;<br>    &lt;/div&gt;<br>    &lt;MyTabBar :arr=&quot;tabList&quot; @changeCom=&quot;changeComFn&quot;&gt;&lt;/MyTabBar&gt;<br>  &lt;/div&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>// 目标: 切换组件显示<br>// 1. 创建组件 - 编写内容<br>// 2. 引入App.vue注册<br>// 3. 挂载点设置is<br>// 4. 切换comName的值(重要)<br>// 5. 底部导航点击- MyTabBar.vue里<br>// 子 -&gt; 父技术 (传要切换的组件名出来)<br>import MyGoodsList from &#x27;./views/MyGoodsList&#x27;<br>import MyGoodsSearch from &#x27;./views/MyGoodsSearch&#x27;<br>import MyUserInfo from &#x27;./views/MyUserInfo&#x27;<br>export default &#123;<br>  components: &#123;<br>    MyGoodsList,<br>    MyGoodsSearch,<br>    MyUserInfo<br>  &#125;,<br>  methods: &#123;<br>    changeComFn(cName) &#123;<br>      this.comName = cName; // MyTabBar里选出来的组件名赋予给is属性的comName<br>      // 导致组件的切换<br>    &#125;<br>  &#125;<br>&#125;<br>&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>MyTabBar.vue - 点击tab传递切换组件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;div class=&quot;my-tab-bar&quot;&gt;<br>    &lt;div<br>      class=&quot;tab-item&quot; <br>      v-for=&quot;(obj, index) in arr&quot; <br>      :key=&quot;index&quot; <br>      @click=&quot;checkTab(index, obj)&quot;<br>      :class=&quot;&#123;current: activeIndex === index&#125;&quot;<br>    &gt;<br>      &lt;!-- 图标 --&gt;<br>      &lt;span class=&quot;iconfont&quot; :class=&quot;obj.iconText&quot;&gt;&lt;/span&gt;<br>      &lt;!-- 文字 --&gt;<br>      &lt;span&gt;&#123;&#123; obj.text &#125;&#125;&lt;/span&gt;<br>    &lt;/div&gt;<br>  &lt;/div&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>export default &#123;<br>  props: &#123;<br>    arr: &#123;<br>      type: Array,<br>      default: () =&gt; [],<br>      // 自定义校验规则<br>      validator(value) &#123;<br>        // value就是接到数组<br>        if (value.length &gt;= 2 &amp;&amp; value.length &lt;= 5) &#123;<br>          return true; // 符合条件就return true<br>        &#125; else &#123;<br>          console.error(&quot;数据源必须在2-5项&quot;);<br>          return false;<br>        &#125;<br>      &#125;,<br>    &#125;<br>  &#125;,<br><br>  data() &#123;<br>    return &#123;<br>      activeIndex: 0 // 高亮元素下标<br>    &#125;<br>  &#125;,<br><br>  methods: &#123;<br>    checkTab(index, obj) &#123;<br>      this.activeIndex = index; // 点谁, 就把谁的索引值保存起来<br>      this.$emit(&quot;changeCom&quot;, obj.componentName); // 要切换的组件名传App.vue<br>    &#125;,<br>  &#125;,<br>&#125;<br>&lt;/script&gt;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="3-5-内容页"><a href="#3-5-内容页" class="headerlink" title="3.5 内容页"></a>3.5 内容页</h3><h4 id="3-5-1-商品列表"><a href="#3-5-1-商品列表" class="headerlink" title="3.5.1 商品列表"></a>3.5.1 商品列表</h4><blockquote>
+<p>目标: 为MyGoodsList页面, 准备表格组件MyTable.vue-铺设展示数据 </p>
+</blockquote>
+<ul>
+<li>需求: 商品列表铺设页面</li>
+</ul>
+<p>效果演示:</p>
+<p><img src="http://image.zhangyc.top/img/image-20220924191829566.png" srcset="/img/loading.gif" lazyload alt="image-20220924191829566"></p>
+<p>分析：</p>
+<p>①: 封装MyTable.vue – 准备标签和样式</p>
+<p>②: axios在MyGoodsList.vue请求数据回来</p>
+<p>③: 请求地址: <a target="_blank" rel="noopener" href="https://www.escook.cn/api/goods">https://www.escook.cn/api/goods</a></p>
+<p>④: 传入MyTable.vue中循环数据显示</p>
+<p>⑤: 给删除按钮添加bootstrap的样式: btn btn-danger btn-sm</p>
+<p><strong>步骤：</strong></p>
+<ol>
+<li><p>为MyTable.vue - 准备table整个表格标签和样式（复制模板）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;table class=&quot;table table-bordered table-stripped&quot;&gt;<br>    &lt;!-- 表格标题区域 --&gt;<br>    &lt;thead&gt;<br>      &lt;tr&gt;<br>        &lt;th&gt;#&lt;/th&gt;<br>        &lt;th&gt;商品名称&lt;/th&gt;<br>        &lt;th&gt;价格&lt;/th&gt;<br>        &lt;th&gt;标签&lt;/th&gt;<br>        &lt;th&gt;操作&lt;/th&gt;<br>      &lt;/tr&gt;<br>    &lt;/thead&gt;<br>    &lt;!-- 表格主体区域 --&gt;<br>    &lt;tbody&gt;<br>      &lt;tr &gt;<br>        &lt;td&gt;1&lt;/td&gt;<br>        &lt;td&gt;商品&lt;/td&gt;<br>        &lt;td&gt;998&lt;/td&gt;<br>        &lt;td&gt;xxx&lt;/td&gt;<br>        &lt;td&gt;xxx&lt;/td&gt;<br>      &lt;/tr&gt;<br>    &lt;/tbody&gt;<br>  &lt;/table&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>export default &#123;<br>  name: &#x27;MyTable&#x27;<br>&#125;<br>&lt;/script&gt;<br><br><br>&lt;style scoped lang=&quot;less&quot;&gt;<br>.my-goods-list &#123;<br>  .badge &#123;<br>    margin-right: 5px;<br>  &#125;<br>&#125;<br>&lt;/style&gt;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>main.js 中注册axios配置地址</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;axios&quot;</span>;<br>axios.<span class="hljs-property">defaults</span>.<span class="hljs-property">baseURL</span> = <span class="hljs-string">&quot;https://applet-base-api-t.itheima.net&quot;</span>;<br><span class="hljs-title class_">Vue</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">$axios</span> = axios<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>在MyGoodsList.vue中引入MyTable.vue，并使用axios请求数据, 把数据传入给MyTable.vue</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;div&gt;<br>    &lt;MyTable :arr=&quot;list&quot;&gt;&lt;/MyTable&gt;<br>  &lt;/div&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>import MyTable from &quot;../components/MyTable&quot;;<br><br>export default &#123;<br>  components: &#123;<br>    MyTable<br>  &#125;,<br>   data() &#123;<br>    return &#123;<br>      list: [] // 所有数据<br>    &#125;;<br>  &#125;,<br>  created() &#123;<br>    // 请求接口获取列表<br>    this.getList()<br>  &#125;,<br>  methods: &#123;<br>    getList() &#123;<br>      this.$axios(&#123;<br>        url: &quot;/api/goods&quot;,<br>        method: &#x27;GET&#x27;,<br>      &#125;).then((res) =&gt; &#123;<br>        console.log(res);<br>        this.list = res.data.data;<br>      &#125;);<br>    &#125;<br>  &#125;,<br>&#125;<br>&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>在MyTable.vue中整理数据，并渲染到页面上</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;table class=&quot;table table-bordered table-stripped&quot;&gt;<br>    &lt;!-- 表格标题区域 --&gt;<br>    &lt;thead&gt;<br>      &lt;tr&gt;<br>        &lt;th&gt;#&lt;/th&gt;<br>        &lt;th&gt;商品名称&lt;/th&gt;<br>        &lt;th&gt;价格&lt;/th&gt;<br>        &lt;th&gt;标签&lt;/th&gt;<br>        &lt;th&gt;操作&lt;/th&gt;<br>      &lt;/tr&gt;<br>    &lt;/thead&gt;<br>    &lt;!-- 表格主体区域 --&gt;<br>    &lt;tbody&gt;<br>      &lt;tr v-for=&quot;obj in arr&quot; :key=&quot;obj.id&quot;&gt;<br>        &lt;td&gt;&#123;&#123; obj.id &#125;&#125;&lt;/td&gt;<br>        &lt;td&gt;&#123;&#123; obj.goods_name &#125;&#125;&lt;/td&gt;<br>        &lt;td&gt;&#123;&#123; obj.goods_price &#125;&#125;&lt;/td&gt;<br>        &lt;td&gt;&#123;&#123; obj.tags &#125;&#125;&lt;/td&gt;<br>        &lt;td&gt;<br>          &lt;button class=&quot;btn btn-danger btn-sm&quot;&gt;删除&lt;/button&gt;<br>        &lt;/td&gt;<br>      &lt;/tr&gt;<br>    &lt;/tbody&gt;<br>  &lt;/table&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>export default &#123;<br>  name: &#x27;MyTable&#x27;,<br>    props: &#123;<br>      arr: &#123;<br>        type: Array,<br>        default: () =&gt; []<br>      &#125;<br>  &#125;<br>&#125;<br>&lt;/script&gt;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="3-5-2-插槽使用"><a href="#3-5-2-插槽使用" class="headerlink" title="3.5.2 插槽使用"></a>3.5.2 插槽使用</h4><blockquote>
+<p>目标: 使用插槽技术, 和作用域插槽技术, 给MyTable.vue组件, 自定义列标题, 自定义表格内容</p>
+</blockquote>
+<ul>
+<li>需求: 允许用户自定义表格头和表格单元格内容</li>
+</ul>
+<p><img src="http://image.zhangyc.top/img/image-20220924191847008.png" srcset="/img/loading.gif" lazyload alt="image-20220924191847008"></p>
+<p>分析：</p>
+<p>①: 把MyTable.vue里准备slot</p>
+<p>②: 使用MyTable组件时传入具体标签</p>
+<p><strong>步骤：</strong></p>
+<ol>
+<li><p>吧表格列表<code>thead</code>部分预留<code>&lt;slot&gt;</code>标签，设置name属性</p>
+<p>MyTable.vue</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;!-- 表格标题区域 --&gt;<br>&lt;thead&gt;<br>    &lt;tr&gt;<br>        &lt;!-- &lt;th&gt;#&lt;/th&gt;<br>        &lt;th&gt;商品名称&lt;/th&gt;<br>        &lt;th&gt;价格&lt;/th&gt;<br>        &lt;th&gt;标签&lt;/th&gt;<br>        &lt;th&gt;操作&lt;/th&gt; --&gt;<br>        &lt;slot name=&quot;header&quot;&gt;&lt;/slot&gt;<br>    &lt;/tr&gt;<br>&lt;/thead&gt;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>使用MyTable.vue时, 传入列标题标签</p>
+<p>MyGoodsList.vue</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;div&gt;<br>    &lt;MyTable :arr=&quot;list&quot;&gt;<br>      &lt;template #header&gt;<br>        &lt;th&gt;#&lt;/th&gt;<br>        &lt;th&gt;商品名称&lt;/th&gt;<br>        &lt;th&gt;价格&lt;/th&gt;<br>        &lt;th&gt;标签&lt;/th&gt;<br>        &lt;th&gt;操作&lt;/th&gt;<br>      &lt;/template&gt;<br>    &lt;/MyTable&gt;<br>  &lt;/div&gt;<br>&lt;/template&gt;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>表格内容td部分也可以让组件使用者自定义, 也给tbody下tr内留好<code>&lt;slot&gt;</code>标签和name属性名</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;tbody&gt;<br>    &lt;tr v-for=&quot;obj in arr&quot; :key=&quot;obj.id&quot;&gt;<br>        &lt;!-- &lt;td&gt;&#123;&#123; obj.id &#125;&#125;&lt;/td&gt;<br>        &lt;td&gt;&#123;&#123; obj.goods_name &#125;&#125;&lt;/td&gt;<br>        &lt;td&gt;&#123;&#123; obj.goods_price &#125;&#125;&lt;/td&gt;<br>        &lt;td&gt;&#123;&#123; obj.tags &#125;&#125;&lt;/td&gt;<br>        &lt;td&gt;<br>        &lt;button class=&quot;btn btn-danger btn-sm&quot;&gt;删除&lt;/button&gt;<br>        &lt;/td&gt; --&gt;<br>        &lt;slot name=&quot;body&quot; :row=&quot;obj&quot;&gt;&lt;/slot&gt;<br>    &lt;/tr&gt;<br>&lt;/tbody&gt;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>使用插槽需要用到插槽内的obj对象上的数据, 使用作用域插槽技术</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;div&gt;<br>    &lt;MyTable :arr=&quot;list&quot;&gt;<br>      &lt;template #header&gt;<br>        &lt;th&gt;#&lt;/th&gt;<br>        &lt;th&gt;商品名称&lt;/th&gt;<br>        &lt;th&gt;价格&lt;/th&gt;<br>        &lt;th&gt;标签&lt;/th&gt;<br>        &lt;th&gt;操作&lt;/th&gt;<br>      &lt;/template&gt;<br><br>      &lt;!-- scope的值: &#123;row: obj, index: 索引值&#125; --&gt;<br>      &lt;template #body=&quot;scope&quot;&gt;<br>        &lt;td&gt;&#123;&#123; scope.row.id &#125;&#125;&lt;/td&gt;<br>        &lt;td&gt;&#123;&#123; scope.row.goods_name &#125;&#125;&lt;/td&gt;<br>        &lt;td&gt;&#123;&#123; scope.row.goods_price &#125;&#125;&lt;/td&gt;<br>        &lt;td&gt;<br>          &#123;&#123; scope.row.tags &#125;&#125;<br>        &lt;/td&gt;<br>        &lt;td&gt;<br>          &lt;button class=&quot;btn btn-danger btn-sm&quot;&gt;删除&lt;/button&gt;<br>        &lt;/td&gt;<br>      &lt;/template&gt;<br>    &lt;/MyTable&gt;<br>  &lt;/div&gt;<br>&lt;/template&gt;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="3-5-3-tags微标"><a href="#3-5-3-tags微标" class="headerlink" title="3.5.3 tags微标"></a>3.5.3 tags微标</h4><blockquote>
+<p>目标: 把单元格里的标签, tags徽章铺设下</p>
+</blockquote>
+<ul>
+<li>需求: 标签列自定义显示</li>
+</ul>
+<p>效果展示</p>
+<p><img src="http://image.zhangyc.top/img/image-20220924191903090.png" srcset="/img/loading.gif" lazyload alt="image-20220924191903090"></p>
+<p>分析：</p>
+<p>①: 插槽里传入的td单元格</p>
+<p>②: 自定义span标签的循环展示-给予样式</p>
+<p>bootstrap徽章: <a target="_blank" rel="noopener" href="https://v4.bootcss.com/docs/components/badge/">https://v4.bootcss.com/docs/components/badge/</a></p>
+<p><strong>步骤：</strong></p>
+<ol>
+<li><p>添加样式表</p>
+<p>MyGoodsList.vue</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;style lang=&quot;less&quot; scoped&gt;<br>.my-goods-list &#123;<br>  .badge &#123;<br>    margin-right: 5px;<br>  &#125;<br>&#125;<br>&lt;/style&gt;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>为标签所在单元格添加徽标</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;!-- scope的值: &#123;row: obj, index: 索引值&#125; --&gt;<br>&lt;template #body=&quot;scope&quot;&gt;<br>    &lt;td&gt;&#123;&#123; scope.row.id &#125;&#125;&lt;/td&gt;<br>    &lt;td&gt;&#123;&#123; scope.row.goods_name &#125;&#125;&lt;/td&gt;<br>    &lt;td&gt;&#123;&#123; scope.row.goods_price &#125;&#125;&lt;/td&gt;<br>    &lt;td&gt;<br>        &lt;span v-for=&quot;(str, ind) in scope.row.tags&quot; :key=&quot;ind&quot; class=&quot;badge badge-warning&quot;&gt;<br>            &#123;&#123; str &#125;&#125;<br>        &lt;/span&gt;<br>    &lt;/td&gt;<br>    &lt;td&gt;<br>        &lt;button class=&quot;btn btn-danger btn-sm&quot;&gt;删除&lt;/button&gt;<br>    &lt;/td&gt;<br>&lt;/template&gt;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="3-5-4-删除功能"><a href="#3-5-4-删除功能" class="headerlink" title="3.5.4 删除功能"></a>3.5.4 删除功能</h4><blockquote>
+<p>目标: 点击删除对应这条数据</p>
+</blockquote>
+<ul>
+<li>需求: 点击删除按钮删除数据</li>
+</ul>
+<p>效果演示</p>
+<p><img src="http://image.zhangyc.top/img/tabbar_%E5%88%A0%E9%99%A4%E5%8A%9F%E8%83%BD.gif" srcset="/img/loading.gif" lazyload alt="tabbar_删除功能"></p>
+<p>分析：</p>
+<p>①: 删除按钮绑定点击事件</p>
+<p>②: 作用域插槽绑定id值出来</p>
+<p>③: 传给删除方法, 删除MyGoodsList.vue里数组里数据</p>
+<p>提示: 虽然id在MyTable.vue里, 但是MyGoodsList.vue里要使用, 而且在插槽位置, 使用作用域插槽已经把整个obj对象(包含id)带出来了</p>
+<p><strong>步骤：</strong></p>
+<ol>
+<li><p>为MyGoodsList.vue的删除按钮 - 注册点击事件，根据id删除</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;!-- scope的值: &#123;row: obj, index: 索引值&#125; --&gt;<br>&lt;template #body=&quot;scope&quot;&gt;<br>    &lt;td&gt;&#123;&#123; scope.row.id &#125;&#125;&lt;/td&gt;<br>    &lt;td&gt;&#123;&#123; scope.row.goods_name &#125;&#125;&lt;/td&gt;<br>    &lt;td&gt;&#123;&#123; scope.row.goods_price &#125;&#125;&lt;/td&gt;<br>    &lt;td&gt;<br>        &lt;span v-for=&quot;(str, ind) in scope.row.tags&quot; :key=&quot;ind&quot; class=&quot;badge badge-warning&quot;&gt;<br>            &#123;&#123; str &#125;&#125;<br>        &lt;/span&gt;<br>        &lt;/td&gt;<br>    &lt;td&gt;<br>        &lt;button<br>                class=&quot;btn btn-danger btn-sm&quot;<br>                @click=&quot;removeBtn(scope.row.id)&quot;<br>                &gt;删除&lt;/button&gt;<br>    &lt;/td&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>export default &#123;<br>  methods: &#123;<br>    // 根据id删除当前列<br>    removeBtn(id) &#123;<br>      let index = this.list.findIndex(obj =&gt; obj.id === id)<br>      this.list.splice(index, 1)<br>    &#125;,<br>  &#125;,<br>&#125;<br>&lt;/script&gt;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="3-6-添加tab标签"><a href="#3-6-添加tab标签" class="headerlink" title="3.6 添加tab标签"></a>3.6 添加tab标签</h3><blockquote>
+<p>目标: 实现点击tab按钮, 出现输入框自动获取焦点, 失去焦点关闭input, 回车新增tag, esc清空内容</p>
+</blockquote>
+<p>效果目标: </p>
+<p><img src="http://image.zhangyc.top/img/tabbar_tab%E5%8A%9F%E8%83%BD.gif" srcset="/img/loading.gif" lazyload alt="image-20201225233325965"></p>
+<ul>
+<li><p>需求1: 点击Tab, 按钮消失, 输入框出现</p>
+<p>MyGoodsList.vue - 标签位置添加</p>
+<p>注意: 每个tab按钮和input都是独立变量控制, 那么直接在row身上的属性控制即可</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;!-- tab标签单元格 --&gt;<br>&lt;td&gt;<br>    &lt;input type=&quot;text&quot;<br>           class=&quot;tag-input form-control&quot;<br>           style=&quot;width: 100px;&quot;<br>           v-if=&quot;scope.row.inputVisible&quot;<br>           /&gt;<br>    &lt;button <br>            v-else <br>            style=&quot;display: block;&quot; <br>            class=&quot;btn btn-primary btn-sm add-tag&quot;<br>            @click=&quot;scope.row.inputVisible = true&quot;<br>            &gt;+Tag&lt;/button&gt;<br>    &lt;span v-for=&quot;(str, ind) in scope.row.tags&quot; :key=&quot;ind&quot; class=&quot;badge badge-warning&quot;&gt;<br>        &#123;&#123; str &#125;&#125;<br>    &lt;/span&gt;<br>&lt;/td&gt;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>需求2: 输入框自动聚焦</p>
+<p>main.js - 定义全局自定义指令</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 全局指令</span><br><span class="hljs-title class_">Vue</span>.<span class="hljs-title function_">directive</span>(<span class="hljs-string">&quot;focus&quot;</span>, &#123;<br>  <span class="hljs-title function_">inserted</span>(<span class="hljs-params">el</span>)&#123;<br>    el.<span class="hljs-title function_">focus</span>()<br>  &#125;<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>MyGoodsList.vue - 给输入框设置该自定义功能</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;!-- tab标签单元格 --&gt;<br>&lt;td&gt;<br>    &lt;input type=&quot;text&quot;<br>           class=&quot;tag-input form-control&quot;<br>           style=&quot;width: 100px;&quot;<br>           v-if=&quot;scope.row.inputVisible&quot;<br>           v-focus<br>           /&gt;<br>    &lt;button <br>            v-else <br>            style=&quot;display: block;&quot; <br>            class=&quot;btn btn-primary btn-sm add-tag&quot;<br>            @click=&quot;scope.row.inputVisible = true&quot;<br>            &gt;+Tag&lt;/button&gt;<br>    &lt;span v-for=&quot;(str, ind) in scope.row.tags&quot; :key=&quot;ind&quot; class=&quot;badge badge-warning&quot;&gt;<br>        &#123;&#123; str &#125;&#125;<br>    &lt;/span&gt;<br>&lt;/td&gt;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>需求3: 失去焦点, 输入框消失, 按钮出</p>
+<p>监听input失去焦点事件, 让input消失（inputVisible属性设为false）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;!-- tab标签单元格 --&gt;<br>&lt;td&gt;<br>    &lt;input type=&quot;text&quot;<br>           class=&quot;tag-input form-control&quot;<br>           style=&quot;width: 100px;&quot;<br>           v-if=&quot;scope.row.inputVisible&quot;<br>           v-focus<br>           @blur=&quot;scope.row.inputVisible = false&quot;<br>           /&gt;<br>    &lt;button <br>            v-else <br>            style=&quot;display: block;&quot; <br>            class=&quot;btn btn-primary btn-sm add-tag&quot;<br>            @click=&quot;scope.row.inputVisible = true&quot;<br>            &gt;+Tag&lt;/button&gt;<br>    &lt;span v-for=&quot;(str, ind) in scope.row.tags&quot; :key=&quot;ind&quot; class=&quot;badge badge-warning&quot;&gt;<br>        &#123;&#123; str &#125;&#125;<br>    &lt;/span&gt;<br>&lt;/td&gt;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>需求4: 监测input回车, 无数据拦截</p>
+</li>
+<li><p>需求5: 监测input回车, 有数据添加</p>
+<p>监听input的回车事件, 如果无数据拦截代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;!-- tab标签单元格 --&gt;<br>&lt;td&gt;<br>    &lt;input type=&quot;text&quot;<br>           class=&quot;tag-input form-control&quot;<br>           style=&quot;width: 100px;&quot;<br>           v-if=&quot;scope.row.inputVisible&quot;<br>           v-focus<br>           v-model=&quot;scope.row.inputValue&quot;<br>           @blur=&quot;scope.row.inputVisible = false&quot;<br>           /&gt;<br>    &lt;button <br>            v-else <br>            style=&quot;display: block;&quot; <br>            class=&quot;btn btn-primary btn-sm add-tag&quot;<br>            @click=&quot;scope.row.inputVisible = true&quot;<br>            @keydown.enter=&quot;enterFn(scope.row)&quot;<br>            &gt;+Tag&lt;/button&gt;<br>    &lt;span v-for=&quot;(str, ind) in scope.row.tags&quot; :key=&quot;ind&quot; class=&quot;badge badge-warning&quot;&gt;<br>        &#123;&#123; str &#125;&#125;<br>    &lt;/span&gt;<br>&lt;/td&gt;<br><br>&lt;script&gt;<br>    export default &#123;<br>        methods: &#123;<br>            enterFn(obj)&#123; // 回车关闭弹框<br>                // console.log(obj.inputValue);<br>                if (obj.inputValue.trim().length === 0) &#123;<br>                    alert(&#x27;请输入数据&#x27;)<br>                    return<br>                &#125;<br><br>                obj.tags.push(obj.inputValue) // 表单里的字符串状态tags数组<br>                obj.inputValue = &quot;&quot;<br>            &#125;<br>        &#125;<br>    &#125;<br>&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>需求6: 监测input取消, 清空数据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;td&gt;<br>    &lt;input type=&quot;text&quot;<br>           class=&quot;tag-input form-control&quot;<br>           style=&quot;width: 100px;&quot;<br>           v-if=&quot;scope.row.inputVisible&quot;<br>           v-focus<br>           @blur=&quot;scope.row.inputVisible = false&quot;<br>           v-model=&quot;scope.row.inputValue&quot;<br>           @keydown.enter=&quot;enterFn(scope.row)&quot;<br>           @keydown.esc=&quot;scope.row.inputValue = &#x27;&#x27;&quot;<br>           /&gt;<br>    &lt;button <br>            v-else <br>            style=&quot;display: block;&quot; <br>            class=&quot;btn btn-primary btn-sm add-tag&quot;<br>            @click=&quot;scope.row.inputVisible = true&quot;<br>            &gt;+Tag&lt;/button&gt;<br>    &lt;span v-for=&quot;(str, ind) in scope.row.tags&quot; :key=&quot;ind&quot; class=&quot;badge badge-warning&quot;&gt;<br>        &#123;&#123; str &#125;&#125;<br>    &lt;/span&gt;<br>&lt;/td&gt;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="3-7-代码块"><a href="#3-7-代码块" class="headerlink" title="3.7 代码块"></a>3.7 代码块</h3><blockquote>
+<p>main.js</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> <span class="hljs-title class_">Vue</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vue&#x27;</span><br><span class="hljs-keyword">import</span> <span class="hljs-title class_">App</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./App.vue&#x27;</span><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;./assets/fonts/iconfont.css&quot;</span> <span class="hljs-comment">// 引入字体图标css文件</span><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;bootstrap/dist/css/bootstrap.css&quot;</span><br><span class="hljs-comment">// console.dir(Vue);</span><br><br><span class="hljs-title class_">Vue</span>.<span class="hljs-property">config</span>.<span class="hljs-property">productionTip</span> = <span class="hljs-literal">false</span><br><br><span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;axios&quot;</span>;<br>axios.<span class="hljs-property">defaults</span>.<span class="hljs-property">baseURL</span> = <span class="hljs-string">&quot;https://applet-base-api-t.itheima.net&quot;</span>;<br><span class="hljs-title class_">Vue</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">$axios</span> = axios<br><span class="hljs-comment">// 全局指令</span><br><br><span class="hljs-keyword">new</span> <span class="hljs-title class_">Vue</span>(&#123;<br>  <span class="hljs-attr">render</span>: <span class="hljs-function"><span class="hljs-params">h</span> =&gt;</span> <span class="hljs-title function_">h</span>(<span class="hljs-title class_">App</span>)<br>&#125;).$mount(<span class="hljs-string">&#x27;#app&#x27;</span>)<br><br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>App.vue</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;div&gt;<br>    &lt;MyHeader<br>      :background=&quot;&#x27;blue&#x27;&quot;<br>      :fontColor=&quot;&#x27;white&#x27;&quot;<br>      title=&quot;TabBar案例&quot;<br>    &gt;&lt;/MyHeader&gt;<br>    &lt;div class=&quot;main&quot;&gt;<br>      &lt;!-- 在内容部分，通过动态组件的形式实现页面组件的切换 --&gt;<br>      &lt;component :is=&quot;comName&quot;&gt;&lt;/component&gt;<br>      &lt;!-- &lt;MyGoodsList&gt;&lt;/MyGoodsList&gt; --&gt;<br>    &lt;/div&gt;<br>    &lt;MyTabBar :tabList=&quot;tabList&quot; @changeComName=&quot;changeComNameFn&quot;&gt;&lt;/MyTabBar&gt;<br>  &lt;/div&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>import MyHeader from &quot;./components/MyHeader.vue&quot;;<br>import MyTabBar from &quot;./components/MyTabBar.vue&quot;;<br>import MyGoodsList from &quot;./views/MyGoodsList.vue&quot;;<br>import MyGoodsSearch from &quot;./views/MyGoodsSearch.vue&quot;;<br>import MyUserInfo from &quot;./views/MyUserInfo.vue&quot;;<br><br>export default &#123;<br>  components: &#123;<br>    MyHeader,<br>    MyTabBar,<br>    MyGoodsList,<br>    MyGoodsSearch,<br>    MyUserInfo,<br>  &#125;,<br>  data() &#123;<br>    return &#123;<br>      comName: &quot;MyGoodsList&quot;, // 默认显示的组件<br>      tabList: [<br>        // 底部导航的数据<br>        &#123;<br>          iconText: &quot;icon-shangpinliebiao&quot;,<br>          text: &quot;商品列表&quot;,<br>          componentName: &quot;MyGoodsList&quot;,<br>        &#125;,<br>        &#123;<br>          iconText: &quot;icon-sousuo&quot;,<br>          text: &quot;商品搜索&quot;,<br>          componentName: &quot;MyGoodsSearch&quot;,<br>        &#125;,<br>        &#123;<br>          iconText: &quot;icon-user&quot;,<br>          text: &quot;我的信息&quot;,<br>          componentName: &quot;MyUserInfo&quot;,<br>        &#125;,<br>      ],<br>    &#125;;<br>  &#125;,<br>  methods: &#123;<br>    // 切换动态组件<br>    changeComNameFn(name) &#123;<br>      this.comName = name;<br>    &#125;,<br>  &#125;,<br>&#125;;<br>&lt;/script&gt;<br><br>&lt;style scoped&gt;<br>.main &#123;<br>  padding-top: 45px;<br>  padding-bottom: 51px;<br>&#125;<br>&lt;/style&gt;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>views&#x2F;MyGoodsList.vue</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;div&gt;<br>    &lt;MyTable :list=&quot;list&quot;&gt;<br>      &lt;!-- scope的值: &#123;row: obj, index: 索引值&#125; --&gt;<br>      &lt;template #tbody=&quot;scope&quot;&gt;<br>        &lt;td&gt;&#123;&#123; scope.row.id &#125;&#125;&lt;/td&gt;<br>        &lt;td&gt;&#123;&#123; scope.row.goods_name &#125;&#125;&lt;/td&gt;<br>        &lt;td&gt;&#123;&#123; scope.row.goods_price &#125;&#125;&lt;/td&gt;<br>        &lt;td&gt;<br>          &lt;input<br>            class=&quot;tag-input form-control&quot;<br>            type=&quot;text&quot;<br>            v-focus<br>            v-model.trim=&quot;scope.row.inputValue&quot;<br>            v-if=&quot;scope.row.inputVisible&quot;<br>            @blur=&quot;scope.row.inputValue = false&quot;<br>            @keydown.enter=&quot;addTag(scope.row)&quot;<br>          /&gt;<br>          &lt;button<br>            v-else<br>            @click=&quot;scope.row.inputVisible = true&quot;<br>            style=&quot;display: block&quot;<br>            class=&quot;btn btn-primary btn-sm add-tag&quot;<br>          &gt;<br>            +Tag<br>          &lt;/button&gt;<br>          &lt;span<br>            v-for=&quot;(tag, index) in scope.row.tags&quot;<br>            :key=&quot;index&quot;<br>            class=&quot;badge bg-warning&quot;<br>            style=&quot;color: black; margin-right: 8px&quot;<br>          &gt;<br>            &#123;&#123; tag &#125;&#125;<br>          &lt;/span&gt;<br>        &lt;/td&gt;<br>        &lt;td&gt;<br>          &lt;button class=&quot;btn btn-danger btn-sm&quot; @click=&quot;delFn(scope.row.id)&quot;&gt;删除&lt;/button&gt;<br>        &lt;/td&gt;<br>      &lt;/template&gt;<br>    &lt;/MyTable&gt;<br>  &lt;/div&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>/* 目标1：铺设数据<br>  问题： 获取数据大家都知道要调用接口，那么，在MyGoodsList中获取呢，还是MyTable中获取呢？<br>  答： 接口的数据部分是与不同的页面组件所相关的，与表格组件没有直接的关系。 所以需要在MyGoodsList中获取数据，通过父传子的方式传递给MyTable功能组件进行使用<br>  1. 使用axios调用接口<br>    1.1 在全局封装axios的公共方法<br>  2. created 初始化组件后进行获取数据<br>  3. 将接口返回的数值存到data中的变量里<br>  4. 通过父传子的形式传给MyTable进行页面的渲染<br>*/<br>/* 目标2: 将子组件中的tr里的内容以插槽的形式让父组件来设置<br>      1. 使用具名插槽 + 作用域插槽将数据和结构设置在父组件中 <br>*/<br>/* 目标3：通过添加tag按钮可以为每行元素添加标签<br>  1. 创建输入框和按钮，通过inputVisible来切换他们的显示和隐藏<br>  2. 当失焦时隐藏输入框，显示按钮<br>  3. 当敲击回车时，添加对应的tag标签<br>  4. 当点击按钮时，自动聚焦输入框 <br>  */<br>/* 目标4： 删除当前行<br>  1. 绑定点击事件，将id传给绑定的方法<br>  2. 删除<br>    2.1 通过id找到对应元素的索引，用splice进行删除<br>    2.2 通过数组的filter过滤方式去过滤出其他的id相关的元素 <br>*/<br>import MyTable from &quot;../components/MyTable.vue&quot;;<br>export default &#123;<br>  name: &quot;MyGoodsList&quot;,<br>  components: &#123;<br>    MyTable,<br>  &#125;,<br>  data() &#123;<br>    return &#123;<br>      list: [],<br>    &#125;;<br>  &#125;,<br>  // 常用自定义指令<br>  directives: &#123;<br>    focus: &#123;<br>      inserted(element) &#123;<br>        element.focus();<br>      &#125;,<br>    &#125;,<br>  &#125;,<br>  created() &#123;<br>    // 获取商品列表<br>    this.getGoodsList();<br>  &#125;,<br>  methods: &#123;<br>    // 获取商品列表数据<br>    getGoodsList() &#123;<br>      this.$axios(&#123;<br>        method: &quot;GET&quot;,<br>        url: &quot;/api/goods&quot;,<br>      &#125;)<br>        .then((res) =&gt; &#123;<br>          this.list = res.data.data;<br>          console.log(res.data.data);<br>        &#125;)<br>        .catch((err) =&gt; &#123;<br>          console.log(err);<br>        &#125;);<br>    &#125;,<br>    // 为目标行添加标签<br>    addTag(obj) &#123;<br>      // 判空<br>      if (obj.inputValue.trim().length &lt;= 0) &#123;<br>        return;<br>      &#125;<br>      // 添加<br>      obj.tags.push(obj.inputValue);<br>      // 清空<br>      obj.inputValue = &quot;&quot;;<br>    &#125;,<br>    // 删除当前行<br>    delFn(currentId)&#123;<br>      this.list = this.list.filter(obj =&gt; obj.id !== currentId)<br>    &#125;<br>  &#125;,<br>&#125;;<br>&lt;/script&gt;<br><br>&lt;style lang=&quot;less&quot; scoped&gt;<br>.my-goods-list &#123;<br>  .badge &#123;<br>    margin-right: 5px;<br>  &#125;<br>&#125;<br>&lt;/style&gt;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>views&#x2F;MyGoodsSearch</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;div&gt;查询&lt;/div&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>export default &#123;<br><br>&#125;<br>&lt;/script&gt;<br><br>&lt;style&gt;<br>&lt;/style&gt;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p> views&#x2F;MyUserInfo</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;div&gt;个人中心&lt;/div&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>export default &#123;<br><br>&#125;<br>&lt;/script&gt;<br><br>&lt;style&gt;<br>&lt;/style&gt;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>components&#x2F;MyHeader</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;div class=&quot;my-header&quot;<br>    :style=&quot;&#123;backgroundColor: background, color: fontColor&#125;&quot;<br>  &gt;&#123;&#123; title &#125;&#125;&lt;/div&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>// 目标: 让组件支持不同的项目情况<br>// 1. 需要关心哪些特性需要变化 (背景色, 文字颜色, 文字内容)<br>// 2. props等待使用者给我传具体的值<br>export default &#123;<br>  props: &#123;<br>    background: String, // 变量名: 类型校验 (因为外部使用者不知道应该传什么类型, 所以最好给一个检验规则)<br>    fontColor: &#123;<br>      type: String, // 修饰变量值的类型必须是字符串类型<br>      default: &quot;#fff&quot; // 当外部不给fontColor变量赋值, 使用默认值<br>    &#125;,<br>    title: &#123;<br>      type: String,<br>      required: true // 这个变量使用者必须传入值<br>    &#125;<br>  &#125;<br>&#125;<br>&lt;/script&gt;<br><br>&lt;style lang=&quot;less&quot; scoped&gt;<br>  .my-header &#123;<br>    height: 45px;<br>    line-height: 45px;<br>    text-align: center;<br>    background-color: #1d7bff;<br>    color: #fff;<br>    position: fixed;<br>    top: 0;<br>    left: 0;<br>    width: 100%;<br>    z-index: 2;<br>  &#125;<br>&lt;/style&gt;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>components&#x2F;MyTabBar</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;div class=&quot;my-tab-bar&quot;&gt;<br>    &lt;div <br>      class=&quot;tab-item&quot; <br>      v-for=&quot;(obj, index) in tabList&quot; <br>      :key=&quot;index&quot; <br>      :class=&quot;&#123; current: index === activeIndex &#125;&quot;<br>      @click=&quot;checkTab(obj, index)&quot;<br>    &gt;<br>      &lt;!-- 图标 --&gt;<br>      &lt;span class=&quot;iconfont&quot; :class=&quot;[obj.iconText]&quot;&gt;&lt;/span&gt;<br>      &lt;!-- 文字 --&gt;<br>      &lt;span&gt;&#123;&#123; obj.text &#125;&#125;&lt;/span&gt;<br>    &lt;/div&gt;<br>  &lt;/div&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>/*  目标1： 高亮显示底部导航<br>    1. 创建一个状态值来表示当前高亮的元素<br>    2. 通过动态class来对当前需要高亮的元素进行判断<br>    3. 为每一个元素设置切换高亮状态的点击事件<br>*/<br><br>/*  目标2： 底部导航控制页面组件的切换<br>    1. 通过点击底部导航的元素，通知父组件进行名称的切换操作 - $emit<br>    2. 父组件接收到子组件的信息后，来进行comName的修改 <br>*/<br>export default &#123;<br>  name: &quot;MyTabBar&quot;,<br>  props:&#123;<br>    tabList:&#123;<br>      type:Array,<br>      default: () =&gt; []<br>    &#125;<br>  &#125;,<br>  data() &#123;<br>    return &#123;<br>        // 通过 tabList 中的底部导航元素的索引来确定当前的高亮状态<br>        activeIndex: 0<br>    &#125;<br>  &#125;,<br>  methods: &#123;<br>    // 切换高亮 + 切换页面组件<br>    checkTab(obj, index)&#123;<br>      // 切换高亮<br>      this.activeIndex = index<br>      // 切换页面组件<br>      this.$emit(&#x27;changeComName&#x27;, obj.componentName)<br>    &#125;<br>  &#125;,<br>&#125;;<br>&lt;/script&gt;<br><br>&lt;style lang=&quot;less&quot; scoped&gt;<br>.my-tab-bar &#123;<br>  position: fixed;<br>  left: 0;<br>  bottom: 0;<br>  width: 100%;<br>  height: 50px;<br>  border-top: 1px solid #ccc;<br>  display: flex;<br>  justify-content: space-around;<br>  align-items: center;<br>  background-color: white;<br>  .tab-item &#123;<br>    display: flex;<br>    flex-direction: column;<br>    align-items: center;<br>  &#125;<br>&#125;<br><br>.current &#123;<br>  color: #1d7bff;<br>&#125;<br>&lt;/style&gt;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>components&#x2F;MyTable</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;table class=&quot;table table-bordered table-stripped&quot;&gt;<br>    &lt;!-- 表格标题区域 --&gt;<br>    &lt;thead&gt;<br>      &lt;tr &gt;<br>        &lt;th&gt;#&lt;/th&gt;<br>        &lt;th&gt;商品名称&lt;/th&gt;<br>        &lt;th&gt;商品价格&lt;/th&gt;<br>        &lt;th&gt;商品标签&lt;/th&gt;<br>        &lt;th&gt;操作&lt;/th&gt;<br>      &lt;/tr&gt;<br>    &lt;/thead&gt;<br>    &lt;!-- 表格主体区域 --&gt;<br>    &lt;tbody&gt;<br>      &lt;tr v-for=&quot;obj in list&quot; :key=&quot;obj.id&quot;&gt;<br>        &lt;slot name=&quot;tbody&quot; :row=&quot;obj&quot;&gt;&lt;/slot&gt;<br>        &lt;!-- &lt;td&gt;&#123;&#123; obj.id &#125;&#125;&lt;/td&gt;<br>        &lt;td&gt;&#123;&#123; obj.goods_name &#125;&#125;&lt;/td&gt;<br>        &lt;td&gt;&#123;&#123; obj.goods_price &#125;&#125;&lt;/td&gt;<br>        &lt;td&gt;&#123;&#123; obj.tags &#125;&#125;&lt;/td&gt;<br>        &lt;td&gt;<br>          &lt;button class=&quot;btn btn-danger btn-sm&quot;&gt;删除&lt;/button&gt;<br>        &lt;/td&gt; --&gt;<br>      &lt;/tr&gt;<br>    &lt;/tbody&gt;<br>  &lt;/table&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>export default &#123;<br>  name: &quot;MyTable&quot;,<br>  props: &#123;<br>    list: &#123;<br>      type: Array,<br>      default: () =&gt; [],<br>    &#125;,<br>  &#125;,<br>&#125;;<br>&lt;/script&gt;<br><br><br>&lt;style scoped lang=&quot;less&quot;&gt;<br>.my-goods-list &#123;<br>  .badge &#123;<br>    margin-right: 5px;<br>  &#125;<br>&#125;<br>&lt;/style&gt;<br></code></pre></td></tr></table></figure>
+
+<h2 id="四、面试题"><a href="#四、面试题" class="headerlink" title="四、面试题"></a>四、面试题</h2><h3 id="1-vue中solt的使用方式，以及solt作用域插槽的用法"><a href="#1-vue中solt的使用方式，以及solt作用域插槽的用法" class="headerlink" title="1. vue中solt的使用方式，以及solt作用域插槽的用法"></a>1. vue中solt的使用方式，以及solt作用域插槽的用法</h3><p>   使用方式：当组件当做标签进行使用的时候，用slot可以用来接受组件标签包裹的内容，当给solt标签添加name属性的 时候，可以调换响应的位置<br>  (高级用法) 插槽作用域： 当传递的不是单一的标签, 例如需要循环时, 把要循环的标签传入, 组件内使用v-for在slot标签上, 内部可以v-bind:把值传出来, 再外面把值赋予进去, 看示例</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs js">&lt;current-user&gt;<br>  <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">v-slot:default</span>=<span class="hljs-string">&quot;slotProps&quot;</span>&gt;</span></span><br><span class="language-xml">    &#123;&#123; slotProps.user.firstName &#125;&#125;</span><br><span class="language-xml">  <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></span><br>&lt;/current-user&gt;<br><br><span class="hljs-comment">// current-user组件, user属性和值, 绑定给slotProps上</span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span></span><br><span class="language-xml">  <span class="hljs-tag">&lt;<span class="hljs-name">slot</span> <span class="hljs-attr">v-bind:user</span>=<span class="hljs-string">&quot;user&quot;</span>&gt;</span></span><br><span class="language-xml">    &#123;&#123; user.lastName &#125;&#125;</span><br><span class="language-xml">  <span class="hljs-tag">&lt;/<span class="hljs-name">slot</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span><br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>扩展阅读: <a target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/guide/components-slots.html">https://cn.vuejs.org/v2/guide/components-slots.html</a> (了解即可, 一般用不上)</p>
+</blockquote>
+<h3 id="2-跟keep-alive有关的生命周期是哪些？"><a href="#2-跟keep-alive有关的生命周期是哪些？" class="headerlink" title="2. 跟keep-alive有关的生命周期是哪些？"></a>2. 跟keep-alive有关的生命周期是哪些？</h3><pre><code class="hljs">**1****）前言：**在开发Vue项目的时候，大部分组件是没必要多次渲染的，所以Vue提供了一个内置组件keep-alive来缓存组件内部状态，避免重新渲染，在开发Vue项目的时候，大部分组件是没必要多次渲染的，所以Vue提供了一个内置组件keep-alive来缓存组件内部状态，避免重新渲染
+
+**2****）生命周期函数：**在被keep-alive包含的组件/路由中，会多出两个生命周期的钩子:activated 与 deactivated。
+
+   **1****、activated钩子：**在在组件第一次渲染时会被调用，之后在每次缓存组件被激活时调用。
+
+   **2****、activated钩子调用时机：** 第一次进入缓存路由/组件，在mounted后面，beforeRouteEnter守卫传给 next 的回调函数之前调用，并且给因为组件被缓存了，再次进入缓存路由、组件时，不会触发这些钩子函数，beforeCreate created beforeMount mounted 都不会触发
+
+   **1****、deactivated钩子：**组件被停用（离开路由）时调用。
+
+   **2****、deactivated钩子调用时机**：使用keep-alive就不会调用beforeDestroy(组件销毁前钩子)和destroyed(组件销毁)，因为组件没被销毁，被缓存起来了，这个钩子可以看作beforeDestroy的替代，如果你缓存了组件，要在组件销毁的的时候做一些事情，可以放在这个钩子里，组件内的离开当前路由钩子beforeRouteLeave =&gt; 路由前置守卫 beforeEach =&gt;全局后置钩子afterEach =&gt; deactivated 离开缓存组件 =&gt; activated 进入缓存组件(如果你进入的也是缓存路由)
+</code></pre>
+<h3 id="3-自定义指令-v-check、v-focus-的方法有哪些-它有哪些钩子函数-还有哪些钩子函数参数"><a href="#3-自定义指令-v-check、v-focus-的方法有哪些-它有哪些钩子函数-还有哪些钩子函数参数" class="headerlink" title="3. 自定义指令(v-check、v-focus)的方法有哪些?它有哪些钩子函数?还有哪些钩子函数参数?"></a>3. 自定义指令(v-check、v-focus)的方法有哪些?它有哪些钩子函数?还有哪些钩子函数参数?</h3><pre><code class="hljs">全局定义指令：在vue对象的directive方法里面有两个参数，一个是指令名称，另外一个是函数。组件内定义指令：directives
+
+钩子函数：bind(绑定事件触发)、inserted(节点插入的时候触发)、update(组件内相关更新)
+
+钩子函数参数：el、binding
+</code></pre>
+<h3 id="4-is这个特性你有用过吗？主要用在哪些方面？"><a href="#4-is这个特性你有用过吗？主要用在哪些方面？" class="headerlink" title="4. is这个特性你有用过吗？主要用在哪些方面？"></a>4. is这个特性你有用过吗？主要用在哪些方面？</h3><p><strong> 1****）动态组件</strong></p>
+<pre><code class="hljs">`&lt;component :is=&quot;componentName&quot;&gt;&lt;/component&gt;`， componentName可以是在本页面已经注册的局部组件名和全局组件名,也可以是一个组件的选项对象。 当控制componentName改变时就可以动态切换选择组件。
+</code></pre>
+<p><strong>  2****）is的用法</strong></p>
+<pre><code class="hljs">有些HTML元素，诸如`&lt;ul&gt;、&lt;ol&gt;`、`&lt;table&gt;`和`&lt;select&gt;`，对于哪些元素可以出现在其内部是有严格限制的。
+
+而有些HTML元素，诸如`&lt;li&gt;、&lt;tr&gt;` 和 `&lt;option&gt;`，只能出现在其它某些特定的元素内部。
+</code></pre>
+<p>​	</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs HTML"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">card-list</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">card-list</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<pre><code class="hljs">所以上面`&lt;card-list&gt;&lt;/card-list&gt;`会被作为无效的内容提升到外部，并导致最终渲染结果出错。应该这么写：
+</code></pre>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs HTML"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">is</span>=<span class="hljs-string">&quot;cardList&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Vue/" class="category-chain-item">Vue</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Vue 第六天</div>
+      <div>http://example.com/2022/09/19/Vue/vue06/Vue 第六天/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>John Doe</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年9月19日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/09/20/Vue/vue07/Vue%E7%AC%AC%E4%B8%83%E5%A4%A9/" title="Vue 第七天">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Vue 第七天</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/09/18/Vue/vue05/Vue-%E7%AC%AC%E4%BA%94%E5%A4%A9/" title="Vue 第五天">
+                        <span class="hidden-mobile">Vue 第五天</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
