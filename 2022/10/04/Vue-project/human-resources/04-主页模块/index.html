@@ -1,0 +1,935 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="主页的token拦截处理**目标**：根据token处理主页的访问权限问题 权限拦截的流程图 我们已经完成了登录的过程，并且存储了token，但是此时主页并没有因为token的有无而被控制访问权限  接下来我们需要实现以下如下的流程图   在基础框架阶段，我们已经知道**src&#x2F;permission.js**是专门处理路由权限的，所以我们在这里处理  流程图转化代码流程图转化的代码 1234567">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第四天 主页模块">
+<meta property="og:url" content="http://example.com/2022/10/04/Vue-project/human-resources/04-%E4%B8%BB%E9%A1%B5%E6%A8%A1%E5%9D%97/index.html">
+<meta property="og:site_name" content="每日笔记">
+<meta property="og:description" content="主页的token拦截处理**目标**：根据token处理主页的访问权限问题 权限拦截的流程图 我们已经完成了登录的过程，并且存储了token，但是此时主页并没有因为token的有无而被控制访问权限  接下来我们需要实现以下如下的流程图   在基础框架阶段，我们已经知道**src&#x2F;permission.js**是专门处理路由权限的，所以我们在这里处理  流程图转化代码流程图转化的代码 1234567">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20200827104724769.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20200812023354631.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20200714142517337.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20200714093601730.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20200715233339927.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20200716000203862.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20200714172602305.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20200716015113164.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20200827111324564.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20200827140451144.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20200716004526838.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20200827143847893.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20200716231205153.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20200827152601712.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20200818155842864.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20200716012120619.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20200716000203862.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20200813013009294.png">
+<meta property="article:published_time" content="2022-10-03T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-10-16T05:50:05.967Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://image.zhangyc.top/img/image-20200827104724769.png">
+  
+  
+  
+  <title>第四天 主页模块 - 每日笔记</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="第四天 主页模块"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-10-04 00:00" pubdate>
+          2022年10月4日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          14k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          121 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">第四天 主页模块</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="主页的token拦截处理"><a href="#主页的token拦截处理" class="headerlink" title="主页的token拦截处理"></a>主页的token拦截处理</h2><p>**<code>目标</code>**：根据token处理主页的访问权限问题</p>
+<h3 id="权限拦截的流程图"><a href="#权限拦截的流程图" class="headerlink" title="权限拦截的流程图"></a>权限拦截的流程图</h3><blockquote>
+<p>我们已经完成了登录的过程，并且存储了token，但是此时主页并没有因为token的有无而被控制访问权限</p>
+</blockquote>
+<p>接下来我们需要实现以下如下的流程图</p>
+<p><img src="http://image.zhangyc.top/img/image-20200827104724769.png" srcset="/img/loading.gif" lazyload alt="image-20200714093601730"></p>
+<blockquote>
+<p>在基础框架阶段，我们已经知道**<code>src/permission.js</code>**是专门处理路由权限的，所以我们在这里处理</p>
+</blockquote>
+<h3 id="流程图转化代码"><a href="#流程图转化代码" class="headerlink" title="流程图转化代码"></a>流程图转化代码</h3><p><strong>流程图转化的代码</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 权限拦截 导航守卫 路由守卫  router</span><br><span class="hljs-keyword">import</span> router <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@/router&#x27;</span> <span class="hljs-comment">// 引入路由实例</span><br><span class="hljs-keyword">import</span> store <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@/store&#x27;</span> <span class="hljs-comment">// 引入vuex store实例</span><br><span class="hljs-keyword">import</span> <span class="hljs-title class_">NProgress</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;nprogress&#x27;</span> <span class="hljs-comment">// 引入一份进度条插件</span><br><span class="hljs-keyword">import</span> <span class="hljs-string">&#x27;nprogress/nprogress.css&#x27;</span> <span class="hljs-comment">// 引入进度条样式</span><br><br><span class="hljs-keyword">const</span> whiteList = [<span class="hljs-string">&#x27;/login&#x27;</span>, <span class="hljs-string">&#x27;/404&#x27;</span>] <span class="hljs-comment">// 定义白名单  所有不受权限控制的页面</span><br><span class="hljs-comment">// 路由的前置守卫</span><br>router.<span class="hljs-title function_">beforeEach</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">to, <span class="hljs-keyword">from</span>, next</span>) &#123;<br>  <span class="hljs-title class_">NProgress</span>.<span class="hljs-title function_">start</span>() <span class="hljs-comment">// 开启进度条</span><br>  <span class="hljs-comment">//  首先判断有无token</span><br>  <span class="hljs-keyword">if</span> (store.<span class="hljs-property">getters</span>.<span class="hljs-property">token</span>) &#123;<br>    <span class="hljs-comment">//   如果有token 继续判断是不是去登录页</span><br>    <span class="hljs-keyword">if</span> (to.<span class="hljs-property">path</span> === <span class="hljs-string">&#x27;/login&#x27;</span>) &#123;<br>      <span class="hljs-comment">//  表示去的是登录页</span><br>      <span class="hljs-title function_">next</span>(<span class="hljs-string">&#x27;/&#x27;</span>) <span class="hljs-comment">// 跳到主页</span><br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>      <span class="hljs-title function_">next</span>() <span class="hljs-comment">// 直接放行</span><br>    &#125;<br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>    <span class="hljs-comment">// 如果没有token</span><br>    <span class="hljs-keyword">if</span> (whiteList.<span class="hljs-title function_">indexOf</span>(to.<span class="hljs-property">path</span>) &gt; -<span class="hljs-number">1</span>) &#123;<br>      <span class="hljs-comment">// 如果找到了 表示在在名单里面</span><br>      <span class="hljs-title function_">next</span>()<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>      <span class="hljs-title function_">next</span>(<span class="hljs-string">&#x27;/login&#x27;</span>) <span class="hljs-comment">// 跳到登录页</span><br>    &#125;<br>  &#125;<br>  <span class="hljs-title class_">NProgress</span>.<span class="hljs-title function_">done</span>() <span class="hljs-comment">// 手动强制关闭一次  为了解决 手动切换地址时  进度条的不关闭的问题</span><br>&#125;)<br><span class="hljs-comment">// 后置守卫</span><br>router.<span class="hljs-title function_">afterEach</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-title class_">NProgress</span>.<span class="hljs-title function_">done</span>() <span class="hljs-comment">// 关闭进度条</span><br>&#125;)<br><br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>在导航守卫的位置，我们添加了NProgress的插件，可以完成进入时的进度条效果</p>
+</blockquote>
+<p><strong>提交代码</strong></p>
+<p>**<code>本节任务</code>**：完成主页中根据有无token，进行页面访问的处理</p>
+<h2 id="主页的左侧导航样式"><a href="#主页的左侧导航样式" class="headerlink" title="主页的左侧导航样式"></a>主页的左侧导航样式</h2><p>**<code>目标</code>**设置左侧的导航样式</p>
+<blockquote>
+<p>接下来我们需要将左侧导航设置成如图样式</p>
+</blockquote>
+<p><img src="http://image.zhangyc.top/img/image-20200812023354631.png" srcset="/img/loading.gif" lazyload alt="image-20200714142517337"></p>
+<blockquote>
+<p>主页的布局组件位置**<code>src/layout</code>**</p>
+</blockquote>
+<p><strong>主页布局架构</strong></p>
+<p><img src="http://image.zhangyc.top/img/image-20200714142517337.png" srcset="/img/loading.gif" lazyload alt="image-20200812023354631"></p>
+<p><strong>左侧导航组件的样式文件</strong><code>styles/siderbar.scss</code></p>
+<p><strong>设置背景渐变色</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.sidebar-container</span> &#123;<br>      <span class="hljs-attribute">background</span>: <span class="hljs-built_in">-webkit-linear-gradient</span>(bottom, <span class="hljs-number">#3d6df8</span>, <span class="hljs-number">#5b8cff</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>设置左侧导航背景图片</strong></p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs scss"><span class="hljs-selector-class">.scrollbar-wrapper</span> &#123; <br>    <span class="hljs-attribute">background</span>: <span class="hljs-built_in">url</span>(<span class="hljs-string">&#x27;~@/assets/common/leftnavBg.png&#x27;</span>) no-repeat <span class="hljs-number">0</span> <span class="hljs-number">100%</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>**<code>注意</code><strong>：在scss中，如果我们想要使用</strong><code>@</code><strong>别名，需要在前面加上一个</strong><code>~</code>**才可以</p>
+<p><strong>设置菜单选中颜色</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs bash">.el-menu &#123;<br>  border: none;<br>  height: 100%;<br>  width: 100% !important;<br>  a&#123;<br>    li&#123;<br>      .svg-icon&#123;<br>        color: <span class="hljs-comment">#fff;</span><br>        font-size: 18px;<br>        vertical-align: middle;<br>        .icon&#123;<br>          color:<span class="hljs-comment">#fff;</span><br>        &#125;<br>      &#125;<br>      span&#123;<br>        color: <span class="hljs-comment">#fff;</span><br>      &#125;<br>      &amp;:hover&#123;<br>        .svg-icon&#123;<br>          color: <span class="hljs-comment">#43a7fe</span><br>        &#125;<br>        span&#123;<br>          color: <span class="hljs-comment">#43a7fe;</span><br>        &#125;<br>      &#125;<br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>**<code>注意</code>**：因为我们后期没有二级菜单，所以这里暂时不用对二级菜单的样式进行控制</p>
+<p><strong>显示左侧logo图片</strong> <strong><code>src/setttings.js</code></strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span> = &#123;<br><br>  <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;人力资源管理平台&#x27;</span>,<br><br>  <span class="hljs-comment">/**</span><br><span class="hljs-comment">   * <span class="hljs-doctag">@type</span> &#123;<span class="hljs-type">boolean</span>&#125; true | false</span><br><span class="hljs-comment">   * <span class="hljs-doctag">@description</span> Whether fix the header</span><br><span class="hljs-comment">   */</span><br>  <span class="hljs-attr">fixedHeader</span>: <span class="hljs-literal">false</span>,<br><br>  <span class="hljs-comment">/**</span><br><span class="hljs-comment">   * <span class="hljs-doctag">@type</span> &#123;<span class="hljs-type">boolean</span>&#125; true | false</span><br><span class="hljs-comment">   * <span class="hljs-doctag">@description</span> Whether show the logo in sidebar</span><br><span class="hljs-comment">   */</span><br>  <span class="hljs-attr">sidebarLogo</span>: <span class="hljs-literal">true</span> <span class="hljs-comment">// 显示logo</span><br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p><strong>设置头部图片结构</strong> <strong><code>src/layout/components/Sidebar/Logo.vue</code></strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;div class=&quot;sidebar-logo-container&quot; :class=&quot;&#123;&#x27;collapse&#x27;:collapse&#125;&quot;&gt;<br>    &lt;transition name=&quot;sidebarLogoFade&quot;&gt;<br>      &lt;router-link key=&quot;collapse&quot; class=&quot;sidebar-logo-link&quot; to=&quot;/&quot;&gt;<br>        &lt;img src=&quot;@/assets/common/logo.png&quot; class=&quot;sidebar-logo  &quot;&gt;<br>      &lt;/router-link&gt;<br>    &lt;/transition&gt;<br>  &lt;/div&gt;<br></code></pre></td></tr></table></figure>
+
+<p><strong>设置大图和小图的样式</strong></p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs scss">  &amp;<span class="hljs-selector-class">.collapse</span> &#123;<br>    <span class="hljs-selector-class">.sidebar-logo</span> &#123;<br>      <span class="hljs-attribute">margin-right</span>: <span class="hljs-number">0px</span>;<br>      <span class="hljs-attribute">width</span>: <span class="hljs-number">32px</span>;<br>      <span class="hljs-attribute">height</span>: <span class="hljs-number">32px</span>;<br>    &#125;<br>  &#125;<br><span class="hljs-comment">// 小图样式</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs scss"><span class="hljs-selector-class">.sidebar-logo</span> &#123;<br>      <span class="hljs-attribute">width</span>: <span class="hljs-number">140px</span>;<br>      <span class="hljs-attribute">vertical-align</span>: middle;<br>      <span class="hljs-attribute">margin-right</span>: <span class="hljs-number">12px</span>;<br>&#125;<br><span class="hljs-comment">// 大图样式</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>去除logo的背景色</strong></p>
+<p><img src="http://image.zhangyc.top/img/image-20200714093601730.png" srcset="/img/loading.gif" lazyload alt="image-20200827104724769"></p>
+<p><strong>提交代码</strong></p>
+<p>**<code>本节任务</code>**： 完成主页的左侧导航样式</p>
+<p>**<code>本节注意</code>**：我们该项目中没有二级显示菜单，所以二级菜单的样式并没有做过多处理，同学们不必在意</p>
+<h2 id="设置头部内容的布局和样式"><a href="#设置头部内容的布局和样式" class="headerlink" title="设置头部内容的布局和样式"></a>设置头部内容的布局和样式</h2><p>**<code>目标</code>**设置头部内容的布局和样式</p>
+<blockquote>
+<p>我们需要把页面设置成如图样式</p>
+</blockquote>
+<p><img src="http://image.zhangyc.top/img/image-20200715233339927.png" srcset="/img/loading.gif" lazyload alt="image-20200714172602305"></p>
+<p><strong>头部组件位置</strong> <strong><code>layout/components/Navbar.vue</code></strong></p>
+<p><strong>添加公司名称</strong>，<strong>注释面包屑</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs html"> <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;app-breadcrumb&quot;</span>&gt;</span><br>     江苏传智播客教育科技股份有限公司<br>     <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;breadBtn&quot;</span>&gt;</span>体验版<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><br> <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-comment">&lt;!-- &lt;breadcrumb class=&quot;breadcrumb-container&quot; /&gt; --&gt;</span><br><br></code></pre></td></tr></table></figure>
+
+<p><strong>公司样式</strong></p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs scss"><span class="hljs-selector-class">.app-breadcrumb</span> &#123;<br>  <span class="hljs-attribute">display</span>: inline-block;<br>  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">18px</span>;<br>  <span class="hljs-attribute">line-height</span>: <span class="hljs-number">50px</span>;<br>  <span class="hljs-attribute">margin-left</span>: <span class="hljs-number">10px</span>;<br>  <span class="hljs-attribute">color</span>: <span class="hljs-number">#ffffff</span>;<br>  <span class="hljs-attribute">cursor</span>: text;<br>  <span class="hljs-selector-class">.breadBtn</span> &#123;<br>    <span class="hljs-attribute">background</span>: <span class="hljs-number">#84a9fe</span>;<br>    <span class="hljs-attribute">font-size</span>: <span class="hljs-number">14px</span>;<br>    <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span> <span class="hljs-number">10px</span>;<br>    <span class="hljs-attribute">display</span>: inline-block;<br>    <span class="hljs-attribute">height</span>: <span class="hljs-number">30px</span>;<br>    <span class="hljs-attribute">line-height</span>: <span class="hljs-number">30px</span>;<br>    <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">10px</span>;<br>    <span class="hljs-attribute">margin-left</span>: <span class="hljs-number">15px</span>;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>头部背景渐变色</strong></p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs scss"><span class="hljs-selector-class">.navbar</span> &#123;<br>    <span class="hljs-attribute">background-image</span>: <span class="hljs-built_in">-webkit-linear-gradient</span>(left, <span class="hljs-number">#3d6df8</span>, <span class="hljs-number">#5b8cff</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>汉堡组件图标颜色</strong>  <strong><code>src/components/Hamburger/index.vue</code></strong></p>
+<p><strong><code>注意</code><strong>这里的图标我们使用了</strong><code>svg</code><strong>，设置颜色需要使用svg标签的</strong><code>fill属性</code></strong></p>
+<blockquote>
+<p>设置svg图标为白色</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;svg<br>      :class=&quot;&#123;&#x27;is-active&#x27;:isActive&#125;&quot;<br>      class=&quot;hamburger&quot;<br>      viewBox=&quot;0 0 1024 1024&quot;<br>      xmlns=&quot;http://www.w3.org/2000/svg&quot;<br>      width=&quot;64&quot;<br>      height=&quot;64&quot;<br>      fill=&quot;#fff&quot; <br>    &gt;<br></code></pre></td></tr></table></figure>
+
+<p><strong>右侧下拉菜单设置</strong></p>
+<blockquote>
+<p>将下拉菜单调节成**<code>首页/项目地址/退出登录</code>**</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;div class=&quot;right-menu&quot;&gt;<br>  &lt;el-dropdown class=&quot;avatar-container&quot; trigger=&quot;click&quot;&gt;<br>    &lt;div class=&quot;avatar-wrapper&quot;&gt;<br>      &lt;img src=&quot;@/assets/common/bigUserHeader.png&quot; class=&quot;user-avatar&quot;&gt;<br>      &lt;span class=&quot;name&quot;&gt;管理员&lt;/span&gt;<br>      &lt;i class=&quot;el-icon-caret-bottom&quot; style=&quot;color:#fff&quot; /&gt;<br>    &lt;/div&gt;<br>    &lt;el-dropdown-menu slot=&quot;dropdown&quot; class=&quot;user-dropdown&quot;&gt;<br>      &lt;router-link to=&quot;/&quot;&gt;<br>        &lt;el-dropdown-item&gt;<br>          首页<br>        &lt;/el-dropdown-item&gt;<br>      &lt;/router-link&gt;<br>      &lt;a target=&quot;_blank&quot; href=&quot;https://gitee.com/shuiruohanyu/hrsaas53&quot;&gt;<br>        &lt;el-dropdown-item&gt;项目地址&lt;/el-dropdown-item&gt;<br>      &lt;/a&gt;<br>      &lt;el-dropdown-item divided @click.native=&quot;logout&quot;&gt;<br>        &lt;span style=&quot;display:block;&quot;&gt;退出登录&lt;/span&gt;<br>      &lt;/el-dropdown-item&gt;<br>    &lt;/el-dropdown-menu&gt;<br>  &lt;/el-dropdown&gt;<br>&lt;/div&gt;<br></code></pre></td></tr></table></figure>
+
+<p><strong>头像和下拉菜单样式</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.user-avatar</span> &#123;<br>        <span class="hljs-attribute">cursor</span>: pointer;<br>        <span class="hljs-attribute">width</span>: <span class="hljs-number">30px</span>;<br>        <span class="hljs-attribute">height</span>: <span class="hljs-number">30px</span>;<br>        <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">15px</span>;<br>        <span class="hljs-attribute">vertical-align</span>: middle;<br><br> &#125;<br> <span class="hljs-selector-class">.name</span> &#123;<br>        <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>;<br>        <span class="hljs-attribute">vertical-align</span>: middle;<br>        <span class="hljs-attribute">margin-left</span>:<span class="hljs-number">5px</span>;<br> &#125;<br> <span class="hljs-selector-class">.user-dropdown</span> &#123;<br>         <span class="hljs-attribute">color</span>: <span class="hljs-number">#fff</span>;<br>  &#125;<br></code></pre></td></tr></table></figure>
+
+<p>用户名和头像我们先用了假数据进行，下小章节，会进行这份数据的获取</p>
+<p><strong>最终效果</strong></p>
+<p><img src="http://image.zhangyc.top/img/image-20200716000203862.png" srcset="/img/loading.gif" lazyload></p>
+<p><strong>提交代码</strong></p>
+<h2 id="获取用户资料接口和token注入"><a href="#获取用户资料接口和token注入" class="headerlink" title="获取用户资料接口和token注入"></a>获取用户资料接口和token注入</h2><p><strong><code>目标</code></strong> 封装获取用户资料的资料信息</p>
+<blockquote>
+<p>上小节中，我们完成了头部菜单的基本布局，但是用户的头像和名称并没有，我们需要通过接口调用的方式获取当前用户的资料信息</p>
+</blockquote>
+<p><strong>获取用户资料接口</strong></p>
+<p>在**<code>src/api/user.js</code>**中封装获取用户资料的方法</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> *  获取用户的基本资料</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> * **/</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">getUserInfo</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-title function_">request</span>(&#123;<br>    <span class="hljs-attr">url</span>: <span class="hljs-string">&#x27;/sys/profile&#x27;</span>,<br>    <span class="hljs-attr">method</span>: <span class="hljs-string">&#x27;post&#x27;</span><br>  &#125;)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>我们忽略了一个问题！我们的headers参数并没有在这里传入，为什么呢</p>
+</blockquote>
+<p>headers中的<strong>Authorization</strong>相当于我们<strong>开门</strong>（<strong>调用接口</strong>）时**<code>钥匙(token)</code><strong>，我们在打开任何带安全权限的门的时候都需要</strong><code>钥匙(token)</code>** 如图</p>
+<p><img src="http://image.zhangyc.top/img/image-20200714172602305.png" srcset="/img/loading.gif" lazyload alt="image-20200715233339927"></p>
+<p>每次在接口中携带**<code>钥匙（token）</code>**很麻烦，所以我们可以在axios拦截器中统一注入token </p>
+<p><img src="http://image.zhangyc.top/img/image-20200716015113164.png" srcset="/img/loading.gif" lazyload alt="image-20200716000203862"></p>
+<p><strong>统一注入token</strong> <strong><code>src/utils/request.js</code></strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs js">service.<span class="hljs-property">interceptors</span>.<span class="hljs-property">request</span>.<span class="hljs-title function_">use</span>(<span class="hljs-function"><span class="hljs-params">config</span> =&gt;</span> &#123;<br>  <span class="hljs-comment">// 在这个位置需要统一的去注入token</span><br>  <span class="hljs-keyword">if</span> (store.<span class="hljs-property">getters</span>.<span class="hljs-property">token</span>) &#123;<br>    <span class="hljs-comment">// 如果token存在 注入token</span><br>    config.<span class="hljs-property">headers</span>[<span class="hljs-string">&#x27;Authorization&#x27;</span>] = <span class="hljs-string">`Bearer <span class="hljs-subst">$&#123;store.getters.token&#125;</span>`</span><br>  &#125;<br>  <span class="hljs-keyword">return</span> config <span class="hljs-comment">// 必须返回配置</span><br>&#125;, <span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">reject</span>(error)<br>&#125;) <br></code></pre></td></tr></table></figure>
+
+<p>**<code>本节任务</code>**： 完成获取用户资料接口和token注入</p>
+<h2 id="封装获取用户资料的action并共享用户状态"><a href="#封装获取用户资料的action并共享用户状态" class="headerlink" title="封装获取用户资料的action并共享用户状态"></a>封装获取用户资料的action并共享用户状态</h2><p>**<code>目标</code>**： 在用户的vuex模块中封装获取用户资料的action，并设置相关状态</p>
+<blockquote>
+<p>用户状态会在后续的开发中，频繁用到，所以我们将用户状态同样的封装到action中</p>
+</blockquote>
+<p><img src="http://image.zhangyc.top/img/image-20200827111324564.png" srcset="/img/loading.gif" lazyload alt="image-20200827111324564"></p>
+<p><strong>封装获取用户资料action</strong>   <strong><code>action</code></strong>  <strong><code>src/store/modules/user.js</code></strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> &#123; login, getUserInfo &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@/api/user&#x27;</span><br>  <br>  <span class="hljs-comment">// 获取用户资料action</span><br>  <span class="hljs-keyword">async</span> getUserInfo (context) &#123;<br>    <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> <span class="hljs-title function_">getUserInfo</span>()  <span class="hljs-comment">// 获取返回值</span><br>    context.<span class="hljs-title function_">commit</span>(<span class="hljs-string">&#x27;setUserInfo&#x27;</span>, result) <span class="hljs-comment">// 将整个的个人信息设置到用户的vuex数据中</span><br>    <span class="hljs-keyword">return</span> result <span class="hljs-comment">// 这里为什么要返回 为后面埋下伏笔</span><br>  &#125;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>同时，配套的我们还进行了关于用户状态的mutations方法的设计</p>
+</blockquote>
+<p><strong>初始化state</strong>  <strong><code>state</code></strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> state = &#123;<br>  <span class="hljs-attr">token</span>: <span class="hljs-title function_">getToken</span>(), <span class="hljs-comment">// 设置token初始状态   token持久化 =&gt; 放到缓存中</span><br>  <span class="hljs-attr">userInfo</span>: &#123;&#125; <span class="hljs-comment">// 定义一个空的对象 不是null 因为后边我要开发userInfo的属性给别人用  userInfo.name</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>userInfo为什么我们不设置为null，而是设置为 {} </p>
+</blockquote>
+<p>因为我们会在**<code>getters</code>**中引用userinfo的变量，如果设置为null，则会引起异常和报错</p>
+<p><strong>设置和删除用户资料</strong>   <strong><code>mutations</code></strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 设置用户信息</span><br> <span class="hljs-title function_">setUserInfo</span>(<span class="hljs-params">state, userInfo</span>) &#123;<br>   state.<span class="hljs-property">userInfo</span> = &#123; ...userInfo &#125; <span class="hljs-comment">// 用 浅拷贝的方式去赋值对象 因为这样数据更新之后，才会触发组件的更新</span><br> &#125;,<br> <span class="hljs-comment">// 删除用户信息</span><br> <span class="hljs-title function_">reomveUserInfo</span>(<span class="hljs-params">state</span>) &#123;<br>   state.<span class="hljs-property">userInfo</span> = &#123;&#125;<br> &#125;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>同学们，我们将所有的资料设置到了<strong>userInfo</strong>这个对象中，如果想要取其中一个值，我们还可以在getters中建立相应的映射</p>
+</blockquote>
+<p>因为我们要做映射，如果初始值为null，一旦引用了getters，就会报错</p>
+<p><strong>建立用户名的映射</strong>  <strong><code>src/store/getters.js</code></strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> getters = &#123;<br>  <span class="hljs-attr">sidebar</span>: <span class="hljs-function"><span class="hljs-params">state</span> =&gt;</span> state.<span class="hljs-property">app</span>.<span class="hljs-property">sidebar</span>,<br>  <span class="hljs-attr">device</span>: <span class="hljs-function"><span class="hljs-params">state</span> =&gt;</span> state.<span class="hljs-property">app</span>.<span class="hljs-property">device</span>,<br>  <span class="hljs-attr">token</span>: <span class="hljs-function"><span class="hljs-params">state</span> =&gt;</span> state.<span class="hljs-property">user</span>.<span class="hljs-property">token</span>,<br>  <span class="hljs-attr">name</span>: <span class="hljs-function"><span class="hljs-params">state</span> =&gt;</span> state.<span class="hljs-property">user</span>.<span class="hljs-property">userInfo</span>.<span class="hljs-property">username</span> <span class="hljs-comment">// 建立用户名称的映射</span><br>&#125;<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> getters<br><br></code></pre></td></tr></table></figure>
+
+<p>到现在为止，我们将用户资料的<strong>action &#x3D;&gt;  mutation &#x3D;&gt; state &#x3D;&gt;  getters</strong> 都设置好了， 那么我们应该在什么位置来调用这个action呢 ？</p>
+<blockquote>
+<p>别着急，先提交代码，下个小节，我们来揭晓答案</p>
+</blockquote>
+<p><strong>提交代码</strong></p>
+<p>**<code>本节任务</code>**封装获取用户资料的action并共享用户状态</p>
+<h2 id="权限拦截处调用获取资料action"><a href="#权限拦截处调用获取资料action" class="headerlink" title="权限拦截处调用获取资料action"></a>权限拦截处调用获取资料action</h2><p>**<code>目标</code>**在权限拦截处调用aciton</p>
+<h3 id="权限拦截器调用action"><a href="#权限拦截器调用action" class="headerlink" title="权限拦截器调用action"></a>权限拦截器调用action</h3><blockquote>
+<p>在上小节中，我们完成了用户资料的整个流程，那么这个action在哪里调用呢？</p>
+</blockquote>
+<p>用户资料有个硬性要求，**<code>必须有token</code>**才可以获取，那么我们就可以在确定有token的位置去获取用户资料</p>
+<p><img src="http://image.zhangyc.top/img/image-20200827140451144.png" srcset="/img/loading.gif" lazyload alt="image-20200716004526838"></p>
+<blockquote>
+<p>由上图可以看出，一旦确定我们进行了放行，就可以获取用户资料</p>
+</blockquote>
+<p><img src="http://image.zhangyc.top/img/image-20200716004526838.png" srcset="/img/loading.gif" lazyload alt="image-20200813013009294"></p>
+<p><strong>调用action</strong> <strong><code>src/permission.js</code></strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">if</span>(!store.<span class="hljs-property">state</span>.<span class="hljs-property">user</span>.<span class="hljs-property">userInfo</span>.<span class="hljs-property">userId</span>) &#123;<br>      <span class="hljs-keyword">await</span> store.<span class="hljs-title function_">dispatch</span>(<span class="hljs-string">&#x27;user/getUserInfo&#x27;</span>)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>如果我们觉得获取用户id的方式写了太多层级，可以在vuex中的getters中设置一个映射 <strong><code>src/store/getters.js</code></strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-attr">userId</span>: <span class="hljs-function"><span class="hljs-params">state</span> =&gt;</span> state.<span class="hljs-property">user</span>.<span class="hljs-property">userInfo</span>.<span class="hljs-property">userId</span> <span class="hljs-comment">// 建立用户id的映射</span><br></code></pre></td></tr></table></figure>
+
+<p>代码就变成了</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">if</span> (!store.<span class="hljs-property">getters</span>.<span class="hljs-property">userId</span>) &#123;<br>       <span class="hljs-comment">// 如果没有id这个值 才会调用 vuex的获取资料的action</span><br>       <span class="hljs-keyword">await</span> store.<span class="hljs-title function_">dispatch</span>(<span class="hljs-string">&#x27;user/getUserInfo&#x27;</span>)<br>       <span class="hljs-comment">// 为什么要写await 因为我们想获取完资料再去放行</span><br>     &#125;<br></code></pre></td></tr></table></figure>
+
+<p>此时，我们可以通过dev-tools工具在控制台清楚的看到数据已经获取</p>
+<p><img src="http://image.zhangyc.top/img/image-20200827143847893.png" srcset="/img/loading.gif" lazyload alt="image-20200716012120619"></p>
+<blockquote>
+<p>最后一步，只需要将头部菜单中的名称换成真实的用户名即可</p>
+</blockquote>
+<h3 id="获取头像接口合并数据"><a href="#获取头像接口合并数据" class="headerlink" title="获取头像接口合并数据"></a>获取头像接口合并数据</h3><p><strong>头像怎么办？</strong></p>
+<blockquote>
+<p>我们发现头像并不在接口的返回体中（接口原因），我们可以通过另一个接口来获取头像，并把头像合并到当前的资料中</p>
+</blockquote>
+<p><strong>封装获取用户信息接口</strong>  <strong><code>src/api/user.js</code></strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">/** *</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> * 获取用户的基本信息  现在写它 完全是为了显示头像</span><br><span class="hljs-comment"> * **/</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">getUserDetailById</span>(<span class="hljs-params">id</span>) &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-title function_">request</span>(&#123;<br>    <span class="hljs-attr">url</span>: <span class="hljs-string">`/sys/user/<span class="hljs-subst">$&#123;id&#125;</span>`</span><br>  &#125;)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这个接口需要用户的userId，在前一个接口处，我们已经获取到了，所以可以直接在后面的内容去衔接</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> &#123; login, getUserInfo, getUserDetailById &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@/api/user&#x27;</span><br> <br><span class="hljs-comment">// 获取用户资料action</span><br> <span class="hljs-keyword">async</span> <span class="hljs-title function_">getUserInfo</span>(<span class="hljs-params">context</span>) &#123;<br>    <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> <span class="hljs-title function_">getUserInfo</span>() <span class="hljs-comment">// result就是用户的基本资料</span><br>    <span class="hljs-keyword">const</span> baseInfo = <span class="hljs-keyword">await</span> <span class="hljs-title function_">getUserDetailById</span>(result.<span class="hljs-property">userId</span>) <span class="hljs-comment">// 为了获取头像</span><br>    <span class="hljs-keyword">const</span> baseResult = &#123; ...result, ...baseInfo &#125; <span class="hljs-comment">// 将两个接口结果合并</span><br>    <span class="hljs-comment">// 此时已经获取到了用户的基本资料 迫不得已 为了头像再次调用一个接口</span><br>    context.<span class="hljs-title function_">commit</span>(<span class="hljs-string">&#x27;setUserInfo&#x27;</span>, baseResult) <span class="hljs-comment">// 提交mutations</span><br>    <span class="hljs-comment">// 加一个点睛之笔  这里这一步，暂时用不到，但是请注意，这给我们后边会留下伏笔</span><br>    <span class="hljs-keyword">return</span> baseResult<br>  &#125;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>为了更好地获取头像，同样可以把头像放于getters中</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-attr">staffPhoto</span>: <span class="hljs-function"><span class="hljs-params">state</span> =&gt;</span> state.<span class="hljs-property">user</span>.<span class="hljs-property">userInfo</span>.<span class="hljs-property">staffPhoto</span> <span class="hljs-comment">// 建立用户头像的映射</span><br></code></pre></td></tr></table></figure>
+
+<p>此时，我们的头像和名称已经获取到了，可以直接将之前的假数据换成真正的头像和名称</p>
+<p><strong>用户名</strong>  <strong><code>layout/components/Navbar.vue</code></strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js">...<span class="hljs-title function_">mapGetters</span>([<br>     <span class="hljs-string">&#x27;sidebar&#x27;</span>,<br>     <span class="hljs-string">&#x27;name&#x27;</span>,<br>     <span class="hljs-string">&#x27;staffPhoto&#x27;</span><br>   ])<br>    &lt;img :src=<span class="hljs-string">&quot;staffPhoto&quot;</span> <span class="hljs-keyword">class</span>=<span class="hljs-string">&quot;user-avatar&quot;</span>&gt;<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span>&#123;&#123; name &#125;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span><br><br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>通过设置，用户名已经显示，头像依然没有显示，这是因为虽然有地址，但是地址来源是私有云，目前已经失效，所以需要额外处理下图片的异常</p>
+</blockquote>
+<p><img src="http://image.zhangyc.top/img/image-20200716231205153.png" srcset="/img/loading.gif" lazyload alt="image-20200827140451144"></p>
+<p>至于处理图片的异常，我们在下一节中，可采用自定义指令的形式来进行处理</p>
+<p>**<code>本节任务</code>**：实现权限拦截处调用获取资料action</p>
+<h2 id="自定义指令-解决异常图片情况"><a href="#自定义指令-解决异常图片情况" class="headerlink" title="自定义指令-解决异常图片情况"></a>自定义指令-解决异常图片情况</h2><p>**<code>目标</code>**： 通过自定义指令的形式解决异常图片的处理</p>
+<h3 id="自定义指令"><a href="#自定义指令" class="headerlink" title="自定义指令"></a>自定义指令</h3><p>注册自定义指令</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-title class_">Vue</span>.<span class="hljs-title function_">directive</span>(<span class="hljs-string">&#x27;指令名称&#x27;</span>, &#123;<br>    <span class="hljs-comment">// 会在当前指令作用的dom元素 插入之后执行</span><br>    <span class="hljs-comment">// options 里面是指令的表达式</span><br>    <span class="hljs-attr">inserted</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">dom,options</span>) &#123;<br>        <br>    &#125;<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>自定义指令可以采用统一的文件来管理  <strong><code>src/directives/index.js</code></strong>,这个文件负责管理所有的自定义指令</p>
+</blockquote>
+<p>首先定义第一个自定义指令  <strong><code>v-imagerror</code></strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> imagerror = &#123;<br>  <span class="hljs-comment">// 指令对象 会在当前的dom元素插入到节点之后执行</span><br>  <span class="hljs-title function_">inserted</span>(<span class="hljs-params">dom, options</span>) &#123;<br>    <span class="hljs-comment">// options是 指令中的变量的解释  其中有一个属性叫做 value</span><br>    <span class="hljs-comment">// dom 表示当前指令作用的dom对象</span><br>    <span class="hljs-comment">// dom认为此时就是图片</span><br>    <span class="hljs-comment">// 当图片有地址 但是地址没有加载成功的时候 会报错 会触发图片的一个事件 =&gt; onerror</span><br>    dom.<span class="hljs-property">onerror</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;<br>      <span class="hljs-comment">// 当图片出现异常的时候 会将指令配置的默认图片设置为该图片的内容</span><br>      <span class="hljs-comment">// dom可以注册error事件</span><br>      dom.<span class="hljs-property">src</span> = options.<span class="hljs-property">value</span> <span class="hljs-comment">// 这里不能写死</span><br>    &#125;<br>  &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<h3 id="在main-js完成自定义指令全局注册"><a href="#在main-js完成自定义指令全局注册" class="headerlink" title="在main.js完成自定义指令全局注册"></a>在main.js完成自定义指令全局注册</h3><p>然后，在**<code>main.js</code>**中完成对于该文件中所有指令的全局注册 </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> directives <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@/directives&#x27;</span><br><span class="hljs-comment">// 注册自定义指令</span><br><span class="hljs-comment">// 遍历所有的导出的指令对象 完成自定义全局注册</span><br><span class="hljs-title class_">Object</span>.<span class="hljs-title function_">keys</span>(directives).<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">key</span> =&gt;</span> &#123;<br>  <span class="hljs-comment">// 注册自定义指令</span><br>  <span class="hljs-title class_">Vue</span>.<span class="hljs-title function_">directive</span>(key, directives[key])<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>针对上面的引入语法  <strong><code>import *  as  变量</code></strong>  得到的是一个对象**<code>&#123; 变量1：对象1，变量2： 对象2 ...   &#125;</code>**, 所以可以采用对象遍历的方法进行处理</p>
+<p>指令注册成功，可以在**<code>navbar.vue</code>**中直接使用了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;img v-imageerror=&quot;defaultImg&quot; :src=&quot;staffPhoto&quot; class=&quot;user-avatar&quot;&gt;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-title function_">data</span>(<span class="hljs-params"></span>) &#123;<br>   <span class="hljs-keyword">return</span> &#123;<br>     <span class="hljs-attr">defaultImg</span>: <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;@/assets/common/head.jpg&#x27;</span>)<br>   &#125;<br> &#125;,<br></code></pre></td></tr></table></figure>
+
+<p>**<code>本节任务</code>**：实现一个自定义指令，解决图片加载异常的问题</p>
+<h2 id="实现登出功能"><a href="#实现登出功能" class="headerlink" title="实现登出功能"></a>实现登出功能</h2><p>**<code>目标</code>**：实现用户的登出操作</p>
+<blockquote>
+<p>登出仅仅是跳到登录页吗？</p>
+</blockquote>
+<p>不，当然不是，我们要处理如下</p>
+<p><img src="http://image.zhangyc.top/img/image-20200827152601712.png" srcset="/img/loading.gif" lazyload alt="image-20200827143847893"></p>
+<p>同样的，登出功能，我们在vuex中的用户模块中实现对应的<strong>action</strong></p>
+<p><strong>登出action</strong>  <strong><code>src/store/modules/user.js</code></strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 登出的action</span><br>  <span class="hljs-title function_">logout</span>(<span class="hljs-params">context</span>) &#123;<br>    <span class="hljs-comment">// 删除token</span><br>    context.<span class="hljs-title function_">commit</span>(<span class="hljs-string">&#x27;removeToken&#x27;</span>) <span class="hljs-comment">// 不仅仅删除了vuex中的 还删除了缓存中的</span><br>    <span class="hljs-comment">// 删除用户资料</span><br>    context.<span class="hljs-title function_">commit</span>(<span class="hljs-string">&#x27;removeUserInfo&#x27;</span>) <span class="hljs-comment">// 删除用户信息</span><br>  &#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>头部菜单调用action</strong>  <strong><code>src/layout/components/Navbar.vue</code></strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">async</span> <span class="hljs-title function_">logout</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">await</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">$store</span>.<span class="hljs-title function_">dispatch</span>(<span class="hljs-string">&#x27;user/logout&#x27;</span>) <span class="hljs-comment">// 这里不论写不写 await 登出方法都是同步的</span><br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">$router</span>.<span class="hljs-title function_">push</span>(<span class="hljs-string">`/login`</span>) <span class="hljs-comment">// 跳到登录</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>**<code>注意</code>**我们这里也可以采用vuex中的模块化引入辅助函数</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> &#123; mapGetters, createNamespacedHelpers  &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vuex&#x27;</span><br><span class="hljs-keyword">const</span> &#123;  mapActions &#125; = <span class="hljs-title function_">createNamespacedHelpers</span>(<span class="hljs-string">&#x27;user&#x27;</span>) <span class="hljs-comment">// 这是的mapAction直接对应模块下的action辅助函数</span><br>  <span class="hljs-attr">methods</span>: &#123;<br>    ...<span class="hljs-title function_">mapActions</span>([<span class="hljs-string">&#x27;lgout&#x27;</span>]),<br>  &#125;<br></code></pre></td></tr></table></figure>
+
+<p>以上代码，实际上直接对user模块下的action进行了引用，</p>
+<p><strong>提交代码</strong></p>
+<p>**<code>本节任务</code>**： 实现登出功能</p>
+<h2 id="Token失效的主动介入"><a href="#Token失效的主动介入" class="headerlink" title="Token失效的主动介入"></a>Token失效的主动介入</h2><p>**<code>目标</code>**： 处理当token失效时业务</p>
+<h3 id="主动介入token处理的业务逻辑"><a href="#主动介入token处理的业务逻辑" class="headerlink" title="主动介入token处理的业务逻辑"></a>主动介入token处理的业务逻辑</h3><blockquote>
+<p>开门的钥匙不是一直有效的，如果一直有效，会有安全风险，所以我们尝试在客户端进行一下token的时间检查</p>
+</blockquote>
+<p>具体业务图如下</p>
+<p><img src="http://image.zhangyc.top/img/image-20200818155842864.png" srcset="/img/loading.gif" lazyload alt="image-20200716231205153"></p>
+<h3 id="流程图转化代码-1"><a href="#流程图转化代码-1" class="headerlink" title="流程图转化代码"></a>流程图转化代码</h3><p><strong>流程图转化代码</strong> <strong><code>src/utils/auth.js</code></strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> timeKey = <span class="hljs-string">&#x27;hrsaas-timestamp-key&#x27;</span> <span class="hljs-comment">// 设置一个独一无二的key</span><br><br><span class="hljs-comment">// 获取时间戳</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">getTimeStamp</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-title class_">Cookies</span>.<span class="hljs-title function_">get</span>(timeKey)<br>&#125;<br><span class="hljs-comment">// 设置时间戳</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">setTimeStamp</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-title class_">Cookies</span>.<span class="hljs-title function_">set</span>(timeKey, <span class="hljs-title class_">Date</span>.<span class="hljs-title function_">now</span>())<br>&#125;<br><br><br><br><br></code></pre></td></tr></table></figure>
+
+<p><strong><code>src/utils/request.js</code></strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;axios&#x27;</span><br><span class="hljs-keyword">import</span> store <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@/store&#x27;</span><br><span class="hljs-keyword">import</span> router <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@/router&#x27;</span><br><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">Message</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;element-ui&#x27;</span><br><span class="hljs-keyword">import</span> &#123; getTimeStamp &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@/utils/auth&#x27;</span><br><span class="hljs-keyword">const</span> <span class="hljs-title class_">TimeOut</span> = <span class="hljs-number">3600</span> <span class="hljs-comment">// 定义超时时间</span><br><br><span class="hljs-keyword">const</span> service = axios.<span class="hljs-title function_">create</span>(&#123;<br><span class="hljs-comment">// 当执行 npm run dev  =&gt; .evn.development =&gt; /api =&gt; 跨域代理</span><br>  <span class="hljs-attr">baseURL</span>: process.<span class="hljs-property">env</span>.<span class="hljs-property">VUE_APP_BASE_API</span>, <span class="hljs-comment">// npm  run dev  =&gt; /api npm run build =&gt;  /prod-api</span><br>  <span class="hljs-attr">timeout</span>: <span class="hljs-number">5000</span> <span class="hljs-comment">// 设置超时时间</span><br>&#125;)<br><span class="hljs-comment">// 请求拦截器</span><br>service.<span class="hljs-property">interceptors</span>.<span class="hljs-property">request</span>.<span class="hljs-title function_">use</span>(<span class="hljs-function"><span class="hljs-params">config</span> =&gt;</span> &#123;<br>  <span class="hljs-comment">// config 是请求的配置信息</span><br>  <span class="hljs-comment">// 注入token</span><br>  <span class="hljs-keyword">if</span> (store.<span class="hljs-property">getters</span>.<span class="hljs-property">token</span>) &#123;<br>    <span class="hljs-comment">// 只有在有token的情况下 才有必要去检查时间戳是否超时</span><br>    <span class="hljs-keyword">if</span> (<span class="hljs-title class_">IsCheckTimeOut</span>()) &#123;<br>      <span class="hljs-comment">// 如果它为true表示 过期了</span><br>      <span class="hljs-comment">// token没用了 因为超时了</span><br>      store.<span class="hljs-title function_">dispatch</span>(<span class="hljs-string">&#x27;user/logout&#x27;</span>) <span class="hljs-comment">// 登出操作</span><br>      <span class="hljs-comment">// 跳转到登录页</span><br>      router.<span class="hljs-title function_">push</span>(<span class="hljs-string">&#x27;/login&#x27;</span>)<br>      <span class="hljs-keyword">return</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">reject</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;token超时了&#x27;</span>))<br>    &#125;<br>    config.<span class="hljs-property">headers</span>[<span class="hljs-string">&#x27;Authorization&#x27;</span>] = <span class="hljs-string">`Bearer <span class="hljs-subst">$&#123;store.getters.token&#125;</span>`</span><br>  &#125;<br>  <span class="hljs-keyword">return</span> config <span class="hljs-comment">// 必须要返回的</span><br>&#125;, <span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">reject</span>(error)<br>&#125;)<br><span class="hljs-comment">// 响应拦截器</span><br>service.<span class="hljs-property">interceptors</span>.<span class="hljs-property">response</span>.<span class="hljs-title function_">use</span>(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> &#123;<br>  <span class="hljs-comment">// axios默认加了一层data</span><br>  <span class="hljs-keyword">const</span> &#123; success, message, data &#125; = response.<span class="hljs-property">data</span><br>  <span class="hljs-comment">//   要根据success的成功与否决定下面的操作</span><br>  <span class="hljs-keyword">if</span> (success) &#123;<br>    <span class="hljs-keyword">return</span> data<br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>    <span class="hljs-comment">// 业务已经错误了 还能进then ? 不能 ！ 应该进catch</span><br>    <span class="hljs-title class_">Message</span>.<span class="hljs-title function_">error</span>(message) <span class="hljs-comment">// 提示错误消息</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">reject</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(message))<br>  &#125;<br>&#125;, <span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> &#123;<br>  <span class="hljs-title class_">Message</span>.<span class="hljs-title function_">error</span>(error.<span class="hljs-property">message</span>) <span class="hljs-comment">// 提示错误信息</span><br>  <span class="hljs-keyword">return</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">reject</span>(error) <span class="hljs-comment">// 返回执行错误 让当前的执行链跳出成功 直接进入 catch</span><br>&#125;)<br><span class="hljs-comment">// 是否超时</span><br><span class="hljs-comment">// 超时逻辑  (当前时间  - 缓存中的时间) 是否大于 时间差</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">IsCheckTimeOut</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">var</span> currentTime = <span class="hljs-title class_">Date</span>.<span class="hljs-title function_">now</span>() <span class="hljs-comment">// 当前时间戳</span><br>  <span class="hljs-keyword">var</span> timeStamp = <span class="hljs-title function_">getTimeStamp</span>() <span class="hljs-comment">// 缓存时间戳</span><br>  <span class="hljs-keyword">return</span> (currentTime - timeStamp) / <span class="hljs-number">1000</span> &gt; <span class="hljs-title class_">TimeOut</span><br>&#125;<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> service<br><br></code></pre></td></tr></table></figure>
+
+<p>**<code>本节注意</code>**：我们在调用登录接口的时候 一定是没有token的，所以token检查不会影响登录接口的调用</p>
+<blockquote>
+<p>同理，在登录的时候，如果登录成功，我们应该设置时间戳</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 定义login action  也需要参数 调用action时 传递过来的参数</span><br><span class="hljs-comment">// async 标记的函数其实就是一个异步函数 -&gt; 本质是还是 一个promise</span><br><span class="hljs-keyword">async</span> <span class="hljs-title function_">login</span>(<span class="hljs-params">context, data</span>) &#123;<br>  <span class="hljs-comment">// 经过响应拦截器的处理之后 这里的result实际上就是 token</span><br>  <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> <span class="hljs-title function_">login</span>(data) <span class="hljs-comment">// 实际上就是一个promise  result就是执行的结果</span><br>  <span class="hljs-comment">// axios默认给数据加了一层data</span><br>  <span class="hljs-comment">// 表示登录接口调用成功 也就是意味着你的用户名和密码是正确的</span><br>  <span class="hljs-comment">// 现在有用户token</span><br>  <span class="hljs-comment">// actions 修改state 必须通过mutations</span><br>  context.<span class="hljs-title function_">commit</span>(<span class="hljs-string">&#x27;setToken&#x27;</span>, result)<br>  <span class="hljs-comment">// 写入时间戳</span><br>  <span class="hljs-title function_">setTimeStamp</span>() <span class="hljs-comment">// 将当前的最新时间写入缓存</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>提交代码</strong></p>
+<blockquote>
+<p>有主动处理就有被动处理，也就是后端告诉我们超时了，我们被迫做出反应，如果后端接口没有做处理，主动介入就是一种简单的方式</p>
+</blockquote>
+<p>**<code>本节任务</code>**：完成token超时的主动介入</p>
+<h2 id="Token失效的被动处理"><a href="#Token失效的被动处理" class="headerlink" title="Token失效的被动处理"></a>Token失效的被动处理</h2><p>**<code>目标</code>**： 实现token失效的被动处理</p>
+<blockquote>
+<p>除了token的主动介入之外，我们还可以对token进行被动的处理，如图</p>
+</blockquote>
+<p><img src="http://image.zhangyc.top/img/image-20200716012120619.png" srcset="/img/loading.gif" lazyload alt="image-20200818155842864"></p>
+<p>token超时的错误码是**<code>10002</code>**</p>
+<p><strong>代码实现</strong>  <strong><code>src/utils/request.js</code></strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs js">error =&gt; &#123;<br>  <span class="hljs-comment">// error 信息 里面 response的对象</span><br>  <span class="hljs-keyword">if</span> (error.<span class="hljs-property">response</span> &amp;&amp; error.<span class="hljs-property">response</span>.<span class="hljs-property">data</span> &amp;&amp; error.<span class="hljs-property">response</span>.<span class="hljs-property">data</span>.<span class="hljs-property">code</span> === <span class="hljs-number">10002</span>) &#123;<br>    <span class="hljs-comment">// 当等于10002的时候 表示 后端告诉我token超时了</span><br>    store.<span class="hljs-title function_">dispatch</span>(<span class="hljs-string">&#x27;user/logout&#x27;</span>) <span class="hljs-comment">// 登出action 删除token</span><br>    router.<span class="hljs-title function_">push</span>(<span class="hljs-string">&#x27;/login&#x27;</span>)<br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>    <span class="hljs-title class_">Message</span>.<span class="hljs-title function_">error</span>(error.<span class="hljs-property">message</span>) <span class="hljs-comment">// 提示错误信息</span><br>  &#125;<br>  <span class="hljs-keyword">return</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">reject</span>(error)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>无论是主动介入还是被动处理，这些操作都是为了更好地处理token，减少错误异常的可能性</p>
+</blockquote>
+<p><strong><code>本节任务</code></strong>  Token失效的被动处理</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本章节我们一步步实现了如下的效果</p>
+<p><img src="http://image.zhangyc.top/img/image-20200716000203862.png" srcset="/img/loading.gif" lazyload alt="image-20200716015113164"></p>
+<p>实际的业务走向</p>
+<p><img src="http://image.zhangyc.top/img/image-20200813013009294.png" srcset="/img/loading.gif" lazyload alt="image-20200827152601712"></p>
+<p>实际上，我们的主页功能有一个重要的**<code>角色权限</code>**功能还没有完成，此功能等到我们完成基本业务之后再进行展开</p>
+<p>中台大型后端平台的深入是一个**<code>抽丝剥茧</code>**的过程，循序渐进的明白每一步的操作是非常关键的。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Vue-project/" class="category-chain-item">Vue-project</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Vue-project/HumanResources/" class="category-chain-item">HumanResources</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>第四天 主页模块</div>
+      <div>http://example.com/2022/10/04/Vue-project/human-resources/04-主页模块/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>John Doe</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年10月4日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/10/05/Vue-project/toutiao/vue-mobile07/vue-mobile07/" title="Toutiao 第七天">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Toutiao 第七天</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/10/04/Vue-project/toutiao/vue-mobile06/vue-mobile06/" title="Toutiao 第六天">
+                        <span class="hidden-mobile">Toutiao 第六天</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
