@@ -1,0 +1,830 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="target 能够使用jQuery 中的 on 方法绑定事件 能够使用on完成事件委派 能够知晓on可以给动态创建的元素绑定事件 能够自己去网上下砸并使用jQuery插件 能够在页面中使用本地存储中的数据 能够说出本地存储以及使用时数据格式如何转换  1.1. jQuery 事件注册​	jQuery 为我们提供了方便的事件注册机制，使开发人员易于操作优缺点如下：  优点: 操作简单，且不用担心事件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jQuery 第三天">
+<meta property="og:url" content="http://example.com/2022/08/03/jquery/day03/03-jquery/index.html">
+<meta property="og:site_name" content="每日笔记">
+<meta property="og:description" content="target 能够使用jQuery 中的 on 方法绑定事件 能够使用on完成事件委派 能够知晓on可以给动态创建的元素绑定事件 能够自己去网上下砸并使用jQuery插件 能够在页面中使用本地存储中的数据 能够说出本地存储以及使用时数据格式如何转换  1.1. jQuery 事件注册​	jQuery 为我们提供了方便的事件注册机制，使开发人员易于操作优缺点如下：  优点: 操作简单，且不用担心事件">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://image.zhangyc.top/img/on2.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/on1.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/on3.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/register.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/t1.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/off.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/t2.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/event.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/extend.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/noconfig.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/download.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/water.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/%E6%80%BB%E7%BB%93.png">
+<meta property="article:published_time" content="2022-08-02T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-10-17T11:43:49.027Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://image.zhangyc.top/img/on2.png">
+  
+  
+  
+  <title>jQuery 第三天 - 每日笔记</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="jQuery 第三天"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-08-03 00:00" pubdate>
+          2022年8月3日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          17k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          142 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">jQuery 第三天</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="target"><a href="#target" class="headerlink" title="target"></a>target</h2><ol>
+<li>能够使用jQuery 中的 on 方法绑定事件</li>
+<li>能够使用on完成事件委派</li>
+<li>能够知晓on可以给动态创建的元素绑定事件</li>
+<li>能够自己去网上下砸并使用jQuery插件</li>
+<li>能够在页面中使用本地存储中的数据</li>
+<li>能够说出本地存储以及使用时数据格式如何转换</li>
+</ol>
+<h2 id="1-1-jQuery-事件注册"><a href="#1-1-jQuery-事件注册" class="headerlink" title="1.1. jQuery 事件注册"></a>1.1. jQuery 事件注册</h2><p>​	jQuery 为我们提供了方便的事件注册机制，使开发人员易于操作优缺点如下：</p>
+<ul>
+<li>优点: 操作简单，且不用担心事件覆盖等问题。</li>
+<li>缺点: 普通的事件注册不能做事件委托，且无法实现事件解绑，需要借助其他方法。</li>
+</ul>
+<p><strong>语法</strong> </p>
+<p><img src="http://image.zhangyc.top/img/on2.png" srcset="/img/loading.gif" lazyload alt="register"></p>
+<p><strong>演示代码</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs javascript">&lt;body&gt;<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="language-javascript"><span class="language-xml">        $(<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;</span></span><br><span class="language-javascript"><span class="language-xml">            <span class="hljs-comment">// 1. 单个事件注册</span></span></span><br><span class="language-javascript"><span class="language-xml">            $(<span class="hljs-string">&quot;div&quot;</span>).<span class="hljs-title function_">click</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;</span></span><br><span class="language-javascript"><span class="language-xml">                $(<span class="hljs-variable language_">this</span>).<span class="hljs-title function_">css</span>(<span class="hljs-string">&quot;background&quot;</span>, <span class="hljs-string">&quot;purple&quot;</span>);</span></span><br><span class="language-javascript"><span class="language-xml">            &#125;);</span></span><br><span class="language-javascript"><span class="language-xml">            $(<span class="hljs-string">&quot;div&quot;</span>).<span class="hljs-title function_">mouseenter</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;</span></span><br><span class="language-javascript"><span class="language-xml">                $(<span class="hljs-variable language_">this</span>).<span class="hljs-title function_">css</span>(<span class="hljs-string">&quot;background&quot;</span>, <span class="hljs-string">&quot;skyblue&quot;</span>);</span></span><br><span class="language-javascript"><span class="language-xml">            &#125;);</span></span><br><span class="language-javascript"><span class="language-xml">        &#125;)</span></span><br><span class="language-javascript"><span class="language-xml">    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br>&lt;/body&gt;<br></code></pre></td></tr></table></figure>
+
+<h2 id="1-2-jQuery-事件处理"><a href="#1-2-jQuery-事件处理" class="headerlink" title="1.2. jQuery 事件处理"></a>1.2. jQuery 事件处理</h2><p>​	因为普通注册事件方法的不足，jQuery又开发了多个处理方法，重点讲解如下：</p>
+<ul>
+<li>on(): 用于事件绑定，目前最好用的事件绑定方法</li>
+<li>off(): 事件解绑</li>
+<li>trigger() &#x2F; triggerHandler(): 事件触发</li>
+</ul>
+<h3 id="1-2-1-事件处理-on-绑定事件"><a href="#1-2-1-事件处理-on-绑定事件" class="headerlink" title="1.2.1 事件处理 on() 绑定事件"></a>1.2.1 事件处理 on() 绑定事件</h3><p>​	因为普通注册事件方法的不足，jQuery又创建了多个新的事件绑定方法bind() &#x2F; live() &#x2F; delegate() &#x2F; on()等，其中最好用的是: on()</p>
+<p><strong>语法</strong></p>
+<p><img src="http://image.zhangyc.top/img/on1.png" srcset="/img/loading.gif" lazyload alt="on1"></p>
+<p><img src="http://image.zhangyc.top/img/on3.png" srcset="/img/loading.gif" lazyload alt="on2"></p>
+<p><img src="http://image.zhangyc.top/img/register.png" srcset="/img/loading.gif" lazyload alt="on3"></p>
+<p><strong>演示代码</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs javascript">&lt;body&gt;<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>我们都是好孩子<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>我们都是好孩子<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>我们都是好孩子<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></span><br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">ol</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">ol</span>&gt;</span></span><br><br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="language-javascript"><span class="language-xml">        $(<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;</span></span><br><span class="language-javascript"><span class="language-xml">            <span class="hljs-comment">// (1) on可以绑定1个或者多个事件处理程序</span></span></span><br><span class="language-javascript"><span class="language-xml">            <span class="hljs-comment">// $(&quot;div&quot;).on(&#123;</span></span></span><br><span class="language-javascript"><span class="language-xml">            <span class="hljs-comment">//     mouseenter: function() &#123;</span></span></span><br><span class="language-javascript"><span class="language-xml">            <span class="hljs-comment">//         $(this).css(&quot;background&quot;, &quot;skyblue&quot;);</span></span></span><br><span class="language-javascript"><span class="language-xml">            <span class="hljs-comment">//     &#125;,</span></span></span><br><span class="language-javascript"><span class="language-xml">            <span class="hljs-comment">//     click: function() &#123;</span></span></span><br><span class="language-javascript"><span class="language-xml">            <span class="hljs-comment">//         $(this).css(&quot;background&quot;, &quot;purple&quot;);</span></span></span><br><span class="language-javascript"><span class="language-xml">            <span class="hljs-comment">//     &#125;</span></span></span><br><span class="language-javascript"><span class="language-xml">            <span class="hljs-comment">// &#125;);</span></span></span><br><span class="language-javascript"><span class="language-xml">            $(<span class="hljs-string">&quot;div&quot;</span>).<span class="hljs-title function_">on</span>(<span class="hljs-string">&quot;mouseenter mouseleave&quot;</span>, <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;</span></span><br><span class="language-javascript"><span class="language-xml">                $(<span class="hljs-variable language_">this</span>).<span class="hljs-title function_">toggleClass</span>(<span class="hljs-string">&quot;current&quot;</span>);</span></span><br><span class="language-javascript"><span class="language-xml">            &#125;);</span></span><br><span class="language-javascript"><span class="language-xml">  </span></span><br><span class="language-javascript"><span class="language-xml">            <span class="hljs-comment">// (2) on可以实现事件委托（委派）</span></span></span><br><span class="language-javascript"><span class="language-xml">            <span class="hljs-comment">// click 是绑定在ul 身上的，但是 触发的对象是 ul 里面的小li</span></span></span><br><span class="language-javascript"><span class="language-xml">            <span class="hljs-comment">// $(&quot;ul li&quot;).click();</span></span></span><br><span class="language-javascript"><span class="language-xml">            $(<span class="hljs-string">&quot;ul&quot;</span>).<span class="hljs-title function_">on</span>(<span class="hljs-string">&quot;click&quot;</span>, <span class="hljs-string">&quot;li&quot;</span>, <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;</span></span><br><span class="language-javascript"><span class="language-xml">                <span class="hljs-title function_">alert</span>(<span class="hljs-number">11</span>);</span></span><br><span class="language-javascript"><span class="language-xml">            &#125;);</span></span><br><span class="language-javascript"><span class="language-xml"></span></span><br><span class="language-javascript"><span class="language-xml">            <span class="hljs-comment">// (3) on可以给未来动态创建的元素绑定事件</span></span></span><br><span class="language-javascript"><span class="language-xml">            $(<span class="hljs-string">&quot;ol&quot;</span>).<span class="hljs-title function_">on</span>(<span class="hljs-string">&quot;click&quot;</span>, <span class="hljs-string">&quot;li&quot;</span>, <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;</span></span><br><span class="language-javascript"><span class="language-xml">                <span class="hljs-title function_">alert</span>(<span class="hljs-number">11</span>);</span></span><br><span class="language-javascript"><span class="language-xml">            &#125;)</span></span><br><span class="language-javascript"><span class="language-xml">            <span class="hljs-keyword">var</span> li = $(<span class="hljs-string">&quot;&lt;li&gt;我是后来创建的&lt;/li&gt;&quot;</span>);</span></span><br><span class="language-javascript"><span class="language-xml">            $(<span class="hljs-string">&quot;ol&quot;</span>).<span class="hljs-title function_">append</span>(li);</span></span><br><span class="language-javascript"><span class="language-xml">        &#125;)</span></span><br><span class="language-javascript"><span class="language-xml">    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br>&lt;/body&gt;<br><br></code></pre></td></tr></table></figure>
+
+<h3 id="1-2-2-案例：发布微博案例"><a href="#1-2-2-案例：发布微博案例" class="headerlink" title="1.2.2. 案例：发布微博案例"></a>1.2.2. 案例：发布微博案例</h3><blockquote>
+<p>1.点击发布按钮， 动态创建一个小li，放入文本框的内容和删除按钮， 并且添加到ul 中。<br>2.点击的删除按钮，可以删除当前的微博留言。</p>
+</blockquote>
+<p>​	代码实现略。(详情参考源代码)</p>
+<h3 id="1-2-3-事件处理-off-解绑事件"><a href="#1-2-3-事件处理-off-解绑事件" class="headerlink" title="1.2.3. 事件处理 off() 解绑事件"></a>1.2.3. 事件处理 off() 解绑事件</h3><p>​	当某个事件上面的逻辑，在特定需求下不需要的时候，可以把该事件上的逻辑移除，这个过程我们称为事件解绑。jQuery 为我们提供 了多种事件解绑方法：die() &#x2F; undelegate() &#x2F; off() 等，甚至还有只触发一次的事件绑定方法 one()，在这里我们重点讲解一下 off() ;</p>
+<p><strong>语法</strong></p>
+<p><img src="http://image.zhangyc.top/img/t1.png" srcset="/img/loading.gif" lazyload alt="off"></p>
+<p><strong>演示代码</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs javascript">&lt;body&gt;<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>我们都是好孩子<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>我们都是好孩子<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>我们都是好孩子<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></span><br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>我是一个P标签<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br>	<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="language-javascript"><span class="language-xml">        $(<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;</span></span><br><span class="language-javascript"><span class="language-xml">  			<span class="hljs-comment">// 事件绑定</span></span></span><br><span class="language-javascript"><span class="language-xml">            $(<span class="hljs-string">&quot;div&quot;</span>).<span class="hljs-title function_">on</span>(&#123;</span></span><br><span class="language-javascript"><span class="language-xml">                <span class="hljs-attr">click</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;</span></span><br><span class="language-javascript"><span class="language-xml">                    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;我点击了&quot;</span>);</span></span><br><span class="language-javascript"><span class="language-xml">                &#125;,</span></span><br><span class="language-javascript"><span class="language-xml">                <span class="hljs-attr">mouseover</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;</span></span><br><span class="language-javascript"><span class="language-xml">                    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;我鼠标经过了&#x27;</span>);</span></span><br><span class="language-javascript"><span class="language-xml">                &#125;</span></span><br><span class="language-javascript"><span class="language-xml">            &#125;);</span></span><br><span class="language-javascript"><span class="language-xml">            $(<span class="hljs-string">&quot;ul&quot;</span>).<span class="hljs-title function_">on</span>(<span class="hljs-string">&quot;click&quot;</span>, <span class="hljs-string">&quot;li&quot;</span>, <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;</span></span><br><span class="language-javascript"><span class="language-xml">                <span class="hljs-title function_">alert</span>(<span class="hljs-number">11</span>);</span></span><br><span class="language-javascript"><span class="language-xml">            &#125;);</span></span><br><span class="language-javascript"><span class="language-xml">  </span></span><br><span class="language-javascript"><span class="language-xml">            <span class="hljs-comment">// 1. 事件解绑 off </span></span></span><br><span class="language-javascript"><span class="language-xml">            <span class="hljs-comment">// $(&quot;div&quot;).off();  // 这个是解除了div身上的所有事件</span></span></span><br><span class="language-javascript"><span class="language-xml">            $(<span class="hljs-string">&quot;div&quot;</span>).<span class="hljs-title function_">off</span>(<span class="hljs-string">&quot;click&quot;</span>); <span class="hljs-comment">// 这个是解除了div身上的点击事件</span></span></span><br><span class="language-javascript"><span class="language-xml">            $(<span class="hljs-string">&quot;ul&quot;</span>).<span class="hljs-title function_">off</span>(<span class="hljs-string">&quot;click&quot;</span>, <span class="hljs-string">&quot;li&quot;</span>);</span></span><br><span class="language-javascript"><span class="language-xml">  </span></span><br><span class="language-javascript"><span class="language-xml">            <span class="hljs-comment">// 2. one() 但是它只能触发事件一次</span></span></span><br><span class="language-javascript"><span class="language-xml">            $(<span class="hljs-string">&quot;p&quot;</span>).<span class="hljs-title function_">one</span>(<span class="hljs-string">&quot;click&quot;</span>, <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;</span></span><br><span class="language-javascript"><span class="language-xml">                <span class="hljs-title function_">alert</span>(<span class="hljs-number">11</span>);</span></span><br><span class="language-javascript"><span class="language-xml">            &#125;)</span></span><br><span class="language-javascript"><span class="language-xml">        &#125;)</span></span><br><span class="language-javascript"><span class="language-xml">    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br>&lt;/body&gt;<br></code></pre></td></tr></table></figure>
+
+<h3 id="1-2-4-事件处理-trigger-自动触发事件"><a href="#1-2-4-事件处理-trigger-自动触发事件" class="headerlink" title="1.2.4. 事件处理 trigger() 自动触发事件"></a>1.2.4. 事件处理 trigger() 自动触发事件</h3><p>​	有些时候，在某些特定的条件下，我们希望某些事件能够自动触发, 比如轮播图自动播放功能跟点击右侧按钮一致。可以利用定时器自动触发右侧按钮点击事件，不必鼠标点击触发。由此 jQuery 为我们提供了两个自动触发事件 trigger() 和 triggerHandler() ; </p>
+<p><strong>语法</strong></p>
+<p><img src="http://image.zhangyc.top/img/off.png" srcset="/img/loading.gif" lazyload alt="t1"></p>
+<p><img src="http://image.zhangyc.top/img/t2.png" srcset="/img/loading.gif" lazyload alt="t2"></p>
+<p><strong>演示代码</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs javascript">&lt;body&gt;<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span>&gt;</span></span><br><span class="language-xml">      </span><br><span class="language-xml">    <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="language-javascript"><span class="language-xml">    $(<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;</span></span><br><span class="language-javascript"><span class="language-xml">      <span class="hljs-comment">// 绑定事件</span></span></span><br><span class="language-javascript"><span class="language-xml">      $(<span class="hljs-string">&quot;div&quot;</span>).<span class="hljs-title function_">on</span>(<span class="hljs-string">&quot;click&quot;</span>, <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;</span></span><br><span class="language-javascript"><span class="language-xml">        <span class="hljs-title function_">alert</span>(<span class="hljs-number">11</span>);</span></span><br><span class="language-javascript"><span class="language-xml">      &#125;);</span></span><br><span class="language-javascript"><span class="language-xml"></span></span><br><span class="language-javascript"><span class="language-xml">      <span class="hljs-comment">// 自动触发事件</span></span></span><br><span class="language-javascript"><span class="language-xml">      <span class="hljs-comment">// 1. 元素.事件()</span></span></span><br><span class="language-javascript"><span class="language-xml">      <span class="hljs-comment">// $(&quot;div&quot;).click();会触发元素的默认行为</span></span></span><br><span class="language-javascript"><span class="language-xml">      </span></span><br><span class="language-javascript"><span class="language-xml">      <span class="hljs-comment">// 2. 元素.trigger(&quot;事件&quot;)</span></span></span><br><span class="language-javascript"><span class="language-xml">      <span class="hljs-comment">// $(&quot;div&quot;).trigger(&quot;click&quot;);会触发元素的默认行为</span></span></span><br><span class="language-javascript"><span class="language-xml">      $(<span class="hljs-string">&quot;input&quot;</span>).<span class="hljs-title function_">trigger</span>(<span class="hljs-string">&quot;focus&quot;</span>);</span></span><br><span class="language-javascript"><span class="language-xml">      </span></span><br><span class="language-javascript"><span class="language-xml">      <span class="hljs-comment">// 3. 元素.triggerHandler(&quot;事件&quot;) 就是不会触发元素的默认行为</span></span></span><br><span class="language-javascript"><span class="language-xml">      $(<span class="hljs-string">&quot;input&quot;</span>).<span class="hljs-title function_">on</span>(<span class="hljs-string">&quot;focus&quot;</span>, <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;</span></span><br><span class="language-javascript"><span class="language-xml">        $(<span class="hljs-variable language_">this</span>).<span class="hljs-title function_">val</span>(<span class="hljs-string">&quot;你好吗&quot;</span>);</span></span><br><span class="language-javascript"><span class="language-xml">      &#125;);</span></span><br><span class="language-javascript"><span class="language-xml">      <span class="hljs-comment">// 一个会获取焦点，一个不会</span></span></span><br><span class="language-javascript"><span class="language-xml">      $(<span class="hljs-string">&quot;div&quot;</span>).<span class="hljs-title function_">triggerHandler</span>(<span class="hljs-string">&quot;click&quot;</span>);</span></span><br><span class="language-javascript"><span class="language-xml">      <span class="hljs-comment">// $(&quot;input&quot;).triggerHandler(&quot;focus&quot;);</span></span></span><br><span class="language-javascript"><span class="language-xml">    &#125;);</span></span><br><span class="language-javascript"><span class="language-xml">    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span></span><br></code></pre></td></tr></table></figure>
+
+<h2 id="1-3-jQuery-事件对象"><a href="#1-3-jQuery-事件对象" class="headerlink" title="1.3. jQuery 事件对象"></a>1.3. jQuery 事件对象</h2><p>​	jQuery 对DOM中的事件对象 event 进行了封装，兼容性更好，获取更方便，使用变化不大。事件被触发，就会有事件对象的产生。</p>
+<p><strong>语法</strong></p>
+<p><img src="http://image.zhangyc.top/img/event.png" srcset="/img/loading.gif" lazyload alt="event"></p>
+<p><strong>演示代码</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs javascript">&lt;body&gt;<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><br>	<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="language-javascript"><span class="language-xml">        $(<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;</span></span><br><span class="language-javascript"><span class="language-xml">            $(<span class="hljs-variable language_">document</span>).<span class="hljs-title function_">on</span>(<span class="hljs-string">&quot;click&quot;</span>, <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;</span></span><br><span class="language-javascript"><span class="language-xml">                <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;点击了document&quot;</span>);</span></span><br><span class="language-javascript"><span class="language-xml">            &#125;)</span></span><br><span class="language-javascript"><span class="language-xml">            $(<span class="hljs-string">&quot;div&quot;</span>).<span class="hljs-title function_">on</span>(<span class="hljs-string">&quot;click&quot;</span>, <span class="hljs-keyword">function</span>(<span class="hljs-params">event</span>) &#123;</span></span><br><span class="language-javascript"><span class="language-xml">                <span class="hljs-comment">// console.log(event);</span></span></span><br><span class="language-javascript"><span class="language-xml">                <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;点击了div&quot;</span>);</span></span><br><span class="language-javascript"><span class="language-xml">                event.<span class="hljs-title function_">stopPropagation</span>();</span></span><br><span class="language-javascript"><span class="language-xml">            &#125;)</span></span><br><span class="language-javascript"><span class="language-xml">        &#125;)</span></span><br><span class="language-javascript"><span class="language-xml">    </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br>&lt;/body&gt;<br></code></pre></td></tr></table></figure>
+
+<p>注意：jQuery中的 event 对象使用，可以借鉴 API 和 DOM 中的 event 。</p>
+<h2 id="1-4-jQuery-拷贝对象"><a href="#1-4-jQuery-拷贝对象" class="headerlink" title="1.4.  jQuery 拷贝对象"></a>1.4.  jQuery 拷贝对象</h2><p><strong>语法</strong></p>
+<p><img src="http://image.zhangyc.top/img/extend.png" srcset="/img/loading.gif" lazyload alt="extend"></p>
+<p><strong>演示代码</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs javascript">&lt;script&gt;<br>       $(<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;<br>  			<span class="hljs-comment">// 1.合并数据</span><br>           <span class="hljs-keyword">var</span> targetObj = &#123;&#125;;<br>           <span class="hljs-keyword">var</span> obj = &#123;<br>               <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>,<br>               <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;andy&quot;</span><br>           &#125;;<br>           <span class="hljs-comment">// $.extend(target, obj);</span><br>           $.<span class="hljs-title function_">extend</span>(targetObj, obj);<br>           <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(targetObj);<br>  <br>  			<span class="hljs-comment">// 2. 会覆盖 targetObj 里面原来的数据</span><br>           <span class="hljs-keyword">var</span> targetObj = &#123;<br>               <span class="hljs-attr">id</span>: <span class="hljs-number">0</span><br>           &#125;;<br>           <span class="hljs-keyword">var</span> obj = &#123;<br>               <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>,<br>               <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;andy&quot;</span><br>           &#125;;<br>           <span class="hljs-comment">// $.extend(target, obj);</span><br>           $.<span class="hljs-title function_">extend</span>(targetObj, obj);<br>           <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(targetObj); <br>       &#125;)<br>   &lt;/script&gt;<br></code></pre></td></tr></table></figure>
+
+<h2 id="1-5-jQuery-多库共存"><a href="#1-5-jQuery-多库共存" class="headerlink" title="1.5.  jQuery 多库共存"></a>1.5.  jQuery 多库共存</h2><p>​	实际开发中，很多项目连续开发十多年，jQuery版本不断更新，最初的 jQuery 版本无法满足需求，这时就需要保证在旧有版本正常运行的情况下，新的功能使用新的jQuery版本实现，这种情况被称为，jQuery 多库共存。</p>
+<p><strong>语法</strong></p>
+<p><img src="http://image.zhangyc.top/img/noconfig.png" srcset="/img/loading.gif" lazyload alt="noconfig"></p>
+<p><strong>演示代码</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs javascript">&lt;script&gt;<br>	$(<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;<br>  		<span class="hljs-comment">// 让jquery 释放对$ 控制权 让用自己决定</span><br>  		<span class="hljs-keyword">var</span> suibian = jQuery.<span class="hljs-title function_">noConflict</span>();<br>  		<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">suibian</span>(<span class="hljs-string">&quot;span&quot;</span>));<br>	&#125;)<br>&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+
+<h2 id="1-6-jQuery-插件"><a href="#1-6-jQuery-插件" class="headerlink" title="1.6.  jQuery 插件"></a>1.6.  jQuery 插件</h2><p>​	jQuery 功能比较有限，想要更复杂的特效效果，可以借助于 jQuery 插件完成。 这些插件也是依赖于jQuery来完成的，所以必须要先引入</p>
+<p>jQuery文件，因此也称为 jQuery 插件。</p>
+<p>​	jQuery 插件常用的网站：</p>
+<ol>
+<li>jQuery 插件库  <a target="_blank" rel="noopener" href="http://www.jq22.com/">http://www.jq22.com/</a>     </li>
+<li>jQuery 之家   <a target="_blank" rel="noopener" href="http://www.htmleaf.com/">http://www.htmleaf.com/</a></li>
+</ol>
+<p>   jQuery 插件使用步骤：</p>
+<ol start="3">
+<li>引入相关文件。（jQuery 文件 和 插件文件）    </li>
+<li>复制相关html、css、js (调用插件)。</li>
+</ol>
+<h3 id="1-4-1-瀑布流插件"><a href="#1-4-1-瀑布流插件" class="headerlink" title="1.4.1.  瀑布流插件"></a>1.4.1.  瀑布流插件</h3><p>​	我们学习的第一个插件是jQuery之家的开源插件，瀑布流。我们将重点详细讲解，从找到插件所在网页，然后点击下载代码，到插件的使用等，后面的插件使用可参考瀑布流插件的使用。</p>
+<p>瀑布流，又称瀑布流式布局。是比较流行的一种网站页面布局，视觉表现为参差不齐的多栏布局，随着页面滚动条向下滚动，这种布局还会不断加载数据块并附加至当前尾部。最早采用此布局的网站是Pinterest，逐渐在国内流行开来。国内大多数清新站基本为这类风格。</p>
+<p><strong>下载位置</strong></p>
+<p><a target="_blank" rel="noopener" href="http://www.htmleaf.com/jQuery/pubuliuchajian/201601093003.html">http://www.htmleaf.com/jQuery/pubuliuchajian/201601093003.html</a></p>
+<p><img src="http://image.zhangyc.top/img/download.png" srcset="/img/loading.gif" lazyload alt="water"></p>
+<p><img src="http://image.zhangyc.top/img/water.png" srcset="/img/loading.gif" lazyload></p>
+<p><strong>代码演示</strong></p>
+<p>​	插件的使用三点：   1. 引入css.           2.引入JS            3.引入html。 （有的简单插件只需引入html和js，甚至有的只需引入js）</p>
+<ul>
+<li>1.引入css.</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs javascript">&lt;link rel=<span class="hljs-string">&quot;stylesheet&quot;</span> href=<span class="hljs-string">&quot;css/normalize.css&quot;</span>&gt;<br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/css&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;css/default.css&quot;</span>&gt;</span></span><br><span class="language-xml">  </span><br><span class="language-xml"><span class="hljs-comment">&lt;!-- 下面的样式代码为页面布局，可以引入，也可以自己写，自己设计页面样式，一般为直接引入，方便 --&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/css&quot;</span>&gt;</span><span class="language-css"></span></span><br><span class="language-css"><span class="language-xml">  <span class="hljs-selector-id">#gallery-wrapper</span> &#123;</span></span><br><span class="language-css"><span class="language-xml">    <span class="hljs-attribute">position</span>: relative;</span></span><br><span class="language-css"><span class="language-xml">    <span class="hljs-attribute">max-width</span>: <span class="hljs-number">75%</span>;</span></span><br><span class="language-css"><span class="language-xml">    <span class="hljs-attribute">width</span>: <span class="hljs-number">75%</span>;</span></span><br><span class="language-css"><span class="language-xml">    <span class="hljs-attribute">margin</span>: <span class="hljs-number">50px</span> auto;</span></span><br><span class="language-css"><span class="language-xml">  &#125;</span></span><br><span class="language-css"><span class="language-xml"></span></span><br><span class="language-css"><span class="language-xml">  <span class="hljs-selector-tag">img</span><span class="hljs-selector-class">.thumb</span> &#123;</span></span><br><span class="language-css"><span class="language-xml">    <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;</span></span><br><span class="language-css"><span class="language-xml">    <span class="hljs-attribute">max-width</span>: <span class="hljs-number">100%</span>;</span></span><br><span class="language-css"><span class="language-xml">    <span class="hljs-attribute">height</span>: auto;</span></span><br><span class="language-css"><span class="language-xml">  &#125;</span></span><br><span class="language-css"><span class="language-xml"></span></span><br><span class="language-css"><span class="language-xml">  <span class="hljs-selector-class">.white-panel</span> &#123;</span></span><br><span class="language-css"><span class="language-xml">    <span class="hljs-attribute">position</span>: absolute;</span></span><br><span class="language-css"><span class="language-xml">    <span class="hljs-attribute">background</span>: white;</span></span><br><span class="language-css"><span class="language-xml">    <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">5px</span>;</span></span><br><span class="language-css"><span class="language-xml">    <span class="hljs-attribute">box-shadow</span>: <span class="hljs-number">0px</span> <span class="hljs-number">1px</span> <span class="hljs-number">2px</span> <span class="hljs-built_in">rgba</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.3</span>);</span></span><br><span class="language-css"><span class="language-xml">    <span class="hljs-attribute">padding</span>: <span class="hljs-number">10px</span>;</span></span><br><span class="language-css"><span class="language-xml">  &#125;</span></span><br><span class="language-css"><span class="language-xml"></span></span><br><span class="language-css"><span class="language-xml">  <span class="hljs-selector-class">.white-panel</span> <span class="hljs-selector-tag">h1</span> &#123;</span></span><br><span class="language-css"><span class="language-xml">    <span class="hljs-attribute">font-size</span>: <span class="hljs-number">1em</span>;</span></span><br><span class="language-css"><span class="language-xml">  &#125;</span></span><br><span class="language-css"><span class="language-xml"></span></span><br><span class="language-css"><span class="language-xml">  <span class="hljs-selector-class">.white-panel</span> <span class="hljs-selector-tag">h1</span> <span class="hljs-selector-tag">a</span> &#123;</span></span><br><span class="language-css"><span class="language-xml">    <span class="hljs-attribute">color</span>: <span class="hljs-number">#A92733</span>;</span></span><br><span class="language-css"><span class="language-xml">  &#125;</span></span><br><span class="language-css"><span class="language-xml"></span></span><br><span class="language-css"><span class="language-xml">  <span class="hljs-selector-class">.white-panel</span><span class="hljs-selector-pseudo">:hover</span> &#123;</span></span><br><span class="language-css"><span class="language-xml">    <span class="hljs-attribute">box-shadow</span>: <span class="hljs-number">1px</span> <span class="hljs-number">1px</span> <span class="hljs-number">10px</span> <span class="hljs-built_in">rgba</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.5</span>);</span></span><br><span class="language-css"><span class="language-xml">    <span class="hljs-attribute">margin-top</span>: -<span class="hljs-number">5px</span>;</span></span><br><span class="language-css"><span class="language-xml">    -webkit-<span class="hljs-attribute">transition</span>: all <span class="hljs-number">0.3s</span> ease-in-out;</span></span><br><span class="language-css"><span class="language-xml">    -moz-<span class="hljs-attribute">transition</span>: all <span class="hljs-number">0.3s</span> ease-in-out;</span></span><br><span class="language-css"><span class="language-xml">    -o-<span class="hljs-attribute">transition</span>: all <span class="hljs-number">0.3s</span> ease-in-out;</span></span><br><span class="language-css"><span class="language-xml">    <span class="hljs-attribute">transition</span>: all <span class="hljs-number">0.3s</span> ease-in-out;</span></span><br><span class="language-css"><span class="language-xml">  &#125;</span></span><br><span class="language-css"><span class="language-xml"></span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span></span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>2.引入js.</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs javascript">&lt;!-- 前两个必须引入 --&gt;<br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;js/jquery-1.11.0.min.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;js/pinterest_grid.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br>&lt;!-- 下面的为启动瀑布流代码，参数可调节属性，具体功能可参考readme.<span class="hljs-property">html</span> --&gt;<br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="language-javascript"><span class="language-xml">	$(<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;</span></span><br><span class="language-javascript"><span class="language-xml">      $(<span class="hljs-string">&quot;#gallery-wrapper&quot;</span>).<span class="hljs-title function_">pinterest_grid</span>(&#123;</span></span><br><span class="language-javascript"><span class="language-xml">          <span class="hljs-attr">no_columns</span>: <span class="hljs-number">5</span>,</span></span><br><span class="language-javascript"><span class="language-xml">          <span class="hljs-attr">padding_x</span>: <span class="hljs-number">15</span>,</span></span><br><span class="language-javascript"><span class="language-xml">          <span class="hljs-attr">padding_y</span>: <span class="hljs-number">10</span>,</span></span><br><span class="language-javascript"><span class="language-xml">          <span class="hljs-attr">margin_bottom</span>: <span class="hljs-number">50</span>,</span></span><br><span class="language-javascript"><span class="language-xml">          <span class="hljs-attr">single_column_breakpoint</span>: <span class="hljs-number">700</span></span></span><br><span class="language-javascript"><span class="language-xml">      &#125;);</span></span><br><span class="language-javascript"><span class="language-xml">	&#125;);</span></span><br><span class="language-javascript"><span class="language-xml"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>3.引入html.</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs javascript">&lt;!-- html结构一般为事先写好，很难修改结构，但可以修改内容及图片的多少（article标签） --&gt;<br>&lt;section id=&quot;gallery-wrapper&quot;&gt;<br>       &lt;article class=&quot;white-panel&quot;&gt;<br>           &lt;img src=&quot;images/P_000.jpg&quot; class=&quot;thumb&quot;&gt;<br>           &lt;h1&gt;&lt;a href=&quot;#&quot;&gt;我是轮播图片1&lt;/a&gt;&lt;/h1&gt;<br>           &lt;p&gt;里面很精彩哦&lt;/p&gt;<br>       &lt;/article&gt;<br>       &lt;article class=&quot;white-panel&quot;&gt;<br>           &lt;img src=&quot;images/P_005.jpg&quot; class=&quot;thumb&quot;&gt;<br>           &lt;h1&gt;&lt;a href=&quot;#&quot;&gt;我是轮播图片1&lt;/a&gt;&lt;/h1&gt;<br>           &lt;p&gt;里面很精彩哦&lt;/p&gt;<br>       &lt;/article&gt;<br>       &lt;article class=&quot;white-panel&quot;&gt;<br>           &lt;img src=&quot;images/P_006.jpg&quot; class=&quot;thumb&quot;&gt;<br>           &lt;h1&gt;&lt;a href=&quot;#&quot;&gt;我是轮播图片1&lt;/a&gt;&lt;/h1&gt;<br>           &lt;p&gt;里面很精彩哦&lt;/p&gt;<br>       &lt;/article&gt;<br>       &lt;article class=&quot;white-panel&quot;&gt;<br>           &lt;img src=&quot;images/P_007.jpg&quot; class=&quot;thumb&quot;&gt;<br>           &lt;h1&gt;&lt;a href=&quot;#&quot;&gt;我是轮播图片1&lt;/a&gt;&lt;/h1&gt;<br>           &lt;p&gt;里面很精彩哦&lt;/p&gt;<br>       &lt;/article&gt;<br>   &lt;/section&gt;<br></code></pre></td></tr></table></figure>
+
+<p>总结：jQuery插件就是引入别人写好的：html 、css、js  （有时也可以只引入一部分，读懂后也可以修改部分内容）</p>
+<h3 id="1-4-2-图片懒加载插件"><a href="#1-4-2-图片懒加载插件" class="headerlink" title="1.4.2. 图片懒加载插件"></a>1.4.2. 图片懒加载插件</h3><p>​	图片的懒加载就是：当页面滑动到有图片的位置，图片才进行加载，用以提升页面打开的速度及用户体验。（下载略）</p>
+<p><strong>代码演示</strong></p>
+<p>​	懒加载只需引入html 和 js操作 即可，此插件不涉及css。</p>
+<ul>
+<li>1.引入js</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs javascript">&lt;script src=<span class="hljs-string">&quot;./js/EasyLazyload.min.js&quot;</span>&gt;&lt;/script&gt;<br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="language-javascript"><span class="language-xml">  <span class="hljs-title function_">lazyLoadInit</span>(&#123;</span></span><br><span class="language-javascript"><span class="language-xml">  <span class="hljs-attr">coverColor</span>:<span class="hljs-string">&quot;white&quot;</span>,</span></span><br><span class="language-javascript"><span class="language-xml">  <span class="hljs-comment">// coverDiv:&quot;&lt;h1&gt;test&lt;/h1&gt;&quot;,</span></span></span><br><span class="language-javascript"><span class="language-xml">  <span class="hljs-attr">offsetBottom</span>:<span class="hljs-number">0</span>,</span></span><br><span class="language-javascript"><span class="language-xml">  <span class="hljs-attr">offsetTopm</span>:<span class="hljs-number">0</span>,</span></span><br><span class="language-javascript"><span class="language-xml">  <span class="hljs-attr">showTime</span>:<span class="hljs-number">1100</span>,</span></span><br><span class="language-javascript"><span class="language-xml">  <span class="hljs-attr">onLoadBackEnd</span>:<span class="hljs-keyword">function</span>(<span class="hljs-params">i,e</span>)&#123;</span></span><br><span class="language-javascript"><span class="language-xml">    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;onLoadBackEnd:&quot;</span>+i);</span></span><br><span class="language-javascript"><span class="language-xml">  &#125;</span></span><br><span class="language-javascript"><span class="language-xml">  ,<span class="hljs-attr">onLoadBackStart</span>:<span class="hljs-keyword">function</span>(<span class="hljs-params">i,e</span>)&#123;</span></span><br><span class="language-javascript"><span class="language-xml">    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;onLoadBackStart:&quot;</span>+i);</span></span><br><span class="language-javascript"><span class="language-xml">  &#125;</span></span><br><span class="language-javascript"><span class="language-xml">&#125;);</span></span><br><span class="language-javascript"><span class="language-xml"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>2.引入html， 替换图片src</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript">&lt;img data-lazy-src=<span class="hljs-string">&quot;upload/floor-1-3.png&quot;</span> alt=<span class="hljs-string">&quot;&quot;</span>&gt;<br></code></pre></td></tr></table></figure>
+
+<h3 id="1-4-3-全屏滚动插件"><a href="#1-4-3-全屏滚动插件" class="headerlink" title="1.4.3. 全屏滚动插件"></a>1.4.3. 全屏滚动插件</h3><p>​	全屏滚动插件比较大，所以，一般大型插件都会有帮助文档，或者网站。全屏滚动插件介绍比较详细的网站为：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/alvarotrigo/fullPage.js">https://github.com/alvarotrigo/fullPage.js</a></p>
+<p><a target="_blank" rel="noopener" href="https://alvarotrigo.com/fullPage/zh/#page1">https://alvarotrigo.com/fullPage/zh/#page1</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/alvarotrigo/fullPage.js/tree/master/lang/chinese#fullpagejs">https://github.com/alvarotrigo/fullPage.js/tree/master/lang/chinese#fullpagejs</a> 中文</p>
+<p><a target="_blank" rel="noopener" href="http://www.dowebok.com/demo/2014/77/">http://www.dowebok.com/demo/2014/77/</a></p>
+<p><strong>代码演示</strong></p>
+<p>​	全屏滚动因为有多重形式，所以不一样的风格html和css也不一样，但是 js 变化不大。所以下面只演示js的引入，html和css引入根据自己实际</p>
+<p>项目需要使用哪种风格引入对应的HTML和CSS。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs javascript">&lt;script src=<span class="hljs-string">&quot;js/jquery.min.js&quot;</span>&gt;&lt;/script&gt;<br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;js/fullpage.min.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="language-javascript"><span class="language-xml">  	$(<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;</span></span><br><span class="language-javascript"><span class="language-xml">  		$(<span class="hljs-string">&#x27;#dowebok&#x27;</span>).<span class="hljs-title function_">fullpage</span>(&#123;</span></span><br><span class="language-javascript"><span class="language-xml">    		<span class="hljs-attr">sectionsColor</span>: [<span class="hljs-string">&#x27;pink&#x27;</span>, <span class="hljs-string">&#x27;#4BBFC3&#x27;</span>, <span class="hljs-string">&#x27;#7BAABE&#x27;</span>, <span class="hljs-string">&#x27;#f90&#x27;</span>],</span></span><br><span class="language-javascript"><span class="language-xml">    		<span class="hljs-attr">navigation</span>: <span class="hljs-literal">true</span></span></span><br><span class="language-javascript"><span class="language-xml">  		&#125;);</span></span><br><span class="language-javascript"><span class="language-xml">	&#125;);</span></span><br><span class="language-javascript"><span class="language-xml"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br></code></pre></td></tr></table></figure>
+
+<p>注意：实际开发，一般复制文件，然后在文件中进行修改和添加功能。</p>
+<h3 id="1-4-4-bootstrap组件"><a href="#1-4-4-bootstrap组件" class="headerlink" title="1.4.4. bootstrap组件"></a>1.4.4. bootstrap组件</h3><p>​	Bootstrap是 Twitter 公司设计的基于HTML、CSS、JavaScript开发的简洁、直观、强悍的前端开发框架，他依靠jQuery实现，且支持响应式</p>
+<p>布局，使得 Web 开发更加方便快捷。</p>
+<p>​	<strong>凡是在软件开发中用到了软件的复用，被复用的部分都可以称为组件，凡是在应用程序中已经预留接口的组件就是插件</strong>。Bootstrap组件使</p>
+<p>用非常方便:  1.引入bootstrap相关css和js        2.去官网复制html</p>
+<p><strong>代码演示</strong></p>
+<ol>
+<li>引入bootstrap相关css和js</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript">&lt;link rel=<span class="hljs-string">&quot;stylesheet&quot;</span> href=<span class="hljs-string">&quot;bootstrap/css/bootstrap.min.css&quot;</span>&gt;<br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;bootstrap/js/jquery.min.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;bootstrap/js/bootstrap.min.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>去官网复制html的功能模块</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs javascript">   &lt;div <span class="hljs-keyword">class</span>=<span class="hljs-string">&quot;container&quot;</span>&gt;<br>       &lt;!-- <span class="hljs-title class_">Single</span> button --&gt;<br>       <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn-group&quot;</span>&gt;</span></span><br><span class="language-xml">           <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-default dropdown-toggle&quot;</span> <span class="hljs-attr">data-toggle</span>=<span class="hljs-string">&quot;dropdown&quot;</span> <span class="hljs-attr">aria-haspopup</span>=<span class="hljs-string">&quot;true&quot;</span> <span class="hljs-attr">aria-expanded</span>=<span class="hljs-string">&quot;false&quot;</span>&gt;</span></span><br><span class="language-xml">     		Action <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;caret&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span><br><span class="language-xml">   		<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="language-xml">           <span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;dropdown-menu&quot;</span>&gt;</span></span><br><span class="language-xml">               <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#&quot;</span>&gt;</span>Action<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></span><br><span class="language-xml">               <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#&quot;</span>&gt;</span>Another action<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></span><br><span class="language-xml">               <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#&quot;</span>&gt;</span>Something else here<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></span><br><span class="language-xml">               <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">role</span>=<span class="hljs-string">&quot;separator&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;divider&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></span><br><span class="language-xml">               <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#&quot;</span>&gt;</span>Separated link<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></span><br><span class="language-xml">           <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></span><br><span class="language-xml">    	<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>&lt;/div&gt;<br></code></pre></td></tr></table></figure>
+
+<h3 id="1-4-5-bootstrap插件（JS）"><a href="#1-4-5-bootstrap插件（JS）" class="headerlink" title="1.4.5. bootstrap插件（JS）"></a>1.4.5. bootstrap插件（JS）</h3><p>​	bootstrap中的js插件其实也是组件的一部分，只不过是需要js调用功能的组件，所以一般bootstrap的js插件一般会伴随着js代码（有的也可以</p>
+<p>省略js，用属性实现）。</p>
+<p>​	步骤： 1.引入bootstrap相关css和js        2.去官网复制html        3.复制js代码，启动js插件。</p>
+<p><strong>代码演示</strong></p>
+<ol>
+<li>引入bootstrap相关css和js</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript">&lt;link rel=<span class="hljs-string">&quot;stylesheet&quot;</span> href=<span class="hljs-string">&quot;bootstrap/css/bootstrap.min.css&quot;</span>&gt;<br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;bootstrap/js/jquery.min.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;bootstrap/js/bootstrap.min.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>去官网复制html的功能模块</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs javascript">&lt;!-- 模态框 --&gt;<br>&lt;!-- <span class="hljs-title class_">Large</span> modal --&gt;<br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;btn btn-primary&quot;</span> <span class="hljs-attr">data-toggle</span>=<span class="hljs-string">&quot;modal&quot;</span> <span class="hljs-attr">data-target</span>=<span class="hljs-string">&quot;.bs-example-modal-lg&quot;</span>&gt;</span>Large modal<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;modal fade bs-example-modal-lg&quot;</span> <span class="hljs-attr">tabindex</span>=<span class="hljs-string">&quot;-1&quot;</span> <span class="hljs-attr">role</span>=<span class="hljs-string">&quot;dialog&quot;</span> <span class="hljs-attr">aria-labelledby</span>=<span class="hljs-string">&quot;myLargeModalLabel&quot;</span>&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;modal-dialog modal-lg&quot;</span> <span class="hljs-attr">role</span>=<span class="hljs-string">&quot;document&quot;</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;modal-content&quot;</span>&gt;</span></span><br><span class="language-xml">            里面就是模态框</span><br><span class="language-xml">        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br></code></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>复制js代码，启动js插件。</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs javascript">&lt;script&gt;<br>	<span class="hljs-comment">// 当我们点击了自己定义的按钮，就弹出模态框</span><br>	$(<span class="hljs-string">&quot;.myBtn&quot;</span>).<span class="hljs-title function_">on</span>(<span class="hljs-string">&quot;click&quot;</span>, <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;<br>		<span class="hljs-comment">// alert(11);</span><br>		$(<span class="hljs-string">&#x27;#btn&#x27;</span>).<span class="hljs-title function_">modal</span>()<br>	&#125;)<br>&lt;/script&gt;<br><br></code></pre></td></tr></table></figure>
+
+<h3 id="1-4-6-bootstrap案例-阿里百秀"><a href="#1-4-6-bootstrap案例-阿里百秀" class="headerlink" title="1.4.6. bootstrap案例-阿里百秀"></a>1.4.6. bootstrap案例-阿里百秀</h3><ol>
+<li>通过调用组件实现导航栏</li>
+<li>通过调用插件实现登录</li>
+<li>通过调用插件标签页实现 tab 栏</li>
+</ol>
+<p>​	代码实现略。(详情参考源代码) 看视频~~</p>
+<h2 id="1-7-综合案例-toDoList案例分析（代码略）"><a href="#1-7-综合案例-toDoList案例分析（代码略）" class="headerlink" title="1.7. 综合案例: toDoList案例分析（代码略）"></a>1.7. 综合案例: toDoList案例分析（代码略）</h2><h3 id="1-7-1-案例：案例介绍"><a href="#1-7-1-案例：案例介绍" class="headerlink" title="1.7.1 案例：案例介绍"></a>1.7.1 案例：案例介绍</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 1. 文本框里面输入内容，按下回车，就可以生成待办事项。</span><br><span class="hljs-comment">// 2. 点击待办事项复选框，就可以把当前数据添加到已完成事项里面。</span><br><span class="hljs-comment">// 3. 点击已完成事项复选框，就可以把当前数据添加到待办事项里面。</span><br><span class="hljs-comment">// 4. 但是本页面内容刷新页面不会丢失。</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="1-7-2-案例：toDoList-分析"><a href="#1-7-2-案例：toDoList-分析" class="headerlink" title="1.7.2 案例：toDoList 分析"></a>1.7.2 案例：toDoList 分析</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 1. 刷新页面不会丢失数据，因此需要用到本地存储 localStorage</span><br><span class="hljs-comment">// 2. 核心思路： 不管按下回车，还是点击复选框，都是把本地存储的数据加载到页面中，这样保证刷新关闭页面不会丢失数据</span><br><span class="hljs-comment">// 3. 存储的数据格式：var todolist =  [&#123; title : ‘xxx’, done: false&#125;]</span><br><span class="hljs-comment">// 4. 注意点1： 本地存储 localStorage 里面只能存储字符串格式 ，因此需要把对象转换为字符串 JSON.stringify(data)。</span><br><span class="hljs-comment">// 5. 注意点2： 获取本地存储数据，需要把里面的字符串转换为对象格式JSON.parse() 我们才能使用里面的数据。</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="1-7-3-案例：toDoList-按下回车把新数据添加到本地存储里面"><a href="#1-7-3-案例：toDoList-按下回车把新数据添加到本地存储里面" class="headerlink" title="1.7.3 案例：toDoList 按下回车把新数据添加到本地存储里面"></a>1.7.3 案例：toDoList 按下回车把新数据添加到本地存储里面</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 1.切记： 页面中的数据，都要从本地存储里面获取，这样刷新页面不会丢失数据，所以先要把数据保存到本地存储里面。</span><br><span class="hljs-comment">// 2.利用事件对象.keyCode判断用户按下回车键（13）。</span><br><span class="hljs-comment">// 3.声明一个数组，保存数据。</span><br><span class="hljs-comment">// 4.先要读取本地存储原来的数据（声明函数 getData()），放到这个数组里面。</span><br><span class="hljs-comment">// 5.之后把最新从表单获取过来的数据，追加到数组里面。</span><br><span class="hljs-comment">// 6.最后把数组存储给本地存储 (声明函数 savaDate())</span><br><span class="hljs-comment">// 1.读取本地存储的函数</span><br><span class="hljs-keyword">const</span> getLocal = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">const</span> res = <span class="hljs-variable language_">localStorage</span>.<span class="hljs-title function_">getItem</span>(<span class="hljs-string">&#x27;todoList&#x27;</span>)<br>    <span class="hljs-keyword">return</span> res ? <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">parse</span>(res) : []<br>&#125;<br><span class="hljs-comment">// 1. 按下回车存到本地</span><br>$(<span class="hljs-string">&#x27;#title&#x27;</span>).<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;keydown&#x27;</span>, <span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>)&#123;<br>    <span class="hljs-comment">// mdn e.keyCode 弃用~~</span><br>    <span class="hljs-comment">// if (e.keyCode === 13) &#123;</span><br>    <span class="hljs-comment">//     console.log(123)</span><br>    <span class="hljs-comment">// &#125;</span><br>    <span class="hljs-keyword">if</span> (e.<span class="hljs-property">key</span> === <span class="hljs-string">&quot;Enter&quot;</span>) &#123;<br>        <span class="hljs-comment">// 如果没有输入, 不保存</span><br>        <span class="hljs-keyword">if</span> (!$(<span class="hljs-variable language_">this</span>).<span class="hljs-title function_">val</span>()) <span class="hljs-keyword">return</span><br>        <span class="hljs-keyword">const</span> res = <span class="hljs-title function_">getLocal</span>()<br>        <span class="hljs-comment">// 把最新的数据 追加给本地local数据</span><br>        <span class="hljs-comment">// 声明一个变量 来存我们的数据</span><br>        <span class="hljs-keyword">const</span> temp = &#123;<br>            <span class="hljs-attr">msg</span>: $(<span class="hljs-variable language_">this</span>).<span class="hljs-title function_">val</span>(),<br>            <span class="hljs-attr">done</span>: <span class="hljs-literal">false</span>,<br>            <span class="hljs-attr">createTime</span>:+<span class="hljs-title class_">Date</span>.<span class="hljs-title function_">now</span>()<br>        &#125;<br>        res.<span class="hljs-title function_">push</span>(temp)<br>        <span class="hljs-comment">// 保存到本地</span><br>        <span class="hljs-title function_">setLocal</span>(res)<br><br>        <span class="hljs-comment">// 2. 把我们本地存储的数据渲染到页面上</span><br>        <span class="hljs-title function_">renderList</span>()<br>    &#125;  <br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<h3 id="1-7-4-案例：toDoList-本地存储数据渲染加载到页面"><a href="#1-7-4-案例：toDoList-本地存储数据渲染加载到页面" class="headerlink" title="1.7.4 案例：toDoList 本地存储数据渲染加载到页面"></a>1.7.4 案例：toDoList 本地存储数据渲染加载到页面</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 1.因为后面也会经常渲染加载操作，所以声明一个函数 load，方便后面调用</span><br><span class="hljs-comment">// 2.先要读取本地存储数据。（数据不要忘记转换为对象格式）</span><br><span class="hljs-comment">// 3.之后遍历这个数据（$.each()），有几条数据，就生成几个小li 添加到 ol 里面。</span><br><span class="hljs-comment">// 4.每次渲染之前，先把原先里面 ol 的内容清空，然后渲染加载最新的数据。</span><br><span class="hljs-comment">// 保存本地数据</span><br><span class="hljs-keyword">const</span> setLocal = <span class="hljs-keyword">function</span> (<span class="hljs-params">data</span>) &#123;<br>    <span class="hljs-variable language_">localStorage</span>.<span class="hljs-title function_">setItem</span>(<span class="hljs-string">&#x27;todoList&#x27;</span>,<span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(data))<br>&#125;<br><span class="hljs-keyword">const</span> renderList = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">const</span> res = <span class="hljs-title function_">getLocal</span>()<br>    <span class="hljs-comment">// 遍历之前先清空 </span><br>    $(<span class="hljs-string">&#x27;ol&#x27;</span>).<span class="hljs-title function_">empty</span>()  <span class="hljs-comment">// 渲染前，记得清空</span><br>    <span class="hljs-comment">// $(&#x27;ul&#x27;).empty()</span><br>    <span class="hljs-comment">// $(&#x27;ul, ol&#x27;).empty()</span><br>    <span class="hljs-comment">//! 7. 统计个数</span><br>    <span class="hljs-comment">// let todoCount = 0</span><br>    <span class="hljs-comment">// let doneCount = 0</span><br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(res)<br>    <span class="hljs-comment">// const tempLi = `&lt;li&gt;&lt;input type=&quot;checkbox&quot;&gt;&lt;p&gt;$&#123;res.msg&#125;&lt;/p&gt;&lt;a href=&quot;javascript:;&quot; id=&quot;0&quot;&gt;&lt;/a&gt;&lt;/li&gt;`</span><br>    $.<span class="hljs-title function_">each</span>(res, <span class="hljs-keyword">function</span> (<span class="hljs-params">i, el</span>) &#123;<br>        <span class="hljs-keyword">if</span> (el.<span class="hljs-property">done</span>) &#123;<br>            doneCount++<br>            $(<span class="hljs-string">&#x27;ul&#x27;</span>).<span class="hljs-title function_">prepend</span>(<span class="hljs-string">`&lt;li&gt;&lt;input type=&quot;checkbox&quot; checked&gt;&lt;p&gt;<span class="hljs-subst">$&#123;el.msg&#125;</span>&lt;/p&gt;&lt;a href=&quot;javascript:;&quot; id=&quot;<span class="hljs-subst">$&#123;i&#125;</span>&quot;&gt;&lt;/a&gt;&lt;/li&gt;`</span>)<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            todoCount++<br>            $(<span class="hljs-string">&#x27;ol&#x27;</span>).<span class="hljs-title function_">prepend</span>(<span class="hljs-string">`&lt;li&gt;&lt;input type=&quot;checkbox&quot;&gt;&lt;p&gt;<span class="hljs-subst">$&#123;el.msg&#125;</span>&lt;/p&gt;&lt;a href=&quot;javascript:;&quot; id=&quot;<span class="hljs-subst">$&#123;i&#125;</span>&quot;&gt;&lt;/a&gt;&lt;/li&gt;`</span>)<br>        &#125;<br>    &#125;)<br>    <span class="hljs-comment">// $(&#x27;#todocount&#x27;).html(todoCount)</span><br>    <span class="hljs-comment">// $(&#x27;#donecount&#x27;).html(doneCount)</span><br>&#125;<br><span class="hljs-title function_">renderList</span>()<br></code></pre></td></tr></table></figure>
+
+<h3 id="1-7-5-案例：toDoList-删除操作"><a href="#1-7-5-案例：toDoList-删除操作" class="headerlink" title="1.7.5 案例：toDoList 删除操作"></a>1.7.5 案例：toDoList 删除操作</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 1.点击里面的a链接，不是删除的li，而是删除本地存储对应的数据。</span><br><span class="hljs-comment">// 2.核心原理：先获取本地存储数据，删除对应的数据，保存给本地存储，重新渲染列表li</span><br><span class="hljs-comment">// 3.我们可以给链接自定义属性记录当前的索引号</span><br><span class="hljs-comment">// 4.根据这个索引号删除相关的数据----数组的splice(i, 1)方法</span><br><span class="hljs-comment">// 5.存储修改后的数据，然后存储给本地存储</span><br><span class="hljs-comment">// 6.重新渲染加载数据列表</span><br><span class="hljs-comment">// 7.因为a是动态创建的，我们使用on方法绑定事件</span><br><span class="hljs-comment">// 2. 点击删除 一条数据</span><br>$(<span class="hljs-string">&#x27;ol, ul&#x27;</span>).<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;click&#x27;</span>, <span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-number">111</span>)<br>    <span class="hljs-comment">// 先获取到本地存储</span><br>    <span class="hljs-comment">// 修改数据</span><br>    <span class="hljs-comment">// 保存到本地</span><br>    <span class="hljs-comment">// 渲染页面</span><br>    <span class="hljs-keyword">var</span> res = <span class="hljs-title function_">getLocal</span>()<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(res)<br>    <span class="hljs-keyword">var</span> index = $(<span class="hljs-variable language_">this</span>).<span class="hljs-title function_">attr</span>(<span class="hljs-string">&#x27;id&#x27;</span>)<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(index)<br>  <span class="hljs-comment">// 数组的splice() mdn, 返回被删除的元素  splice demo</span><br>    res.<span class="hljs-title function_">splice</span>(index, <span class="hljs-number">1</span>) <span class="hljs-comment">// 删除 mdn</span><br>    <br>    <span class="hljs-title function_">setLocal</span>(res)<br>    <span class="hljs-comment">// 重新渲染</span><br>    <span class="hljs-title function_">renderList</span>()<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<h3 id="1-7-6-案例：toDoList-正在进行和已完成选项操作"><a href="#1-7-6-案例：toDoList-正在进行和已完成选项操作" class="headerlink" title="1.7.6 案例：toDoList  正在进行和已完成选项操作"></a>1.7.6 案例：toDoList  正在进行和已完成选项操作</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 1.当我们点击了小的复选框，修改本地存储数据，再重新渲染数据列表。</span><br><span class="hljs-comment">// 2.点击之后，获取本地存储数据。</span><br><span class="hljs-comment">// 3.修改对应数据属性 done 为当前复选框的checked状态。</span><br><span class="hljs-comment">// 4.之后保存数据到本地存储</span><br><span class="hljs-comment">// 5.重新渲染加载数据列表</span><br><span class="hljs-comment">// 6.load 加载函数里面，新增一个条件,如果当前数据的done为true 就是已经完成的，就把列表渲染加载到 ul 里面</span><br><span class="hljs-comment">// 7.如果当前数据的done 为false， 则是待办事项，就把列表渲染加载到 ol 里面</span><br><span class="hljs-comment">// 点击复选框, 判断已完成还是进行中 done false true</span><br>$(<span class="hljs-string">&#x27;ul, ol&#x27;</span>).<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;click&#x27;</span>, <span class="hljs-string">&#x27;input&#x27;</span>, <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;<br>    <span class="hljs-keyword">var</span> res = <span class="hljs-title function_">getLocal</span>()<br>    <span class="hljs-keyword">var</span> index = $(<span class="hljs-variable language_">this</span>).<span class="hljs-title function_">siblings</span>(<span class="hljs-string">&#x27;a&#x27;</span>).<span class="hljs-title function_">attr</span>(<span class="hljs-string">&#x27;id&#x27;</span>)<br>    <span class="hljs-comment">// console.log(index)</span><br>    res[index].<span class="hljs-property">done</span> = $(<span class="hljs-variable language_">this</span>).<span class="hljs-title function_">prop</span>(<span class="hljs-string">&#x27;checked&#x27;</span>)<br>    <span class="hljs-comment">// console.log(res)</span><br>    <span class="hljs-title function_">setLocal</span>(res)<br><br>    <span class="hljs-title function_">renderList</span>()<br>&#125;)<br><br><span class="hljs-keyword">const</span> renderList = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">const</span> res = <span class="hljs-title function_">getLocal</span>()<br>    <span class="hljs-comment">// 遍历之前先清空 </span><br>    <span class="hljs-comment">// $(&#x27;ol&#x27;).empty()</span><br>    <span class="hljs-comment">// $(&#x27;ul&#x27;).empty()</span><br>    $(<span class="hljs-string">&#x27;ul, ol&#x27;</span>).<span class="hljs-title function_">empty</span>() <span class="hljs-comment">// 这里清空</span><br>    <span class="hljs-comment">//! 7. 统计个数</span><br>    <span class="hljs-keyword">let</span> todoCount = <span class="hljs-number">0</span><br>    <span class="hljs-keyword">let</span> doneCount = <span class="hljs-number">0</span><br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(res)<br>    <span class="hljs-comment">// const tempLi = `&lt;li&gt;&lt;input type=&quot;checkbox&quot;&gt;&lt;p&gt;$&#123;res.msg&#125;&lt;/p&gt;&lt;a href=&quot;javascript:;&quot; id=&quot;0&quot;&gt;&lt;/a&gt;&lt;/li&gt;`</span><br>    $.<span class="hljs-title function_">each</span>(res, <span class="hljs-keyword">function</span> (<span class="hljs-params">i, el</span>) &#123;<br>        <span class="hljs-keyword">if</span> (el.<span class="hljs-property">done</span>) &#123;<br>            doneCount++<br>            $(<span class="hljs-string">&#x27;ul&#x27;</span>).<span class="hljs-title function_">prepend</span>(<span class="hljs-string">`&lt;li&gt;&lt;input type=&quot;checkbox&quot; checked&gt;&lt;p&gt;<span class="hljs-subst">$&#123;el.msg&#125;</span>&lt;/p&gt;&lt;a href=&quot;javascript:;&quot; id=&quot;<span class="hljs-subst">$&#123;i&#125;</span>&quot;&gt;&lt;/a&gt;&lt;/li&gt;`</span>)<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            todoCount++<br>            $(<span class="hljs-string">&#x27;ol&#x27;</span>).<span class="hljs-title function_">prepend</span>(<span class="hljs-string">`&lt;li&gt;&lt;input type=&quot;checkbox&quot;&gt;&lt;p&gt;<span class="hljs-subst">$&#123;el.msg&#125;</span>&lt;/p&gt;&lt;a href=&quot;javascript:;&quot; id=&quot;<span class="hljs-subst">$&#123;i&#125;</span>&quot;&gt;&lt;/a&gt;&lt;/li&gt;`</span>)<br>        &#125;<br>    &#125;)<br>    $(<span class="hljs-string">&#x27;#todocount&#x27;</span>).<span class="hljs-title function_">html</span>(todoCount)<br>    $(<span class="hljs-string">&#x27;#donecount&#x27;</span>).<span class="hljs-title function_">html</span>(doneCount)<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="1-7-7-案例：toDoList-统计正在进行个数和已经完成个数"><a href="#1-7-7-案例：toDoList-统计正在进行个数和已经完成个数" class="headerlink" title="1.7.7 案例：toDoList 统计正在进行个数和已经完成个数"></a>1.7.7 案例：toDoList 统计正在进行个数和已经完成个数</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 1.在我们load 函数里面操作</span><br><span class="hljs-comment">// 2.声明2个变量 ：todoCount 待办个数  doneCount 已完成个数   </span><br><span class="hljs-comment">// 3.当进行遍历本地存储数据的时候， 如果 数据done为 false， 则 todoCount++, 否则 doneCount++</span><br><span class="hljs-comment">// 4.最后修改相应的元素 text() </span><br></code></pre></td></tr></table></figure>
+
+
+<h2 id="1-8-今日总结"><a href="#1-8-今日总结" class="headerlink" title="1.8. 今日总结"></a>1.8. 今日总结</h2><p><img src="http://image.zhangyc.top/img/%E6%80%BB%E7%BB%93.png" srcset="/img/loading.gif" lazyload alt="总结"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/jQuery/" class="category-chain-item">jQuery</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>jQuery 第三天</div>
+      <div>http://example.com/2022/08/03/jquery/day03/03-jquery/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>John Doe</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年8月3日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/08/03/Echarts/02%20%E7%AC%94%E8%AE%B0/01%20Github%E8%AE%BF%E9%97%AE/" title="Echarts 第二天-1">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Echarts 第二天-1</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/08/02/Echarts/01%20%E7%AC%94%E8%AE%B0/01-echarts/" title="Echarts 第一天">
+                        <span class="hidden-mobile">Echarts 第一天</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
