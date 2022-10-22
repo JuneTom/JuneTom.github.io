@@ -23,29 +23,29 @@
 <meta property="og:site_name" content="每日笔记">
 <meta property="og:description" content="主页的token拦截处理**目标**：根据token处理主页的访问权限问题 权限拦截的流程图 我们已经完成了登录的过程，并且存储了token，但是此时主页并没有因为token的有无而被控制访问权限  接下来我们需要实现以下如下的流程图   在基础框架阶段，我们已经知道**src&#x2F;permission.js**是专门处理路由权限的，所以我们在这里处理  流程图转化代码流程图转化的代码 1234567">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://image.zhangyc.top/img/image-20200827104724769.png">
-<meta property="og:image" content="http://image.zhangyc.top/img/image-20200812023354631.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20221022125544289.png">
 <meta property="og:image" content="http://image.zhangyc.top/img/image-20200714142517337.png">
-<meta property="og:image" content="http://image.zhangyc.top/img/image-20200714093601730.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20200812023354631.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20221022131038116.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20221022125733481.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20200716015113164.png">
 <meta property="og:image" content="http://image.zhangyc.top/img/image-20200715233339927.png">
 <meta property="og:image" content="http://image.zhangyc.top/img/image-20200716000203862.png">
-<meta property="og:image" content="http://image.zhangyc.top/img/image-20200714172602305.png">
-<meta property="og:image" content="http://image.zhangyc.top/img/image-20200716015113164.png">
 <meta property="og:image" content="http://image.zhangyc.top/img/image-20200827111324564.png">
-<meta property="og:image" content="http://image.zhangyc.top/img/image-20200827140451144.png">
 <meta property="og:image" content="http://image.zhangyc.top/img/image-20200716004526838.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20200813013009294.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20200716012120619.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20200827140451144.png">
 <meta property="og:image" content="http://image.zhangyc.top/img/image-20200827143847893.png">
 <meta property="og:image" content="http://image.zhangyc.top/img/image-20200716231205153.png">
-<meta property="og:image" content="http://image.zhangyc.top/img/image-20200827152601712.png">
 <meta property="og:image" content="http://image.zhangyc.top/img/image-20200818155842864.png">
-<meta property="og:image" content="http://image.zhangyc.top/img/image-20200716012120619.png">
-<meta property="og:image" content="http://image.zhangyc.top/img/image-20200716000203862.png">
-<meta property="og:image" content="http://image.zhangyc.top/img/image-20200813013009294.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20200716015113164.png">
+<meta property="og:image" content="http://image.zhangyc.top/img/image-20200827152601712.png">
 <meta property="article:published_time" content="2022-10-03T16:00:00.000Z">
-<meta property="article:modified_time" content="2022-10-16T05:50:05.967Z">
+<meta property="article:modified_time" content="2022-10-22T05:10:51.920Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://image.zhangyc.top/img/image-20200827104724769.png">
+<meta name="twitter:image" content="http://image.zhangyc.top/img/image-20221022125544289.png">
   
   
   
@@ -296,7 +296,7 @@
 <p>我们已经完成了登录的过程，并且存储了token，但是此时主页并没有因为token的有无而被控制访问权限</p>
 </blockquote>
 <p>接下来我们需要实现以下如下的流程图</p>
-<p><img src="http://image.zhangyc.top/img/image-20200827104724769.png" srcset="/img/loading.gif" lazyload alt="image-20200714093601730"></p>
+<p><img src="http://image.zhangyc.top/img/image-20221022125544289.png" srcset="/img/loading.gif" lazyload alt="image-20221022125544289"></p>
 <blockquote>
 <p>在基础框架阶段，我们已经知道**<code>src/permission.js</code>**是专门处理路由权限的，所以我们在这里处理</p>
 </blockquote>
@@ -312,12 +312,12 @@
 <blockquote>
 <p>接下来我们需要将左侧导航设置成如图样式</p>
 </blockquote>
-<p><img src="http://image.zhangyc.top/img/image-20200812023354631.png" srcset="/img/loading.gif" lazyload alt="image-20200714142517337"></p>
+<p><img src="http://image.zhangyc.top/img/image-20200714142517337.png" srcset="/img/loading.gif" lazyload alt="image-20200812023354631"></p>
 <blockquote>
 <p>主页的布局组件位置**<code>src/layout</code>**</p>
 </blockquote>
 <p><strong>主页布局架构</strong></p>
-<p><img src="http://image.zhangyc.top/img/image-20200714142517337.png" srcset="/img/loading.gif" lazyload alt="image-20200812023354631"></p>
+<p><img src="http://image.zhangyc.top/img/image-20200812023354631.png" srcset="/img/loading.gif" lazyload alt="image-20200714142517337"></p>
 <p><strong>左侧导航组件的样式文件</strong><code>styles/siderbar.scss</code></p>
 <p><strong>设置背景渐变色</strong></p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.sidebar-container</span> &#123;<br>      <span class="hljs-attribute">background</span>: <span class="hljs-built_in">-webkit-linear-gradient</span>(bottom, <span class="hljs-number">#3d6df8</span>, <span class="hljs-number">#5b8cff</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
@@ -342,7 +342,7 @@
 <figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs scss"><span class="hljs-selector-class">.sidebar-logo</span> &#123;<br>      <span class="hljs-attribute">width</span>: <span class="hljs-number">140px</span>;<br>      <span class="hljs-attribute">vertical-align</span>: middle;<br>      <span class="hljs-attribute">margin-right</span>: <span class="hljs-number">12px</span>;<br>&#125;<br><span class="hljs-comment">// 大图样式</span><br></code></pre></td></tr></table></figure>
 
 <p><strong>去除logo的背景色</strong></p>
-<p><img src="http://image.zhangyc.top/img/image-20200714093601730.png" srcset="/img/loading.gif" lazyload alt="image-20200827104724769"></p>
+<p><img src="http://image.zhangyc.top/img/image-20221022131038116.png" srcset="/img/loading.gif" lazyload alt="image-20221022131038116"></p>
 <p><strong>提交代码</strong></p>
 <p>**<code>本节任务</code>**： 完成主页的左侧导航样式</p>
 <p>**<code>本节注意</code>**：我们该项目中没有二级显示菜单，所以二级菜单的样式并没有做过多处理，同学们不必在意</p>
@@ -350,7 +350,7 @@
 <blockquote>
 <p>我们需要把页面设置成如图样式</p>
 </blockquote>
-<p><img src="http://image.zhangyc.top/img/image-20200715233339927.png" srcset="/img/loading.gif" lazyload alt="image-20200714172602305"></p>
+<p><img src="http://image.zhangyc.top/img/image-20221022125733481.png" srcset="/img/loading.gif" lazyload alt="image-20221022125733481"></p>
 <p><strong>头部组件位置</strong> <strong><code>layout/components/Navbar.vue</code></strong></p>
 <p><strong>添加公司名称</strong>，<strong>注释面包屑</strong></p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs html"> <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;app-breadcrumb&quot;</span>&gt;</span><br>     江苏传智播客教育科技股份有限公司<br>     <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;breadBtn&quot;</span>&gt;</span>体验版<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><br> <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-comment">&lt;!-- &lt;breadcrumb class=&quot;breadcrumb-container&quot; /&gt; --&gt;</span><br><br></code></pre></td></tr></table></figure>
@@ -379,7 +379,7 @@
 
 <p>用户名和头像我们先用了假数据进行，下小章节，会进行这份数据的获取</p>
 <p><strong>最终效果</strong></p>
-<p><img src="http://image.zhangyc.top/img/image-20200716000203862.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="http://image.zhangyc.top/img/image-20200716015113164.png" srcset="/img/loading.gif" lazyload></p>
 <p><strong>提交代码</strong></p>
 <h2 id="获取用户资料接口和token注入"><a href="#获取用户资料接口和token注入" class="headerlink" title="获取用户资料接口和token注入"></a>获取用户资料接口和token注入</h2><p><strong><code>目标</code></strong> 封装获取用户资料的资料信息</p>
 <blockquote>
@@ -393,9 +393,9 @@
 <p>我们忽略了一个问题！我们的headers参数并没有在这里传入，为什么呢</p>
 </blockquote>
 <p>headers中的<strong>Authorization</strong>相当于我们<strong>开门</strong>（<strong>调用接口</strong>）时**<code>钥匙(token)</code><strong>，我们在打开任何带安全权限的门的时候都需要</strong><code>钥匙(token)</code>** 如图</p>
-<p><img src="http://image.zhangyc.top/img/image-20200714172602305.png" srcset="/img/loading.gif" lazyload alt="image-20200715233339927"></p>
+<p><img src="http://image.zhangyc.top/img/image-20200715233339927.png" srcset="/img/loading.gif" lazyload alt="image-20200715233339927"></p>
 <p>每次在接口中携带**<code>钥匙（token）</code>**很麻烦，所以我们可以在axios拦截器中统一注入token </p>
-<p><img src="http://image.zhangyc.top/img/image-20200716015113164.png" srcset="/img/loading.gif" lazyload alt="image-20200716000203862"></p>
+<p><img src="http://image.zhangyc.top/img/image-20200716000203862.png" srcset="/img/loading.gif" lazyload alt="image-20200716000203862"></p>
 <p><strong>统一注入token</strong> <strong><code>src/utils/request.js</code></strong></p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs js">service.<span class="hljs-property">interceptors</span>.<span class="hljs-property">request</span>.<span class="hljs-title function_">use</span>(<span class="hljs-function"><span class="hljs-params">config</span> =&gt;</span> &#123;<br>  <span class="hljs-comment">// 在这个位置需要统一的去注入token</span><br>  <span class="hljs-keyword">if</span> (store.<span class="hljs-property">getters</span>.<span class="hljs-property">token</span>) &#123;<br>    <span class="hljs-comment">// 如果token存在 注入token</span><br>    config.<span class="hljs-property">headers</span>[<span class="hljs-string">&#x27;Authorization&#x27;</span>] = <span class="hljs-string">`Bearer <span class="hljs-subst">$&#123;store.getters.token&#125;</span>`</span><br>  &#125;<br>  <span class="hljs-keyword">return</span> config <span class="hljs-comment">// 必须返回配置</span><br>&#125;, <span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">reject</span>(error)<br>&#125;) <br></code></pre></td></tr></table></figure>
 
@@ -439,11 +439,11 @@
 <p>在上小节中，我们完成了用户资料的整个流程，那么这个action在哪里调用呢？</p>
 </blockquote>
 <p>用户资料有个硬性要求，**<code>必须有token</code>**才可以获取，那么我们就可以在确定有token的位置去获取用户资料</p>
-<p><img src="http://image.zhangyc.top/img/image-20200827140451144.png" srcset="/img/loading.gif" lazyload alt="image-20200716004526838"></p>
+<p><img src="http://image.zhangyc.top/img/image-20200716004526838.png" srcset="/img/loading.gif" lazyload alt="image-20200813013009294"></p>
 <blockquote>
 <p>由上图可以看出，一旦确定我们进行了放行，就可以获取用户资料</p>
 </blockquote>
-<p><img src="http://image.zhangyc.top/img/image-20200716004526838.png" srcset="/img/loading.gif" lazyload alt="image-20200813013009294"></p>
+<p><img src="http://image.zhangyc.top/img/image-20200813013009294.png" srcset="/img/loading.gif" lazyload alt="image-20200827152601712"></p>
 <p><strong>调用action</strong> <strong><code>src/permission.js</code></strong></p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">if</span>(!store.<span class="hljs-property">state</span>.<span class="hljs-property">user</span>.<span class="hljs-property">userInfo</span>.<span class="hljs-property">userId</span>) &#123;<br>      <span class="hljs-keyword">await</span> store.<span class="hljs-title function_">dispatch</span>(<span class="hljs-string">&#x27;user/getUserInfo&#x27;</span>)<br>&#125;<br></code></pre></td></tr></table></figure>
 
@@ -454,7 +454,7 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">if</span> (!store.<span class="hljs-property">getters</span>.<span class="hljs-property">userId</span>) &#123;<br>       <span class="hljs-comment">// 如果没有id这个值 才会调用 vuex的获取资料的action</span><br>       <span class="hljs-keyword">await</span> store.<span class="hljs-title function_">dispatch</span>(<span class="hljs-string">&#x27;user/getUserInfo&#x27;</span>)<br>       <span class="hljs-comment">// 为什么要写await 因为我们想获取完资料再去放行</span><br>     &#125;<br></code></pre></td></tr></table></figure>
 
 <p>此时，我们可以通过dev-tools工具在控制台清楚的看到数据已经获取</p>
-<p><img src="http://image.zhangyc.top/img/image-20200827143847893.png" srcset="/img/loading.gif" lazyload alt="image-20200716012120619"></p>
+<p><img src="http://image.zhangyc.top/img/image-20200716012120619.png" srcset="/img/loading.gif" lazyload alt="image-20200818155842864"></p>
 <blockquote>
 <p>最后一步，只需要将头部菜单中的名称换成真实的用户名即可</p>
 </blockquote>
@@ -482,7 +482,7 @@
 <blockquote>
 <p>通过设置，用户名已经显示，头像依然没有显示，这是因为虽然有地址，但是地址来源是私有云，目前已经失效，所以需要额外处理下图片的异常</p>
 </blockquote>
-<p><img src="http://image.zhangyc.top/img/image-20200716231205153.png" srcset="/img/loading.gif" lazyload alt="image-20200827140451144"></p>
+<p><img src="http://image.zhangyc.top/img/image-20200827140451144.png" srcset="/img/loading.gif" lazyload alt="image-20200716004526838"></p>
 <p>至于处理图片的异常，我们在下一节中，可采用自定义指令的形式来进行处理</p>
 <p>**<code>本节任务</code>**：实现权限拦截处调用获取资料action</p>
 <h2 id="自定义指令-解决异常图片情况"><a href="#自定义指令-解决异常图片情况" class="headerlink" title="自定义指令-解决异常图片情况"></a>自定义指令-解决异常图片情况</h2><p>**<code>目标</code>**： 通过自定义指令的形式解决异常图片的处理</p>
@@ -510,7 +510,7 @@
 <p>登出仅仅是跳到登录页吗？</p>
 </blockquote>
 <p>不，当然不是，我们要处理如下</p>
-<p><img src="http://image.zhangyc.top/img/image-20200827152601712.png" srcset="/img/loading.gif" lazyload alt="image-20200827143847893"></p>
+<p><img src="http://image.zhangyc.top/img/image-20200827143847893.png" srcset="/img/loading.gif" lazyload alt="image-20200716012120619"></p>
 <p>同样的，登出功能，我们在vuex中的用户模块中实现对应的<strong>action</strong></p>
 <p><strong>登出action</strong>  <strong><code>src/store/modules/user.js</code></strong></p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 登出的action</span><br>  <span class="hljs-title function_">logout</span>(<span class="hljs-params">context</span>) &#123;<br>    <span class="hljs-comment">// 删除token</span><br>    context.<span class="hljs-title function_">commit</span>(<span class="hljs-string">&#x27;removeToken&#x27;</span>) <span class="hljs-comment">// 不仅仅删除了vuex中的 还删除了缓存中的</span><br>    <span class="hljs-comment">// 删除用户资料</span><br>    context.<span class="hljs-title function_">commit</span>(<span class="hljs-string">&#x27;removeUserInfo&#x27;</span>) <span class="hljs-comment">// 删除用户信息</span><br>  &#125;<br></code></pre></td></tr></table></figure>
@@ -529,7 +529,7 @@
 <p>开门的钥匙不是一直有效的，如果一直有效，会有安全风险，所以我们尝试在客户端进行一下token的时间检查</p>
 </blockquote>
 <p>具体业务图如下</p>
-<p><img src="http://image.zhangyc.top/img/image-20200818155842864.png" srcset="/img/loading.gif" lazyload alt="image-20200716231205153"></p>
+<p><img src="http://image.zhangyc.top/img/image-20200716231205153.png" srcset="/img/loading.gif" lazyload alt="image-20200827140451144"></p>
 <h3 id="流程图转化代码-1"><a href="#流程图转化代码-1" class="headerlink" title="流程图转化代码"></a>流程图转化代码</h3><p><strong>流程图转化代码</strong> <strong><code>src/utils/auth.js</code></strong></p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> timeKey = <span class="hljs-string">&#x27;hrsaas-timestamp-key&#x27;</span> <span class="hljs-comment">// 设置一个独一无二的key</span><br><br><span class="hljs-comment">// 获取时间戳</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">getTimeStamp</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-title class_">Cookies</span>.<span class="hljs-title function_">get</span>(timeKey)<br>&#125;<br><span class="hljs-comment">// 设置时间戳</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">setTimeStamp</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-title class_">Cookies</span>.<span class="hljs-title function_">set</span>(timeKey, <span class="hljs-title class_">Date</span>.<span class="hljs-title function_">now</span>())<br>&#125;<br><br><br><br><br></code></pre></td></tr></table></figure>
 
@@ -551,7 +551,7 @@
 <blockquote>
 <p>除了token的主动介入之外，我们还可以对token进行被动的处理，如图</p>
 </blockquote>
-<p><img src="http://image.zhangyc.top/img/image-20200716012120619.png" srcset="/img/loading.gif" lazyload alt="image-20200818155842864"></p>
+<p><img src="http://image.zhangyc.top/img/image-20200818155842864.png" srcset="/img/loading.gif" lazyload alt="image-20200716231205153"></p>
 <p>token超时的错误码是**<code>10002</code>**</p>
 <p><strong>代码实现</strong>  <strong><code>src/utils/request.js</code></strong></p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs js">error =&gt; &#123;<br>  <span class="hljs-comment">// error 信息 里面 response的对象</span><br>  <span class="hljs-keyword">if</span> (error.<span class="hljs-property">response</span> &amp;&amp; error.<span class="hljs-property">response</span>.<span class="hljs-property">data</span> &amp;&amp; error.<span class="hljs-property">response</span>.<span class="hljs-property">data</span>.<span class="hljs-property">code</span> === <span class="hljs-number">10002</span>) &#123;<br>    <span class="hljs-comment">// 当等于10002的时候 表示 后端告诉我token超时了</span><br>    store.<span class="hljs-title function_">dispatch</span>(<span class="hljs-string">&#x27;user/logout&#x27;</span>) <span class="hljs-comment">// 登出action 删除token</span><br>    router.<span class="hljs-title function_">push</span>(<span class="hljs-string">&#x27;/login&#x27;</span>)<br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>    <span class="hljs-title class_">Message</span>.<span class="hljs-title function_">error</span>(error.<span class="hljs-property">message</span>) <span class="hljs-comment">// 提示错误信息</span><br>  &#125;<br>  <span class="hljs-keyword">return</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">reject</span>(error)<br>&#125;<br></code></pre></td></tr></table></figure>
@@ -561,9 +561,9 @@
 </blockquote>
 <p><strong><code>本节任务</code></strong>  Token失效的被动处理</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本章节我们一步步实现了如下的效果</p>
-<p><img src="http://image.zhangyc.top/img/image-20200716000203862.png" srcset="/img/loading.gif" lazyload alt="image-20200716015113164"></p>
+<p><img src="http://image.zhangyc.top/img/image-20200716015113164.png" srcset="/img/loading.gif" lazyload alt="image-20200716015113164"></p>
 <p>实际的业务走向</p>
-<p><img src="http://image.zhangyc.top/img/image-20200813013009294.png" srcset="/img/loading.gif" lazyload alt="image-20200827152601712"></p>
+<p><img src="http://image.zhangyc.top/img/image-20200827152601712.png" srcset="/img/loading.gif" lazyload alt="image-20200827143847893"></p>
 <p>实际上，我们的主页功能有一个重要的**<code>角色权限</code>**功能还没有完成，此功能等到我们完成基本业务之后再进行展开</p>
 <p>中台大型后端平台的深入是一个**<code>抽丝剥茧</code>**的过程，循序渐进的明白每一步的操作是非常关键的。</p>
 
