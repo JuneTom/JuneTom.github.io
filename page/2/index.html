@@ -223,15 +223,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2022/10/05/Vue-project/human-resources/05-%E8%B7%AF%E7%94%B1%E5%92%8C%E9%A1%B5%E9%9D%A2/" target="_self">
-          第五天 路由页面整理
+        <a href="/2022/10/14/Vue-project/human-resources/04-%E4%B8%BB%E9%A1%B5%E6%A8%A1%E5%9D%97/" target="_self">
+          第四天 主页模块
         </a>
       </h1>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2022/10/05/Vue-project/human-resources/05-%E8%B7%AF%E7%94%B1%E5%92%8C%E9%A1%B5%E9%9D%A2/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/10/14/Vue-project/human-resources/04-%E4%B8%BB%E9%A1%B5%E6%A8%A1%E5%9D%97/" target="_self">
         <div>
-          路由页面整理目标 删除基础模板中附带的多余页面  基础模板帮我们提前内置了一些页面，本章节我们进行一下整理  首先，我们需要知道类似这种大型中台项目的页面路由是如何设置的。 简单项目  当前项目结构   为什么要拆成若干个路由模块呢？   因为复杂中台项目的页面众多，不可能把所有的业务都集中在一个文件上进行管理和维护，并且还有最重要的，前端的页面中主要分为两部分，一部分是所有人都可以访问的， 一部
+          主页的token拦截处理**目标**：根据token处理主页的访问权限问题 权限拦截的流程图 我们已经完成了登录的过程，并且存储了token，但是此时主页并没有因为token的有无而被控制访问权限  接下来我们需要实现以下如下的流程图   在基础框架阶段，我们已经知道**src/permission.js**是专门处理路由权限的，所以我们在这里处理  流程图转化代码流程图转化的代码 1234567
         </div>
       </a>
 
@@ -239,8 +239,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2022-10-05 00:00" pubdate>
-              2022-10-05
+            <time datetime="2022-10-14 00:00" pubdate>
+              2022-10-14
             </time>
           </div>
         
@@ -261,6 +261,250 @@
     <span>></span>
     
   <a href="/categories/Vue-project/HumanResources/" class="category-chain-item">HumanResources</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/10/13/Vue-project/human-resources/03-%E7%99%BB%E5%BD%95%E6%A8%A1%E5%9D%97/" target="_self">
+          第三天 登录模块
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/10/13/Vue-project/human-resources/03-%E7%99%BB%E5%BD%95%E6%A8%A1%E5%9D%97/" target="_self">
+        <div>
+          登录模块线上地址 本章节，我们将在现有模板的基础上，完成如图的登录模块的功能  设置固定的本地访问端口和网站名称目标: 设置统一的本地访问端口和网站title 在正式开发业务之前，先将项目的本地端口和网站名称进行一下调整 本地服务端口:  在**vue.config.js**中进行设置 vue.config.js 就是vue项目相关的编译，配置，打包，启动服务相关的配置文件，它的核心在于webpa
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-10-13 00:00" pubdate>
+              2022-10-13
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Vue-project/" class="category-chain-item">Vue-project</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Vue-project/HumanResources/" class="category-chain-item">HumanResources</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/10/12/Vue-project/human-resources/02-%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" target="_self">
+          第二天 人力资源的环境搭建
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/10/12/Vue-project/human-resources/02-%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" target="_self">
+        <div>
+          项目课设计 人力资源的环境搭建vue-element-admin的了解和介绍目标: 学习和了解通用的vue后台集成方案**vue-element-admin** vue-element-admin 是一个后台前端解决方案，它基于 vue 和 element-ui实现。它使用了最新的前端技术栈，内置了 i18 国际化解决方案，动态路由，权限验证，提炼了典型的业务模型，提供了丰富的功能组件，它可以帮助
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-10-12 00:00" pubdate>
+              2022-10-12
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Vue-project/" class="category-chain-item">Vue-project</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Vue-project/HumanResources/" class="category-chain-item">HumanResources</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/10/11/Vue-project/human-resources/01-vuex%E5%9F%BA%E7%A1%80/" target="_self">
+          第一天 vuex基础-介绍
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/10/11/Vue-project/human-resources/01-vuex%E5%9F%BA%E7%A1%80/" target="_self">
+        <div>
+          vuex基础-介绍  为什么会有Vuex ?  ​	Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式。它采用**集中式存储管理应用的所有组件的状态，并以相应的规则保证状态以一种可预测**的方式发生变化。  vuex是采用集中式管理组件依赖的共享数据的一个工具，可以解决不同组件数据共享问题。   结论  修改state状态必须通过**mutations** **mutations**只
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-10-11 00:00" pubdate>
+              2022-10-11
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Vue-project/" class="category-chain-item">Vue-project</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Vue-project/HumanResources/" class="category-chain-item">HumanResources</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/10/06/Vue-project/toutiao/vue-mobile08/vue-mobile08/" target="_self">
+          Toutiao 第八天
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/10/06/Vue-project/toutiao/vue-mobile08/vue-mobile08/" target="_self">
+        <div>
+          VUE移动端第八天一. 用户页面目标：  点击编辑资料进入个人信息页面 完成基本页面的布局 使用vant组件自行完成以下内容 完成昵称设置 完成性别选择 完成生日选择   通过图片裁剪工具完成头像裁剪功能   1.1 创建组件并配置路由 创建 views/user-profile/user-profile.vue 1234567891011121314151617181920&lt;templat
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-10-06 00:00" pubdate>
+              2022-10-06
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Vue-project/" class="category-chain-item">Vue-project</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Vue-project/Toutiao/" class="category-chain-item">Toutiao</a>
   
   
 
@@ -345,67 +589,6 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2022/10/04/Vue-project/human-resources/04-%E4%B8%BB%E9%A1%B5%E6%A8%A1%E5%9D%97/" target="_self">
-          第四天 主页模块
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2022/10/04/Vue-project/human-resources/04-%E4%B8%BB%E9%A1%B5%E6%A8%A1%E5%9D%97/" target="_self">
-        <div>
-          主页的token拦截处理**目标**：根据token处理主页的访问权限问题 权限拦截的流程图 我们已经完成了登录的过程，并且存储了token，但是此时主页并没有因为token的有无而被控制访问权限  接下来我们需要实现以下如下的流程图   在基础框架阶段，我们已经知道**src/permission.js**是专门处理路由权限的，所以我们在这里处理  流程图转化代码流程图转化的代码 1234567
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-10-04 00:00" pubdate>
-              2022-10-04
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/Vue-project/" class="category-chain-item">Vue-project</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/Vue-project/HumanResources/" class="category-chain-item">HumanResources</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
         <a href="/2022/10/04/Vue-project/toutiao/vue-mobile06/vue-mobile06/" target="_self">
           Toutiao 第六天
         </a>
@@ -444,67 +627,6 @@
     <span>></span>
     
   <a href="/categories/Vue-project/Toutiao/" class="category-chain-item">Toutiao</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/10/03/Vue-project/human-resources/03-%E7%99%BB%E5%BD%95%E6%A8%A1%E5%9D%97/" target="_self">
-          第三天 登录模块
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2022/10/03/Vue-project/human-resources/03-%E7%99%BB%E5%BD%95%E6%A8%A1%E5%9D%97/" target="_self">
-        <div>
-          登录模块线上地址 本章节，我们将在现有模板的基础上，完成如图的登录模块的功能  设置固定的本地访问端口和网站名称目标: 设置统一的本地访问端口和网站title 在正式开发业务之前，先将项目的本地端口和网站名称进行一下调整 本地服务端口:  在**vue.config.js**中进行设置 vue.config.js 就是vue项目相关的编译，配置，打包，启动服务相关的配置文件，它的核心在于webpa
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-10-03 00:00" pubdate>
-              2022-10-03
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/Vue-project/" class="category-chain-item">Vue-project</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/Vue-project/HumanResources/" class="category-chain-item">HumanResources</a>
   
   
 
@@ -589,67 +711,6 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2022/10/02/Vue-project/human-resources/02-%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" target="_self">
-          第二天 人力资源的环境搭建
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2022/10/02/Vue-project/human-resources/02-%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" target="_self">
-        <div>
-          项目课设计 人力资源的环境搭建vue-element-admin的了解和介绍目标: 学习和了解通用的vue后台集成方案**vue-element-admin** vue-element-admin 是一个后台前端解决方案，它基于 vue 和 element-ui实现。它使用了最新的前端技术栈，内置了 i18 国际化解决方案，动态路由，权限验证，提炼了典型的业务模型，提供了丰富的功能组件，它可以帮助
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-10-02 00:00" pubdate>
-              2022-10-02
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/Vue-project/" class="category-chain-item">Vue-project</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/Vue-project/HumanResources/" class="category-chain-item">HumanResources</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
         <a href="/2022/10/02/Vue-project/toutiao/vue-mobile04/vue-mobile04/" target="_self">
           Toutiao 第四天
         </a>
@@ -688,67 +749,6 @@
     <span>></span>
     
   <a href="/categories/Vue-project/Toutiao/" class="category-chain-item">Toutiao</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/10/01/Vue-project/human-resources/01-vuex%E5%9F%BA%E7%A1%80/" target="_self">
-          第一天 vuex基础-介绍
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2022/10/01/Vue-project/human-resources/01-vuex%E5%9F%BA%E7%A1%80/" target="_self">
-        <div>
-          vuex基础-介绍  为什么会有Vuex ?  ​	Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式。它采用**集中式存储管理应用的所有组件的状态，并以相应的规则保证状态以一种可预测**的方式发生变化。  vuex是采用集中式管理组件依赖的共享数据的一个工具，可以解决不同组件数据共享问题。   结论  修改state状态必须通过**mutations** **mutations**只
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-10-01 00:00" pubdate>
-              2022-10-01
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/Vue-project/" class="category-chain-item">Vue-project</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/Vue-project/HumanResources/" class="category-chain-item">HumanResources</a>
   
   
 
